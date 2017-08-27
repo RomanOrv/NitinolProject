@@ -143,7 +143,8 @@
                     data: [0.34, 1, 1, 0.33, 0.33]
                 }],
                 categoryAxis: {
-                    categories: ["У(σ)", "У(V)", "У(h)", "У(W)", "У(H)"]
+                    categories: ["Міцність відколу У(σ)", "Швидкість ударника У(V)", "Товщина ударника У(h)"
+                        , "Швидкість відколу У(W)", "Товщина зразка У(H)"]
                 },
                 valueAxis: {
                     labels: {
@@ -160,7 +161,7 @@
         $(document).ready(createChart);
         $(document).bind("kendo:skinChange", createChart);
 
-        $("#chart").css("width", "800px").css("height", "800px")
+        $("#chart").css("width", "900px").css("height", "800px")
             .data("kendoChart").resize();
     </script>
 </div>
