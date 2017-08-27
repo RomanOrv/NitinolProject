@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+@*<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>*@
+
+
+<link href="~/Content/kendo/2017.2.504/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2017.2.504/kendo.default.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2017.2.504/kendo.default.mobile.min.css" rel="stylesheet" />
+
+<style>
+    .box {
+        margin: 4.5em 7.5em;
+        padding: 3em;
+        background-color: rgba(20,53,80,0.038);
+        border: 1px solid rgba(20,53,80,0.05);
+    }
+
+    .demo-section {
+        margin: 0 auto 4.5em;
+        padding: 3em;
+        border: 1px solid rgba(20,53,80,0.14);
+    }
+
+    .demo-section:not(.wide),
+    #exampleWrap .box:not(.wide) {
+        max-width: 400px;
+    }
+
+    .box:after,
+    .demo-section:after {
+        content: "";
+        display: block;
+        clear: both;
+        height: 0;
+    }
+
+    #exampleWrap .box {
+        margin: 4.5em auto;
+    }
+
+    #example .box:first-child {
+        margin-top: 0;
+    }
+
+     .demo-section.k-content {
+         box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+     }
+
+    .box h4,
+    .demo-section h4 {
+        margin-bottom: 1em;
+        font-size: 12px;
+        line-height: 1em;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .box-col {
+        display: block;
+        float: left;
+        padding: 0 3em 1.667em 0;
+    }
+
+    .box ul:not(.km-widget) li,
+    .demo-section .box-col ul:not(.km-widget) li {
+        line-height: 3em;
+    }
+</style>
+
+
+<script src="~/Scripts/libraries/kendo/2017.2.504/kendo.all.min.js"></script>
+
+
+
+<div id="example">
+    <div class="k-content wide">
+        <div id="chart"></div>
+    </div>
+    <script>
+        //function createChart() {
+        //    $("#chart").kendoChart({
+        //        title: {
+        //            text: "Market Value of Major Banks"
+        //        },
+        //        legend: {
+        //            position: "bottom"
+        //        },
+        //        seriesDefaults: {
+        //            type: "radarLine"
+        //        },
+        //        series: [{
+        //            name: "Market value as of 2007",
+        //            data: [116, 165, 215, 75, 100, 49, 80, 116, 108, 90, 67, 76, 91, 255, 120]
+        //        }, {
+        //            name: "Market value as of 2009",
+        //            data: [64, 85, 97, 27, 16, 26, 35, 32, 26, 17, 10, 7, 19, 5]
+        //        }],
+        //        categoryAxis: {
+        //            categories: ["Santander", "JP Morgan", "HSBC", "Credit Suisse",
+        //                "Goldman Sachs", "Morgan Stanley", "Societe Generale", "UBS",
+        //                "BNP Paribas", "Unicredit", "Credit Agricole", "Deutsche Bank",
+        //                "Barclays", "Citigroup", "RBS"]
+        //        },
+        //        valueAxis: {
+        //            labels: {
+        //                format: "${0}"
+        //            }
+        //        },
+        //        tooltip: {
+        //            visible: true,
+        //            format: "${0} bln"
+        //        }
+        //    });
+        //}
+
+        function createChart() {
+            $("#chart").kendoChart({
+                title: {
+                    text: "Циклограма якості нітинолу"
+                },
+                legend: {
+                    position: "right"
+                },
+                seriesDefaults: {
+                    type: "radarLine"
+                },
+                series: [{
+                    name: "1. Ti-Ni",
+                    data: [0.32, 0.86, 0.1, 0.31, 0.93]
+                },
+                {
+                    name: "2. Ti-Ni-Cu3",
+                    data: [0.91, 0.86, 0.1, 0.89, 0.94]
+                },
+                {name: "3. Ti-Ni-Cu3",
+                    data: [0.78, 0.9, 0.2, 0.77, 0.38]
+                },
+                {name: "4. Ti-Ni-Cu3",
+                    data: [0.61, 1, 1, 0.60, 0.34]
+                },
+                {name: "5. Ti-Ni-Cu3",
+                    data: [0.34, 1, 1, 0.33, 0.33]
+                }],
+                categoryAxis: {
+                    categories: ["У(σ)", "У(V)", "У(h)", "У(W)", "У(H)"]
+                },
+                valueAxis: {
+                    labels: {
+                        format: "{0}"
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    format: "{0}"
+                }
+            });
+        }
+
+        $(document).ready(createChart);
+        $(document).bind("kendo:skinChange", createChart);
+
+        $("#chart").css("width", "800px").css("height", "800px")
+            .data("kendoChart").resize();
+    </script>
+</div>
