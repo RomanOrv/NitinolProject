@@ -1873,9 +1873,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NitinolProject.Entities\NitinolProject.Entities.csproj">
+      <Project>{389b5ca6-0d3f-429f-bc50-179d899a0f2a}</Project>
+      <Name>NitinolProject.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NitinolProject.Repository\NitinolProject.Repository.csproj">
       <Project>{6f7b1d62-3b2a-4e29-9b60-57e812afb78d}</Project>
       <Name>NitinolProject.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NitinolProject.Web.Models\NitinolProject.Web.Models.csproj">
+      <Project>{ffa2fcc9-68db-4ebf-81df-7b196e753647}</Project>
+      <Name>NitinolProject.Web.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

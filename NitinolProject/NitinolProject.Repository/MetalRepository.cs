@@ -9,5 +9,10 @@ namespace NitinolProject.Repository
 {
     public class MetalRepository : IMetalRepository
     {
+        private readonly string _connectionString;
+        public MetalRepository(string connectionString)
+        {
+            this._connectionString = connectionString;
+        }
     }
 }

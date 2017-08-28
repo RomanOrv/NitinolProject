@@ -40,10 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alloy\CyclogramChartModel.cs" />
+    <Compile Include="Alloy\NicelideTitanumSampleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Alloy\" />
     <Folder Include="Metal\" />
     <Folder Include="Pmma\" />
     <Folder Include="Spheroplast\" />

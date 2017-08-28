@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="assessment_quality_materialsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="assessment_quality_materialsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CrystalLattice">
           <Key>
             <PropertyRef Name="CrystalLatticeId" />
@@ -16,7 +16,7 @@
           <Key>
             <PropertyRef Name="MetalId" />
           </Key>
-          <Property Name="MetalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MetalId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="MetalQualityBaseValues">
@@ -28,7 +28,7 @@
           <Property Name="LoadingSpeed" Type="int" Nullable="false" />
           <Property Name="LateralShearRate" Type="int" Nullable="false" />
           <Property Name="LongitudinalShearRate" Type="int" Nullable="false" />
-          <Property Name="ShearStrainRate" Type="int" Nullable="false" />
+          <Property Name="ShearStrainRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="SpallStrength" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MetalSample">
@@ -168,7 +168,7 @@
           <Key>
             <PropertyRef Name="MetalId" />
           </Key>
-          <Property Name="MetalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MetalId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="MetalQualityBaseValues" Relationship="Self.FK_MetalQualityBaseValues_Metal" FromRole="Metal" ToRole="MetalQualityBaseValues" />
           <NavigationProperty Name="MetalSamples" Relationship="Self.FK_MetalSample_Metal" FromRole="Metal" ToRole="MetalSample" />
@@ -182,7 +182,7 @@
           <Property Name="LoadingSpeed" Type="Int32" Nullable="false" />
           <Property Name="LateralShearRate" Type="Int32" Nullable="false" />
           <Property Name="LongitudinalShearRate" Type="Int32" Nullable="false" />
-          <Property Name="ShearStrainRate" Type="Int32" Nullable="false" />
+          <Property Name="ShearStrainRate" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="SpallStrength" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Metal" Relationship="Self.FK_MetalQualityBaseValues_Metal" FromRole="MetalQualityBaseValues" ToRole="Metal" />
         </EntityType>
@@ -285,7 +285,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="assessment_quality_materialsEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="assessment_quality_materialsEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CrystalLattices" EntityType="Self.CrystalLattice" />
           <EntitySet Name="Metals" EntityType="Self.Metal" />
           <EntitySet Name="MetalQualityBaseValues" EntityType="Self.MetalQualityBaseValue" />
@@ -315,7 +315,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="assessment_quality_materialsModelStoreContainer" CdmEntityContainer="assessment_quality_materialsEntities">
+        <EntityContainerMapping StorageEntityContainer="assessment_quality_materialsModelStoreContainer" CdmEntityContainer="assessment_quality_materialsEntities1">
           <EntitySetMapping Name="CrystalLattices">
             <EntityTypeMapping TypeName="assessment_quality_materialsModel.CrystalLattice">
               <MappingFragment StoreEntitySet="CrystalLattice">
@@ -412,7 +412,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

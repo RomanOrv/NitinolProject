@@ -9,5 +9,10 @@ namespace NitinolProject.Repository
 {
     public class PmmaRepository : IPmmaRepository
     {
+        private readonly string _connectionString;
+        public PmmaRepository(string connectionString)
+        {
+            this._connectionString = connectionString;
+        }
     }
 }

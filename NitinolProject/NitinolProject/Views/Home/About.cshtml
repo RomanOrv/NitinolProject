@@ -113,55 +113,70 @@
         //        }
         //    });
         //}
+        //$(function() {
+            var chartsData =
+                @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.ChartsData));
 
-        function createChart() {
-            $("#chart").kendoChart({
-                title: {
-                    text: "Циклограма якості нітинолу"
-                },
-                legend: {
-                    position: "right"
-                },
-                seriesDefaults: {
-                    type: "radarLine"
-                },
-                series: [{
-                    name: "1. Ti-Ni",
-                    data: [0.32, 0.86, 0.1, 0.31, 0.93]
-                },
-                {
-                    name: "2. Ti-Ni-Cu3",
-                    data: [0.91, 0.86, 0.1, 0.89, 0.94]
-                },
-                {name: "3. Ti-Ni-Cu3",
-                    data: [0.78, 0.9, 0.2, 0.77, 0.38]
-                },
-                {name: "4. Ti-Ni-Cu3",
-                    data: [0.61, 1, 1, 0.60, 0.34]
-                },
-                {name: "5. Ti-Ni-Cu3",
-                    data: [0.34, 1, 1, 0.33, 0.33]
-                }],
-                categoryAxis: {
-                    categories: ["Міцність відколу У(σ)", "Швидкість ударника У(V)", "Товщина ударника У(h)"
-                        , "Швидкість відколу У(W)", "Товщина зразка У(H)"]
-                },
-                valueAxis: {
-                    labels: {
+            function getChartsData() {
+                return [
+                    {
+                        name: "1. Ti-Ni",
+                        data: [0.32, 0.86, 0.1, 0.31, 0.93]
+                    },
+                    {
+                        name: "2. Ti-Ni-Cu3",
+                        data: [0.91, 0.86, 0.1, 0.89, 0.94]
+                    },
+                    {
+                        name: "3. Ti-Ni-Cu3",
+                        data: [0.78, 0.9, 0.2, 0.77, 0.38]
+                    },
+                    {
+                        name: "4. Ti-Ni-Cu3",
+                        data: [0.61, 1, 1, 0.60, 0.34]
+                    },
+                    {
+                        name: "5. Ti-Ni-Cu3",
+                        data: [0.34, 1, 1, 0.33, 0.33]
+                    }
+                ];
+            }
+
+            function createChart() {
+                $("#chart").kendoChart({
+                    title: {
+                        text: "Циклограма якості нітинолу"
+                    },
+                    legend: {
+                        position: "right"
+                    },
+                    seriesDefaults: {
+                        type: "radarLine"
+                    },
+                    series: chartsData,
+                    categoryAxis: {
+                        categories: [
+                            "Міцність відколу У(σ)", "Швидкість ударника У(V)", "Товщина ударника У(h)",
+                            "Швидкість відколу У(W)", "Товщина зразку У(H)"
+                        ]
+                    },
+                    valueAxis: {
+                        labels: {
+                            format: "{0}"
+                        }
+                    },
+                    tooltip: {
+                        visible: true,
                         format: "{0}"
                     }
-                },
-                tooltip: {
-                    visible: true,
-                    format: "{0}"
-                }
-            });
-        }
+                });
+            }
 
-        $(document).ready(createChart);
-        $(document).bind("kendo:skinChange", createChart);
-
-        $("#chart").css("width", "900px").css("height", "800px")
-            .data("kendoChart").resize();
+            $(document).ready(createChart);
+            $(document).bind("kendo:skinChange", createChart);
+            var qq = $("#chart");
+            $("#chart").css("width", "900px").css("height", "750px")
+                .data("kendoChart").resize();
+        //});
     </script>
 </div>

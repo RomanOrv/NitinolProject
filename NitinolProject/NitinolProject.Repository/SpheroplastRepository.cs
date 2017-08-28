@@ -9,5 +9,10 @@ namespace NitinolProject.Repository
 {
     public class SpheroplastRepository : ISpheroplastRepository
     {
+        private readonly string _connectionString;
+        public SpheroplastRepository(string connectionString)
+        {
+            this._connectionString = connectionString;
+        }
     }
 }
