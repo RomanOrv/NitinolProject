@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Kendo.Mvc.UI
+@using NitinolProject.Web.Models.Alloy
+@{
     ViewBag.Title = "About";
 }
 @*<h2>@ViewBag.Title.</h2>
@@ -66,13 +68,69 @@
     .demo-section .box-col ul:not(.km-widget) li {
         line-height: 3em;
     }
+    h1 {
+        text-align: center;
+    }
 </style>
 
 
 <script src="~/Scripts/libraries/kendo/2017.2.504/kendo.all.min.js"></script>
+<script src="~/Scripts/libraries/kendo/2017.2.504/kendo.aspnetmvc.min.js"></script>
 
+<div class="panel-body">
+    <h1>Вихідні дані по нітинолу</h1>
+    @(Html.Kendo().Grid<NicelideTitanumSampleModel>()
+          .Name("Samples")
+          .Columns(columns =>
+          {
+              columns.Bound(p => p.SampleNumber).Title("Номер зразку").Width(110);
+              columns.Bound(p => p.NickelideTitaniumAlloyName).Title("Назва сплаву").Width(120);
+              columns.Bound(p => p.SampleThickness).Title("Товщина зразку H, мм");
+              columns.Bound(p => p.HammerThickness).Title("Товщина ударника h, мм");
+              columns.Bound(p => p.HammerSpeed).Title("Швидкість ударника V, м/c");
+              columns.Bound(p => p.SpallSpeed).Title("Швидкість відколу W, м/с");
+              columns.Bound(p => p.SpallStrength).Title("Міцність відколу σ, ГПа");
+          })
+          .Scrollable(a => a.Height(330))
+          .Pageable()
+          .HtmlAttributes(new {style = "margin-bottom: 15px;"})
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(7)
+              .ServerOperation(true)
+              .Read(read => read.Action("GetAlloySamples", "Home"))
+          ))
 
-
+    @Html.ActionLink("Додати зразок", "AddAlloySample")
+    
+    <h1>Значення рівня якості</h1>
+    @(Html.Kendo().Grid<NicelideTitanumSampleQualityModel>()
+          .Name("Qualities")
+          .Columns(columns =>
+          {
+              columns.Bound(p => p.NickelideTitaniumAlloyName).Title("Зразок").Width(120);
+              columns.Bound(p => p.SampleThickness).Title("У(H)");
+              columns.Bound(p => p.HammerThickness).Title("У(h)");
+              columns.Bound(p => p.HammerSpeed).Title("У(V)");
+              columns.Bound(p => p.SpallSpeed).Title("У(W)");
+              columns.Bound(p => p.SpallStrength).Title("У(σ)");
+              columns.Bound(p => p.QualityRate).Title("Рівень якості Ук");
+              columns.Bound(p => p.NicelideTitanumSampleId).Hidden(true);
+              columns.Template(e => { }).Title("").Width(80).ClientTemplate(
+                  "<a data-toggle='tooltip' data-placement='top' title='Edit' style='margin-right: 2px;' class='btn btn-white btn-sm' href='javascript:void(0)' onclick='openEditContactModal(event)'>Деталі</a>");
+              //"<button data-toggle='tooltip' data-placement='top' title='Delete' onclick='removeCarrierContact(#: data.CarrierContactId #)' type='button' class='btn btn-white btn-sm'><i class='fa fa-trash color-red'></i></button>");
+          })
+          .Scrollable(a => a.Height(330))
+          .Pageable()
+          .HtmlAttributes(new {style = "margin-bottom: 15px;"})
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(7)
+              .ServerOperation(true)
+              .Read(read => read.Action("GetAlloySampleQualities", "Home"))
+          ))
+    <p>Кращий зразок - зразок № , </p>
+</div>
 <div id="example">
     <div class="k-content wide">
         <div id="chart"></div>

@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    <style>
+        @@media (min-width: 1200px) {
+            .container {
+                max-width: 1270px;
+            }
+        }
+    </style>
     @Scripts.Render("~/bundles/modernizr")
-    
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -27,7 +34,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    
+
                     <li>@Html.ActionLink("Сплави NiTi", "About", "Home")</li>
                     <li>@Html.ActionLink("ПММА", "About", "Home")</li>
                     <li>@Html.ActionLink("Сферопластик", "Contact", "Home")</li>

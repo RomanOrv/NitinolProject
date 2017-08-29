@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
+using Kendo.Mvc.Extensions;
 using NitinolProject.Entities;
 using NitinolProject.Repository.Interfaces;
 using NitinolProject.Web.Models.Alloy;
+using Kendo.Mvc.UI;
 
 namespace NitinolProject.Web.Controllers
 {
@@ -52,6 +53,61 @@ namespace NitinolProject.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult GetAlloySamples([DataSourceRequest] DataSourceRequest request)
+        {
+            var alloySamples = this._alloyRepository.GetAllAlloySamples();
+            var models = alloySamples.Select(x => new NicelideTitanumSampleModel
+            {
+                NicelideTitanumSampleId = x.NicelideTitanumSampleId,
+                NickelideTitaniumAlloyName = x.NickelideTitaniumAlloy.Name,
+                HammerSpeed = x.HammerSpeed,
+                SampleNumber = x.SampleNumber,
+                SampleThickness = x.SampleThickness,
+                SpallStrength = x.SpallStrength,
+                HammerThickness = x.HammerThickness,
+                SpallSpeed = x.SpallSpeed
+            });
+            return Json(models.ToDataSourceResult(request));
+        }
+
+        public ActionResult GetAlloySampleQualities([DataSourceRequest] DataSourceRequest request)
+        {
+            var alloySamples = this._alloyRepository.GetAllAlloySamples();
+            var baseValues = _alloyRepository.GetNicelideTitanumQualityBaseValue();
+            var models = new List<NicelideTitanumSampleQualityModel>();
+            foreach (var sample in alloySamples)
+            {
+                var item = new NicelideTitanumSampleQualityModel
+                {
+                    NicelideTitanumSampleId = sample.NicelideTitanumSampleId,
+                    NickelideTitaniumAlloyName = $"{sample.SampleNumber}. {sample.NickelideTitaniumAlloy.Name}",
+                    HammerSpeed = Math.Round((decimal)sample.HammerSpeed / baseValues.HammerSpeed, 2),
+                    SampleThickness = Math.Round((decimal)sample.SampleThickness / baseValues.SampleThickness, 2),
+                    SpallStrength = Math.Round((decimal)sample.SpallStrength / baseValues.SpallStrength, 2),
+                    HammerThickness = Math.Round((decimal)sample.HammerThickness / baseValues.HammerThickness, 2),
+                    SpallSpeed = Math.Round((decimal)sample.SpallSpeed / baseValues.SpallSpeed, 2),                    
+                };
+                item.QualityRate = Math.Round(
+                    (item.HammerSpeed + item.SpallSpeed + item.SpallStrength + item.HammerThickness +
+                     item.SampleThickness) / 5, 2);
+                models.Add(item);
+            }
+            return Json(models.ToDataSourceResult(request));
+        }
+
+        [HttpGet]
+        public ActionResult AddAlloySample()
+        {
+            return View(new NicelideTitanumSampleModel());
+        }
+
+        [HttpPost]
+        public ActionResult AddAlloySample(NicelideTitanumSampleModel model)
+        {
+            _alloyRepository.AddAlloySample(model);
+            return RedirectToAction("About");
         }
 
         private IList<decimal> ConvertCyclogramChartModel(Dictionary<string, decimal> dataDictionary, NicelideTitanumQualityBaseValue baseValues)
