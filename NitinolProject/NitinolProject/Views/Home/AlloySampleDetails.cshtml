@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Дані для рівня якості зразка №@Model.SampleNumber</h1>
+<h1 style="text-align: center;">Дані для рівня якості зразка сплаву №@Model.SampleNumber</h1>
 <script src="~/Scripts/Chart.min.js"></script>
 <div class="panel-body">
 @(Html.Kendo().Grid<AlloySampleQualityRateModel>()
@@ -20,7 +20,7 @@
           columns.Bound(p => p.CoefficientWeighting).Title("Коефіцієнт вагомості, αi");
           columns.Bound(p => p.Angle).Title("φ, град");
       })
-      .Scrollable(a => a.Height(180))
+      .Scrollable(a => a.Height(170))
       .HtmlAttributes(new { style = "margin-bottom: 15px;" })
       .DataSource(dataSource => dataSource
 
