@@ -16,6 +16,7 @@
         <AssociationConnector Association="assessment_quality_materialsModel.FK_MetalQualityBaseValues_Metal" ManuallyRouted="false" />
         <AssociationConnector Association="assessment_quality_materialsModel.FK_MetalSample_Metal" ManuallyRouted="false" />
         <AssociationConnector Association="assessment_quality_materialsModel.FK_NicelideTitanumSample_NickelideTitaniumAlloy" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="assessment_quality_materialsModel.NicelideTitanumCoefficientWeighting" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

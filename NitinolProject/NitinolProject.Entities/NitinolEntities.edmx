@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="assessment_quality_materialsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="assessment_quality_materialsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CrystalLattice">
           <Key>
             <PropertyRef Name="CrystalLatticeId" />
@@ -45,6 +45,22 @@
           <Property Name="LongitudinalShearRate" Type="int" Nullable="false" />
           <Property Name="ShearStrainRate" Type="int" Nullable="false" />
           <Property Name="SpallStrength" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'assessment_quality_materials.dbo.NicelideTitanumCoefficientWeighting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NicelideTitanumCoefficientWeighting">
+          <Key>
+            <PropertyRef Name="SampleThickness" />
+            <PropertyRef Name="HammerThickness" />
+            <PropertyRef Name="HammerSpeed" />
+            <PropertyRef Name="SpallSpeed" />
+            <PropertyRef Name="SpallStrength" />
+          </Key>
+          <Property Name="SampleThickness" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="HammerThickness" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="HammerSpeed" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="SpallSpeed" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="SpallStrength" Type="decimal" Precision="5" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="NicelideTitanumQualityBaseValues">
           <Key>
@@ -134,6 +150,15 @@
           <EntitySet Name="NicelideTitanumQualityBaseValues" EntityType="Self.NicelideTitanumQualityBaseValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NicelideTitanumSample" EntityType="Self.NicelideTitanumSample" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NickelideTitaniumAlloy" EntityType="Self.NickelideTitaniumAlloy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NicelideTitanumCoefficientWeighting" EntityType="Self.NicelideTitanumCoefficientWeighting" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[NicelideTitanumCoefficientWeighting].[SampleThickness] AS [SampleThickness], 
+[NicelideTitanumCoefficientWeighting].[HammerThickness] AS [HammerThickness], 
+[NicelideTitanumCoefficientWeighting].[HammerSpeed] AS [HammerSpeed], 
+[NicelideTitanumCoefficientWeighting].[SpallSpeed] AS [SpallSpeed], 
+[NicelideTitanumCoefficientWeighting].[SpallStrength] AS [SpallStrength]
+FROM [dbo].[NicelideTitanumCoefficientWeighting] AS [NicelideTitanumCoefficientWeighting]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_MetalQualityBaseValues_Metal" Association="Self.FK_MetalQualityBaseValues_Metal">
             <End Role="Metal" EntitySet="Metal" />
             <End Role="MetalQualityBaseValues" EntitySet="MetalQualityBaseValues" />
@@ -151,8 +176,7 @@
             <End Role="NicelideTitanumSample" EntitySet="NicelideTitanumSample" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="assessment_quality_materialsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -309,7 +333,22 @@
             <End Role="NickelideTitaniumAlloy" EntitySet="NickelideTitaniumAlloys" />
             <End Role="NicelideTitanumSample" EntitySet="NicelideTitanumSamples" />
           </AssociationSet>
+          <EntitySet Name="NicelideTitanumCoefficientWeightings" EntityType="assessment_quality_materialsModel.NicelideTitanumCoefficientWeighting" />
         </EntityContainer>
+        <EntityType Name="NicelideTitanumCoefficientWeighting">
+          <Key>
+            <PropertyRef Name="SampleThickness" />
+            <PropertyRef Name="HammerThickness" />
+            <PropertyRef Name="HammerSpeed" />
+            <PropertyRef Name="SpallSpeed" />
+            <PropertyRef Name="SpallStrength" />
+          </Key>
+          <Property Name="SampleThickness" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="HammerThickness" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="HammerSpeed" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="SpallSpeed" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="SpallStrength" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -393,6 +432,17 @@
                 <ScalarProperty Name="NickelideTitaniumAlloyId" ColumnName="NickelideTitaniumAlloyId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NicelideTitanumCoefficientWeightings">
+            <EntityTypeMapping TypeName="assessment_quality_materialsModel.NicelideTitanumCoefficientWeighting">
+              <MappingFragment StoreEntitySet="NicelideTitanumCoefficientWeighting">
+                <ScalarProperty Name="SpallStrength" ColumnName="SpallStrength" />
+                <ScalarProperty Name="SpallSpeed" ColumnName="SpallSpeed" />
+                <ScalarProperty Name="HammerSpeed" ColumnName="HammerSpeed" />
+                <ScalarProperty Name="HammerThickness" ColumnName="HammerThickness" />
+                <ScalarProperty Name="SampleThickness" ColumnName="SampleThickness" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

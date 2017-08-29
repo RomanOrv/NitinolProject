@@ -1,0 +1,87 @@
+﻿@using Kendo.Mvc.UI
+@using NitinolProject.Web.Models.Alloy
+@model NicelideTitanumSampleModel
+@{
+    ViewBag.Title = "AlloySampleDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Дані для рівня якості зразка №@Model.SampleNumber</h1>
+<script src="~/Scripts/Chart.min.js"></script>
+<div class="panel-body">
+@(Html.Kendo().Grid<AlloySampleQualityRateModel>()
+      .Name("Samples")
+      .Columns(columns =>
+      {
+          columns.Bound(p => p.SampleProperty).Title("Характеристика зразку");
+          columns.Bound(p => p.BaseValue).Title("Базове значення");
+          columns.Bound(p => p.SampleValue).Title("Значення зразку");
+          columns.Bound(p => p.RelativeValue).Title("Відносне значення, ri");
+          columns.Bound(p => p.CoefficientWeighting).Title("Коефіцієнт вагомості, αi");
+          columns.Bound(p => p.Angle).Title("φ, град");
+      })
+      .Scrollable(a => a.Height(180))
+      .HtmlAttributes(new { style = "margin-bottom: 15px;" })
+      .DataSource(dataSource => dataSource
+
+          .Ajax()
+          .ServerOperation(true)
+          .Read(read => read.Action("GetAlloySampleProperties", "Home", new { sampleId = Model.NicelideTitanumSampleId }))
+      ))
+
+
+    
+</div>
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h2 style="text-align: center;">
+                    Кругова діаграма
+                </h2>
+
+            </div>
+            <div class="ibox-content">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+<div class="row">@Html.ActionLink("Повернутися до списку сплавів", "About", "Home", new { @class = "btn btn-primary" })</div>
+
+<script>
+    $.get('@Url.Action("GetAlloyPieChartData", "Home", new {sampleId = Model.NicelideTitanumSampleId})', function (response) {
+        var socialPieChart = new Chart(document.getElementById("pieChart"), {
+            type: 'pie',
+            data: {
+                labels: response.Labels,
+                datasets: [
+                    {
+                        data: response.Data,
+                        backgroundColor: [
+                            "#F53333",
+                            "#FFA500",
+                            "#FFD700",
+                            "#6B8E23",
+                            "#1E90FF",
+                            "#FF00FF",
+                            //"#8e4696",
+                            //"#25ba00"
+                        ],
+                        hoverBackgroundColor: [
+                            "#F53333",
+                            "#FFA500",
+                            "#FFD700",
+                            "#6B8E23",
+                            "#1E90FF",
+                            "#FF00FF",
+                            //"#8e4696",
+                            //"#25ba00"
+                        ]
+                    }]
+            }           
+        });
+    });
+</script>

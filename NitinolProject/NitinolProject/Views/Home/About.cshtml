@@ -4,12 +4,10 @@
     ViewBag.Title = "About";
 }
 @*<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>*@
+    <h3>@ViewBag.Message</h3>*@
 
 
-<link href="~/Content/kendo/2017.2.504/kendo.common.min.css" rel="stylesheet" />
-<link href="~/Content/kendo/2017.2.504/kendo.default.min.css" rel="stylesheet" />
-<link href="~/Content/kendo/2017.2.504/kendo.default.mobile.min.css" rel="stylesheet" />
+
 
 <style>
     .box {
@@ -25,18 +23,18 @@
         border: 1px solid rgba(20,53,80,0.14);
     }
 
-    .demo-section:not(.wide),
-    #exampleWrap .box:not(.wide) {
-        max-width: 400px;
-    }
+        .demo-section:not(.wide),
+        #exampleWrap .box:not(.wide) {
+            max-width: 400px;
+        }
 
-    .box:after,
-    .demo-section:after {
-        content: "";
-        display: block;
-        clear: both;
-        height: 0;
-    }
+        .box:after,
+        .demo-section:after {
+            content: "";
+            display: block;
+            clear: both;
+            height: 0;
+        }
 
     #exampleWrap .box {
         margin: 4.5em auto;
@@ -46,9 +44,9 @@
         margin-top: 0;
     }
 
-     .demo-section.k-content {
-         box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
-     }
+    .demo-section.k-content {
+        box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+    }
 
     .box h4,
     .demo-section h4 {
@@ -58,6 +56,7 @@
         font-weight: bold;
         text-transform: uppercase;
     }
+
     .box-col {
         display: block;
         float: left;
@@ -68,14 +67,14 @@
     .demo-section .box-col ul:not(.km-widget) li {
         line-height: 3em;
     }
+
     h1 {
         text-align: center;
     }
 </style>
 
 
-<script src="~/Scripts/libraries/kendo/2017.2.504/kendo.all.min.js"></script>
-<script src="~/Scripts/libraries/kendo/2017.2.504/kendo.aspnetmvc.min.js"></script>
+
 
 <div class="panel-body">
     <h1>Вихідні дані по нітинолу</h1>
@@ -91,9 +90,9 @@
               columns.Bound(p => p.SpallSpeed).Title("Швидкість відколу W, м/с");
               columns.Bound(p => p.SpallStrength).Title("Міцність відколу σ, ГПа");
           })
-          .Scrollable(a => a.Height(330))
+          .Scrollable(a => a.Height(200))
           .Pageable()
-          .HtmlAttributes(new {style = "margin-bottom: 15px;"})
+          .HtmlAttributes(new { style = "margin-bottom: 15px;" })
           .DataSource(dataSource => dataSource
               .Ajax()
               .PageSize(7)
@@ -101,9 +100,10 @@
               .Read(read => read.Action("GetAlloySamples", "Home"))
           ))
 
-    @Html.ActionLink("Додати зразок", "AddAlloySample")
-    
-    <h1>Значення рівня якості</h1>
+    @Html.ActionLink("Додати зразок", "AddAlloySample", "Home", new { @class = "btn btn-primary" })
+
+
+    <h1>Значення рівня якості зразків нітинолу</h1>
     @(Html.Kendo().Grid<NicelideTitanumSampleQualityModel>()
           .Name("Qualities")
           .Columns(columns =>
@@ -117,88 +117,29 @@
               columns.Bound(p => p.QualityRate).Title("Рівень якості Ук");
               columns.Bound(p => p.NicelideTitanumSampleId).Hidden(true);
               columns.Template(e => { }).Title("").Width(80).ClientTemplate(
-                  "<a data-toggle='tooltip' data-placement='top' title='Edit' style='margin-right: 2px;' class='btn btn-white btn-sm' href='javascript:void(0)' onclick='openEditContactModal(event)'>Деталі</a>");
+                  "<a style='margin-right: 2px;' class='btn btn-info btn-sm' href='/home/alloysampledetails?id=#: data.NicelideTitanumSampleId #'>Деталі</a>");
               //"<button data-toggle='tooltip' data-placement='top' title='Delete' onclick='removeCarrierContact(#: data.CarrierContactId #)' type='button' class='btn btn-white btn-sm'><i class='fa fa-trash color-red'></i></button>");
           })
-          .Scrollable(a => a.Height(330))
+          .Scrollable(a => a.Height(250))
           .Pageable()
-          .HtmlAttributes(new {style = "margin-bottom: 15px;"})
+          .HtmlAttributes(new { style = "margin-bottom: 15px;" })
+          .Events(e => e.DataBinding("qualitiesDataBinding"))
           .DataSource(dataSource => dataSource
               .Ajax()
               .PageSize(7)
               .ServerOperation(true)
               .Read(read => read.Action("GetAlloySampleQualities", "Home"))
           ))
-    <p>Кращий зразок - зразок № , </p>
+    <h4 id="qualityResult" style="display: none;"></h4>
 </div>
 <div id="example">
     <div class="k-content wide">
         <div id="chart"></div>
     </div>
     <script>
-        //function createChart() {
-        //    $("#chart").kendoChart({
-        //        title: {
-        //            text: "Market Value of Major Banks"
-        //        },
-        //        legend: {
-        //            position: "bottom"
-        //        },
-        //        seriesDefaults: {
-        //            type: "radarLine"
-        //        },
-        //        series: [{
-        //            name: "Market value as of 2007",
-        //            data: [116, 165, 215, 75, 100, 49, 80, 116, 108, 90, 67, 76, 91, 255, 120]
-        //        }, {
-        //            name: "Market value as of 2009",
-        //            data: [64, 85, 97, 27, 16, 26, 35, 32, 26, 17, 10, 7, 19, 5]
-        //        }],
-        //        categoryAxis: {
-        //            categories: ["Santander", "JP Morgan", "HSBC", "Credit Suisse",
-        //                "Goldman Sachs", "Morgan Stanley", "Societe Generale", "UBS",
-        //                "BNP Paribas", "Unicredit", "Credit Agricole", "Deutsche Bank",
-        //                "Barclays", "Citigroup", "RBS"]
-        //        },
-        //        valueAxis: {
-        //            labels: {
-        //                format: "${0}"
-        //            }
-        //        },
-        //        tooltip: {
-        //            visible: true,
-        //            format: "${0} bln"
-        //        }
-        //    });
-        //}
-        //$(function() {
+        $(function() {
             var chartsData =
                 @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.ChartsData));
-
-            function getChartsData() {
-                return [
-                    {
-                        name: "1. Ti-Ni",
-                        data: [0.32, 0.86, 0.1, 0.31, 0.93]
-                    },
-                    {
-                        name: "2. Ti-Ni-Cu3",
-                        data: [0.91, 0.86, 0.1, 0.89, 0.94]
-                    },
-                    {
-                        name: "3. Ti-Ni-Cu3",
-                        data: [0.78, 0.9, 0.2, 0.77, 0.38]
-                    },
-                    {
-                        name: "4. Ti-Ni-Cu3",
-                        data: [0.61, 1, 1, 0.60, 0.34]
-                    },
-                    {
-                        name: "5. Ti-Ni-Cu3",
-                        data: [0.34, 1, 1, 0.33, 0.33]
-                    }
-                ];
-            }
 
             function createChart() {
                 $("#chart").kendoChart({
@@ -228,13 +169,30 @@
                         format: "{0}"
                     }
                 });
+
+                $("#chart").css("width", "900px").css("height", "750px").data("kendoChart").resize();
             }
 
             $(document).ready(createChart);
             $(document).bind("kendo:skinChange", createChart);
-            var qq = $("#chart");
-            $("#chart").css("width", "900px").css("height", "750px")
-                .data("kendoChart").resize();
-        //});
+            var qq = $("#chart").data("kendoChart");
+
+        });
+
+        function qualitiesDataBinding(e) {
+            var qualityRates = new Array;
+            qualityRates = jQuery.map( e.items, function( item ) {
+                    return item.QualityRate;
+            });
+            var maxQualityRate = Math.max.apply(null, qualityRates);
+
+          var selectedItem = $.grep(e.items, function (e) {
+                return e.QualityRate === maxQualityRate;
+            });
+
+          var text = "Кращий зразок - зразок №" + selectedItem[0].SampleNumber + ", з рівнем якості Ук = " + maxQualityRate + ".";
+          $('#qualityResult').text(text);
+          $('#qualityResult').show();
+        }
     </script>
 </div>

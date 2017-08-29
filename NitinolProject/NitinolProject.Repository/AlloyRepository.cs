@@ -59,6 +59,14 @@ namespace NitinolProject.Repository
             }
         }
 
+        public NicelideTitanumCoefficientWeighting GetNicelideTitanumCoefficientWeighting()
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                return context.CreateObjectSet<NicelideTitanumCoefficientWeighting>().FirstOrDefault();
+            }
+        }
+
         public NicelideTitanumQualityBaseValue GetNicelideTitanumQualityBaseValue()
         {
             using (ObjectContext context = new ObjectContext(_connectionString))

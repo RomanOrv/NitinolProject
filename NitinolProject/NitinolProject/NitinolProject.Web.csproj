@@ -510,6 +510,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\libraries\kendo\2017.2.504\angular.min.js" />
     <Content Include="Scripts\libraries\kendo\2017.2.504\cultures\kendo.culture.af-ZA.min.js" />
     <Content Include="Scripts\libraries\kendo\2017.2.504\cultures\kendo.culture.af.min.js" />
@@ -1856,6 +1857,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AddAlloySample.cshtml" />
+    <Content Include="Views\Home\AlloySampleDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    <link href="~/Content/kendo/2017.2.504/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/2017.2.504/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/2017.2.504/kendo.default.mobile.min.css" rel="stylesheet" />
     <style>
         @@media (min-width: 1200px) {
             .container {
@@ -17,6 +20,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/libraries/kendo/2017.2.504/kendo.all.min.js"></script>
+    <script src="~/Scripts/libraries/kendo/2017.2.504/kendo.aspnetmvc.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">

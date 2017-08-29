@@ -41,10 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alloy\AlloySampleQualityRateModel.cs" />
     <Compile Include="Alloy\CyclogramChartModel.cs" />
     <Compile Include="Alloy\NicelideTitanumSampleModel.cs" />
     <Compile Include="Alloy\NicelideTitanumSampleQualityModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\PieChartModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Metal\" />
