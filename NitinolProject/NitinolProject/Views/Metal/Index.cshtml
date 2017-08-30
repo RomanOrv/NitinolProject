@@ -1,0 +1,111 @@
+﻿@using Kendo.Mvc.UI
+@using NitinolProject.Web.Models.Metal
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-grid  .k-grid-header  .k-header  .k-link {
+        height: auto;
+    }
+  
+    .k-grid  .k-grid-header  .k-header {
+        white-space: normal;
+    }
+</style>
+
+<div class="panel-body">
+<h1>Вихідні дані по металу</h1>
+@(Html.Kendo().Grid<MetalSampleGridModel>()
+      .Name("Samples")
+      .Columns(columns =>
+      {
+          columns.Bound(p => p.SampleNumber).Title("Номер зразку").Width(110);
+          columns.Bound(p => p.Name).Title("Назва металу").Width(120);
+          columns.Bound(p => p.CrystalLatticeName).Title("Решітка").Width(80);
+          columns.Bound(p => p.LoadingSpeed).Title("Швидкість навантаження V, м/с");
+          columns.Bound(p => p.LateralShearRate).Title("Поперечна швидкість зсуву Vt, м/с");
+          columns.Bound(p => p.LongitudinalShearRate).Title("Поздовжня швидкість зсуву Vl, м/с");
+          columns.Bound(p => p.ShearStrainRate).Title("Швидкість деформації зсуву γ, 10^(-6) c^(-1)");
+          columns.Bound(p => p.SpallStrength).Title("Міцність відколу σ, МПа");
+      })
+      .Scrollable(a => a.Height(200))
+      .Pageable()
+      .HtmlAttributes(new { style = "margin-bottom: 15px;" })
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .PageSize(7)
+          .ServerOperation(true)
+          .Read(read => read.Action("GetMetalSamples", "Metal"))
+      ))
+
+@Html.ActionLink("Додати зразок", "", "Home", new { @class = "btn btn-primary" })
+    
+</div>
+
+<div id="example">
+    <div class="k-content wide">
+        <div id="chart"></div>
+    </div>
+    <script>
+        $(function() {
+            var chartsData =
+                @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.ChartsData));
+
+            function createChart() {
+                $("#chart").kendoChart({
+                    title: {
+                        text: "Циклограма якості металів"
+                    },
+                    legend: {
+                        position: "right"
+                    },
+                    seriesDefaults: {
+                        type: "radarLine"
+                    },
+                    series: chartsData,
+                    categoryAxis: {
+                        categories: [
+                            "Міцність відколу У(σ)", "Швидкість навантаження У(V)", "Швидкість деформації зсуву У(γ)",
+                            "Поздовжня швидкість зсуву У(Vl)", "Поперечна швидкість зсуву У(Vt)"
+                        ]
+                    },
+                    valueAxis: {
+                        labels: {
+                            format: "{0}"
+                        }
+                    },
+                    tooltip: {
+                        visible: true,
+                        format: "{0}"
+                    }
+                });
+
+                $("#chart").css("width", "900px").css("height", "750px").data("kendoChart").resize();
+            }
+
+            $(document).ready(createChart);
+            $(document).bind("kendo:skinChange", createChart);
+
+        });
+
+        //function qualitiesDataBinding(e) {
+        //    var qualityRates = new Array;
+        //    qualityRates = jQuery.map( e.items, function( item ) {
+        //        return item.QualityRate;
+        //    });
+        //    var maxQualityRate = Math.max.apply(null, qualityRates);
+
+        //    var selectedItem = $.grep(e.items, function (e) {
+        //        return e.QualityRate === maxQualityRate;
+        //    });
+
+        //    var text = "Кращий зразок - зразок №" + selectedItem[0].SampleNumber + ", з рівнем якості Ук = " + maxQualityRate + ".";
+        //    $('#qualityResult').text(text);
+        //    $('#qualityResult').show();
+        //}
+    </script>
+</div>
+

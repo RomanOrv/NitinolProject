@@ -7,7 +7,7 @@
       <Diagram DiagramId="0b1d0b353ffa48d6a55b3cda2943ad7b" Name="Diagram1">
         <EntityTypeShape EntityType="assessment_quality_materialsModel.CrystalLattice" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="assessment_quality_materialsModel.Metal" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="assessment_quality_materialsModel.MetalQualityBaseValue" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="assessment_quality_materialsModel.MetalQualityBaseValue" Width="2.125" PointX="3" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="assessment_quality_materialsModel.MetalSample" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="assessment_quality_materialsModel.NicelideTitanumQualityBaseValue" Width="1.5" PointX="5.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="assessment_quality_materialsModel.NicelideTitanumSample" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
@@ -16,7 +16,7 @@
         <AssociationConnector Association="assessment_quality_materialsModel.FK_MetalQualityBaseValues_Metal" ManuallyRouted="false" />
         <AssociationConnector Association="assessment_quality_materialsModel.FK_MetalSample_Metal" ManuallyRouted="false" />
         <AssociationConnector Association="assessment_quality_materialsModel.FK_NicelideTitanumSample_NickelideTitaniumAlloy" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="assessment_quality_materialsModel.NicelideTitanumCoefficientWeighting" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="assessment_quality_materialsModel.NicelideTitanumCoefficientWeighting" Width="2.25" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

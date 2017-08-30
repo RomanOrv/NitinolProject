@@ -22,8 +22,8 @@ namespace NitinolProject.Entities
         public int LoadingSpeed { get; set; }
         public int LateralShearRate { get; set; }
         public int LongitudinalShearRate { get; set; }
-        public int ShearStrainRate { get; set; }
-        public int SpallStrength { get; set; }
+        public decimal ShearStrainRate { get; set; }
+        public decimal SpallStrength { get; set; }
     
         public virtual CrystalLattice CrystalLattice { get; set; }
         public virtual Metal Metal { get; set; }

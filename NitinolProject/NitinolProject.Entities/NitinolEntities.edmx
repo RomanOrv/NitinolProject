@@ -43,8 +43,8 @@
           <Property Name="LoadingSpeed" Type="int" Nullable="false" />
           <Property Name="LateralShearRate" Type="int" Nullable="false" />
           <Property Name="LongitudinalShearRate" Type="int" Nullable="false" />
-          <Property Name="ShearStrainRate" Type="int" Nullable="false" />
-          <Property Name="SpallStrength" Type="int" Nullable="false" />
+          <Property Name="ShearStrainRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="SpallStrength" Type="decimal" Precision="5" Scale="2" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'assessment_quality_materials.dbo.NicelideTitanumCoefficientWeighting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -222,8 +222,8 @@ FROM [dbo].[NicelideTitanumCoefficientWeighting] AS [NicelideTitanumCoefficientW
           <Property Name="LoadingSpeed" Type="Int32" Nullable="false" />
           <Property Name="LateralShearRate" Type="Int32" Nullable="false" />
           <Property Name="LongitudinalShearRate" Type="Int32" Nullable="false" />
-          <Property Name="ShearStrainRate" Type="Int32" Nullable="false" />
-          <Property Name="SpallStrength" Type="Int32" Nullable="false" />
+          <Property Name="ShearStrainRate"  Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="SpallStrength"  Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <NavigationProperty Name="CrystalLattice" Relationship="Self.FK_MetalSample_CrystalLattice" FromRole="MetalSample" ToRole="CrystalLattice" />
           <NavigationProperty Name="Metal" Relationship="Self.FK_MetalSample_Metal" FromRole="MetalSample" ToRole="Metal" />
         </EntityType>

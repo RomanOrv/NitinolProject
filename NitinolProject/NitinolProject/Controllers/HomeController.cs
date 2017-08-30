@@ -182,7 +182,7 @@ namespace NitinolProject.Web.Controllers
                 SampleValue = sample.SampleThickness,
                 RelativeValue = Math.Round((decimal) sample.SampleThickness / baseValues.SampleThickness, 2),
                 CoefficientWeighting = coeficientValues.SampleThickness,
-                Angle = 360 * coeficientValues.SampleThickness
+                Angle = Round(360 * coeficientValues.SampleThickness, 0)
             };
             propertyList.Add(model);
 
@@ -193,7 +193,7 @@ namespace NitinolProject.Web.Controllers
                 SampleValue = sample.HammerThickness,
                 RelativeValue = Math.Round((decimal)sample.HammerThickness / baseValues.HammerThickness, 2),
                 CoefficientWeighting = coeficientValues.HammerThickness,
-                Angle = 360 * coeficientValues.HammerThickness
+                Angle = Round(360 * coeficientValues.HammerThickness, 0)
             };
             propertyList.Add(model);
 
@@ -204,7 +204,7 @@ namespace NitinolProject.Web.Controllers
                 SampleValue = sample.HammerSpeed,
                 RelativeValue = Math.Round((decimal)sample.HammerSpeed / baseValues.HammerSpeed, 2),
                 CoefficientWeighting = coeficientValues.HammerSpeed,
-                Angle = 360 * coeficientValues.HammerSpeed
+                Angle = Round(360 * coeficientValues.HammerSpeed, 0)
             };
             propertyList.Add(model);
 
@@ -215,7 +215,7 @@ namespace NitinolProject.Web.Controllers
                 SampleValue = sample.SpallSpeed,
                 RelativeValue = Math.Round((decimal)sample.SpallSpeed / baseValues.SpallSpeed, 2),
                 CoefficientWeighting = coeficientValues.SpallSpeed,
-                Angle = 360 * coeficientValues.SpallSpeed
+                Angle = Round(360 * coeficientValues.SpallSpeed, 0)
             };
             propertyList.Add(model);
 
@@ -226,7 +226,7 @@ namespace NitinolProject.Web.Controllers
                 SampleValue = sample.SpallStrength,
                 RelativeValue = Math.Round((decimal)sample.SpallStrength / baseValues.SpallStrength, 2),
                 CoefficientWeighting = coeficientValues.SpallStrength,
-                Angle = 360 * coeficientValues.SpallStrength
+                Angle = Round(360 * coeficientValues.SpallStrength, 0)
             };
             propertyList.Add(model);
             return propertyList;

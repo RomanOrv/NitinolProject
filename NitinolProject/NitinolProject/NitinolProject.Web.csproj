@@ -161,6 +161,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MetalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1858,6 +1859,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\AddAlloySample.cshtml" />
     <Content Include="Views\Home\AlloySampleDetails.cshtml" />
+    <Content Include="Views\Metal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

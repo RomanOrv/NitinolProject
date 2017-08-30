@@ -45,11 +45,12 @@
     <Compile Include="Alloy\CyclogramChartModel.cs" />
     <Compile Include="Alloy\NicelideTitanumSampleModel.cs" />
     <Compile Include="Alloy\NicelideTitanumSampleQualityModel.cs" />
+    <Compile Include="Metal\MetalSampleGridModel.cs" />
+    <Compile Include="Metal\MetalSampleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\PieChartModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Metal\" />
     <Folder Include="Pmma\" />
     <Folder Include="Spheroplast\" />
   </ItemGroup>
