@@ -1860,6 +1860,8 @@
     <Content Include="Views\Home\AddAlloySample.cshtml" />
     <Content Include="Views\Home\AlloySampleDetails.cshtml" />
     <Content Include="Views\Metal\Index.cshtml" />
+    <Content Include="Views\Metal\MetalSampleDetails.cshtml" />
+    <Content Include="Views\Metal\AddMetalSample.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

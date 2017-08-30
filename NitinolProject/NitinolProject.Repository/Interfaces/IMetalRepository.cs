@@ -9,5 +9,7 @@ namespace NitinolProject.Repository.Interfaces
         IList<MetalSample> GetAllMetalSamples();
         IList<MetalQualityBaseValue> GetMetalQualityBaseValues();
         void AddMetalSample(MetalSampleModel model);
+        IList<Metal> GetAllMetalTypes();
+        IList<CrystalLattice> GetAllCrystalLattices();
     }
 }

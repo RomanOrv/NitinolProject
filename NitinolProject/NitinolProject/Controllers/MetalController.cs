@@ -39,7 +39,7 @@ namespace NitinolProject.Web.Controllers
                     pairsData.Add(nameof(sample.ShearStrainRate), sample.ShearStrainRate);
                     pairsData.Add(nameof(sample.LongitudinalShearRate), sample.LongitudinalShearRate);
                     pairsData.Add(nameof(sample.LateralShearRate), sample.LateralShearRate);
-                    var convertedData = ConvertCyclogramChartModel(pairsData, baseValues.First(x => x.MetalId == sample.MetalId));
+                    var convertedData = ConvertCyclogramChartModel(pairsData, baseValues.First(x => x.MetalId == group.Key));
                     chart.data.AddRange(convertedData);
                     chartsData.Add(chart);
                 }
@@ -65,6 +65,59 @@ namespace NitinolProject.Web.Controllers
                 LoadingSpeed = x.LoadingSpeed
             });
             return Json(models.ToDataSourceResult(request));
+        }
+
+        public ActionResult GetMetalSampleQualities([DataSourceRequest] DataSourceRequest request)
+        {
+            var metalSamples = this._metalRepository.GetAllMetalSamples();
+            var baseValues = _metalRepository.GetMetalQualityBaseValues();
+            var models = new List<MetalSampleQualityModel>();
+            foreach (var group in metalSamples.GroupBy(x => x.MetalId))
+            {
+                var baseValue = baseValues.First(x => x.MetalId == group.Key);
+                foreach (var sample in group)
+                {
+                    var item = new MetalSampleQualityModel
+                    {
+                        MetalSampleId = sample.MetalSampleId,
+                        Name = $"{sample.SampleNumber}. {sample.Name}",
+                        LateralShearRate = Math.Round((decimal)sample.LateralShearRate / baseValue.LateralShearRate, 2),
+                        LoadingSpeed = Math.Round((decimal)sample.LoadingSpeed / baseValue.LoadingSpeed, 2),
+                        SpallStrength = Math.Round((decimal)sample.SpallStrength / baseValue.SpallStrength, 2),
+                        LongitudinalShearRate = Math.Round((decimal)sample.LongitudinalShearRate / baseValue.LongitudinalShearRate, 2),
+                        ShearStrainRate = Math.Round((decimal)sample.ShearStrainRate / baseValue.ShearStrainRate, 2),
+                        SampleNumber = sample.SampleNumber
+                    };
+                    item.QualityRate = Math.Round(
+                        (item.LateralShearRate + item.LoadingSpeed + item.SpallStrength + item.LongitudinalShearRate +
+                         item.ShearStrainRate) / 5, 2);
+                    models.Add(item);
+                }
+            }
+            return Json(models.ToDataSourceResult(request));
+        }
+
+        public ActionResult MetalSampleDetails(int id)
+        {
+            var metalSamples = this._metalRepository.GetAllMetalSamples();
+            var sample = metalSamples.First(x => x.MetalSampleId == id);
+            return View(new MetalSampleModel { MetalSampleId = sample.MetalSampleId, SampleNumber = sample.SampleNumber });
+        }
+
+
+        [HttpGet]
+        public ActionResult AddMetalSample()
+        {
+            ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select( x => new SelectListItem{Text = x.Name, Value = x.MetalId.ToString()});
+            ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
+            return View(new MetalSampleModel());
+        }
+
+        [HttpPost]
+        public ActionResult AddMetalSample(MetalSampleModel model)
+        {
+           // _alloyRepository.AddAlloySample(model);
+            return RedirectToAction("Index");
         }
 
 

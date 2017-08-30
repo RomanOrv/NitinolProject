@@ -23,11 +23,27 @@ namespace NitinolProject.Repository
             throw new NotImplementedException();
         }
 
+        public IList<CrystalLattice> GetAllCrystalLattices()
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                return context.CreateObjectSet<CrystalLattice>().ToList();
+            }
+        }
+
         public IList<MetalSample> GetAllMetalSamples()
         {
             using (ObjectContext context = new ObjectContext(_connectionString))
             {
                 return context.CreateObjectSet<MetalSample>().Include("Metal").Include("CrystalLattice").ToList();
+            }
+        }
+
+        public IList<Metal> GetAllMetalTypes()
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                return context.CreateObjectSet<Metal>().ToList();
             }
         }
 

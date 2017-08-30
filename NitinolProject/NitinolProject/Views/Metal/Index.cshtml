@@ -14,6 +14,9 @@
     .k-grid  .k-grid-header  .k-header {
         white-space: normal;
     }
+    h1 {
+        text-align: center;
+    }
 </style>
 
 <div class="panel-body">
@@ -41,7 +44,39 @@
           .Read(read => read.Action("GetMetalSamples", "Metal"))
       ))
 
-@Html.ActionLink("Додати зразок", "", "Home", new { @class = "btn btn-primary" })
+    <a href="/metal/addmetalsample" class="btn btn-primary">Додати зразок</a>
+    @*@Html.ActionLink("Додати зразок", "AddMetalSample", "Metal", new { @class = "btn btn-primary" })*@
+    
+    
+
+    <h1>Значення рівня якості зразків металу</h1>
+    @(Html.Kendo().Grid<MetalSampleQualityModel>()
+          .Name("Qualities")
+          .Columns(columns =>
+          {
+              columns.Bound(p => p.Name).Title("Метал").Width(120);
+              columns.Bound(p => p.LoadingSpeed).Title("У(V)");
+              columns.Bound(p => p.LateralShearRate).Title("У(Vt)");
+              columns.Bound(p => p.LongitudinalShearRate).Title("У(Vl)");
+              columns.Bound(p => p.ShearStrainRate).Title("У(γ)");
+              columns.Bound(p => p.SpallStrength).Title("У(σ)");
+              columns.Bound(p => p.QualityRate).Title("Рівень якості Ук");
+              columns.Bound(p => p.MetalSampleId).Hidden(true);
+              columns.Template(e => { }).Title("").Width(80).ClientTemplate(
+                  "<a style='margin-right: 2px;' class='btn btn-info btn-sm' href='/metal/metalsampledetails?id=#: data.MetalSampleId #'>Деталі</a>");
+              //"<button data-toggle='tooltip' data-placement='top' title='Delete' onclick='removeCarrierContact(#: data.CarrierContactId #)' type='button' class='btn btn-white btn-sm'><i class='fa fa-trash color-red'></i></button>");
+          })
+          .Scrollable(a => a.Height(250))
+          .Pageable()
+          .HtmlAttributes(new { style = "margin-bottom: 15px;" })
+          .Events(e => e.DataBinding("qualitiesDataBinding"))
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(7)
+              .ServerOperation(true)
+              .Read(read => read.Action("GetMetalSampleQualities", "Metal"))
+          ))
+    <h4 id="qualityResult" style="display: none;"></h4>
     
 </div>
 
@@ -91,21 +126,21 @@
 
         });
 
-        //function qualitiesDataBinding(e) {
-        //    var qualityRates = new Array;
-        //    qualityRates = jQuery.map( e.items, function( item ) {
-        //        return item.QualityRate;
-        //    });
-        //    var maxQualityRate = Math.max.apply(null, qualityRates);
+        function qualitiesDataBinding(e) {
+            var qualityRates = new Array;
+            qualityRates = jQuery.map( e.items, function( item ) {
+                return item.QualityRate;
+            });
+            var maxQualityRate = Math.max.apply(null, qualityRates);
 
-        //    var selectedItem = $.grep(e.items, function (e) {
-        //        return e.QualityRate === maxQualityRate;
-        //    });
+            var selectedItem = $.grep(e.items, function (e) {
+                return e.QualityRate === maxQualityRate;
+            });
 
-        //    var text = "Кращий зразок - зразок №" + selectedItem[0].SampleNumber + ", з рівнем якості Ук = " + maxQualityRate + ".";
-        //    $('#qualityResult').text(text);
-        //    $('#qualityResult').show();
-        //}
+            var text = "Кращий зразок - зразок №" + selectedItem[0].SampleNumber + ", з рівнем якості Ук = " + maxQualityRate + ".";
+            $('#qualityResult').text(text);
+            $('#qualityResult').show();
+        }
     </script>
 </div>
 

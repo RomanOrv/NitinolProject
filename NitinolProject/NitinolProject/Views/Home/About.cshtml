@@ -99,8 +99,9 @@
               .ServerOperation(true)
               .Read(read => read.Action("GetAlloySamples", "Home"))
           ))
-
-    @Html.ActionLink("Додати зразок", "AddAlloySample", "Home", new { @class = "btn btn-primary" })
+    
+    <a href="/home/addalloysample" class="btn btn-primary">Додати зразок</a>
+    @*@Html.ActionLink("Додати зразок", "AddAlloySample", "Home", new { @class = "btn btn-primary" })*@
 
 
     <h1>Значення рівня якості зразків нітинолу</h1>
