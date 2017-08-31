@@ -9,6 +9,8 @@ using NitinolProject.Repository.Interfaces;
 using NitinolProject.Web.Models.Alloy;
 using Kendo.Mvc.UI;
 using NitinolProject.Web.Models.Metal;
+using NitinolProject.Web.Models.Shared;
+using static System.Math;
 
 namespace NitinolProject.Web.Controllers
 {
@@ -116,12 +118,135 @@ namespace NitinolProject.Web.Controllers
         [HttpPost]
         public ActionResult AddMetalSample(MetalSampleModel model)
         {
-           // _alloyRepository.AddAlloySample(model);
+            _metalRepository.AddMetalSample(model);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult GetMetalPieChartData(int sampleId)
+        {
+            var metalSamples = this._metalRepository.GetAllMetalSamples();
+            var baseValues = _metalRepository.GetMetalQualityBaseValues();
+            var sample = metalSamples.First(x => x.MetalSampleId == sampleId);
+
+            var coeficientValues = _metalRepository.GetAllMetalCoefficientsWeighting()
+                .FirstOrDefault(x => x.MetalId == sample.MetalId);
+            var baseMetalValues = baseValues.First(x => x.MetalId == sample.MetalId);
+            var coeficientK = GetCoeficientK(coeficientValues, sample, baseMetalValues);
+            var labels = new string[] { "У(V)", "У(Vt)", "У(Vl)", "У(γ)", "У(σ)", "Ук" };
+            var data = new decimal[]
+            {
+                Round((decimal) sample.LoadingSpeed / baseMetalValues.LoadingSpeed, 2),
+                Round((decimal)sample.LateralShearRate / baseMetalValues.LateralShearRate, 2),
+                Round((decimal)sample.LongitudinalShearRate / baseMetalValues.LongitudinalShearRate, 2),
+                Round((decimal) sample.ShearStrainRate / baseMetalValues.ShearStrainRate, 2),
+                Round(sample.SpallStrength / baseMetalValues.SpallStrength, 2),
+                coeficientK
+            };
+            return Json(new PieChartModel { Labels = labels, Data = data }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetMetalSampleProperties([DataSourceRequest] DataSourceRequest request, int sampleId)
+        {
+            var metalSamples = this._metalRepository.GetAllMetalSamples();
+            var sample = metalSamples.First(x => x.MetalSampleId == sampleId);
+            var baseValues = _metalRepository.GetMetalQualityBaseValues();
+            var baseMetalValues = baseValues.First(x => x.MetalId == sample.MetalId);
+            var coeficientValues = _metalRepository.GetAllMetalCoefficientsWeighting()
+                .FirstOrDefault(x => x.MetalId == sample.MetalId);
+
+            var propertyList = SetMetalSamplePropertyList(baseMetalValues, sample, coeficientValues);
+            return Json(propertyList.ToDataSourceResult(request));
+        }
+
+
+
+        private decimal GetCoeficientK(MetalCoefficientWeighting coeficientValues, MetalSample sample, MetalQualityBaseValue baseValues)
+        {
+            return (decimal)Round(Sqrt(
+                (double)(coeficientValues.LateralShearRate * Round((decimal)sample.LateralShearRate / baseValues.LateralShearRate, 2) * Round((decimal)sample.LateralShearRate / baseValues.LateralShearRate, 2)
+                         + coeficientValues.LongitudinalShearRate * Round((decimal)sample.LongitudinalShearRate / baseValues.LongitudinalShearRate, 2) * Round((decimal)sample.LongitudinalShearRate / baseValues.LongitudinalShearRate, 2)
+                         + coeficientValues.ShearStrainRate * Round((decimal)sample.ShearStrainRate / baseValues.ShearStrainRate, 2) * Round((decimal)sample.ShearStrainRate / baseValues.ShearStrainRate, 2)
+                         + coeficientValues.LoadingSpeed * Round((decimal)sample.LoadingSpeed / baseValues.LoadingSpeed, 2) * Round((decimal)sample.LoadingSpeed / baseValues.LoadingSpeed, 2)
+                         + coeficientValues.SpallStrength * Round(sample.SpallStrength / baseValues.SpallStrength, 2) * Round(sample.SpallStrength / baseValues.SpallStrength, 2)
+                )), 2);
         }
 
 
         private IList<decimal> ConvertCyclogramChartModel(Dictionary<string, decimal> dataDictionary, MetalQualityBaseValue baseValues)
+        {
+            IList<decimal> convertedData = new List<decimal>();
+            foreach (var item in dataDictionary)
+            {
+                var property = baseValues.GetType().GetProperties().FirstOrDefault(x => x.Name == item.Key);
+                var baseValue = Convert.ToDecimal(property.GetValue(baseValues));
+                var result = Math.Round(item.Value / baseValue, 2);
+                convertedData.Add(result);
+            }
+            return convertedData;
+        }
+
+        private IList<MetalSampleQualityRateModel> SetMetalSamplePropertyList(MetalQualityBaseValue baseValues, MetalSample sample,
+            MetalCoefficientWeighting coeficientValues)
+        {
+            var propertyList = new List<MetalSampleQualityRateModel>();
+            var model = new MetalSampleQualityRateModel
+            {
+                SampleProperty = "Швидкість навантаження V, м/с",
+                BaseValue = baseValues.LoadingSpeed,
+                SampleValue = sample.LoadingSpeed,
+                RelativeValue = Math.Round((decimal)sample.LoadingSpeed / baseValues.LoadingSpeed, 2),
+                CoefficientWeighting = coeficientValues.LoadingSpeed,
+                Angle = Round(360 * coeficientValues.LoadingSpeed, 0)
+            };
+            propertyList.Add(model);
+
+            model = new MetalSampleQualityRateModel
+            {
+                SampleProperty = "Поперечна швидкість зсуву Vt, м/с",
+                BaseValue = baseValues.LateralShearRate,
+                SampleValue = sample.LateralShearRate,
+                RelativeValue = Math.Round((decimal)sample.LateralShearRate / baseValues.LateralShearRate, 2),
+                CoefficientWeighting = coeficientValues.LateralShearRate,
+                Angle = Round(360 * coeficientValues.LateralShearRate, 0)
+            };
+            propertyList.Add(model);
+
+            model = new MetalSampleQualityRateModel
+            {
+                SampleProperty = "Поздовжня швидкість зсуву Vl, м/с",
+                BaseValue = baseValues.LongitudinalShearRate,
+                SampleValue = sample.LongitudinalShearRate,
+                RelativeValue = Math.Round((decimal)sample.LongitudinalShearRate / baseValues.LongitudinalShearRate, 2),
+                CoefficientWeighting = coeficientValues.LongitudinalShearRate,
+                Angle = Round(360 * coeficientValues.LongitudinalShearRate, 0)
+            };
+            propertyList.Add(model);
+
+            model = new MetalSampleQualityRateModel
+            {
+                SampleProperty = "Швидкість деформації зсуву γ, 10^(-6) c^(-1)",
+                BaseValue = baseValues.ShearStrainRate,
+                SampleValue = sample.ShearStrainRate,
+                RelativeValue = Math.Round((decimal)sample.ShearStrainRate / baseValues.ShearStrainRate, 2),
+                CoefficientWeighting = coeficientValues.ShearStrainRate,
+                Angle = Round(360 * coeficientValues.ShearStrainRate, 0)
+            };
+            propertyList.Add(model);
+
+            model = new MetalSampleQualityRateModel
+            {
+                SampleProperty = "Міцність відколу σ, ГПа",
+                BaseValue = baseValues.SpallStrength,
+                SampleValue = sample.SpallStrength,
+                RelativeValue = Math.Round((decimal)sample.SpallStrength / baseValues.SpallStrength, 2),
+                CoefficientWeighting = coeficientValues.SpallStrength,
+                Angle = Round(360 * coeficientValues.SpallStrength, 0)
+            };
+            propertyList.Add(model);
+            return propertyList;
+        }
+
+        private IList<decimal> ConvertCyclogramChartModel(Dictionary<string, decimal> dataDictionary, NicelideTitanumQualityBaseValue baseValues)
         {
             IList<decimal> convertedData = new List<decimal>();
             foreach (var item in dataDictionary)

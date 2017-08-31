@@ -48,6 +48,7 @@
     <Compile Include="Metal\MetalSampleGridModel.cs" />
     <Compile Include="Metal\MetalSampleModel.cs" />
     <Compile Include="Metal\MetalSampleQualityModel.cs" />
+    <Compile Include="Metal\MetalSampleQualityRateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\PieChartModel.cs" />
   </ItemGroup>

@@ -18,6 +18,7 @@ namespace NitinolProject.Entities
         {
             this.MetalQualityBaseValues = new HashSet<MetalQualityBaseValue>();
             this.MetalSamples = new HashSet<MetalSample>();
+            this.MetalCoefficientWeightings = new HashSet<MetalCoefficientWeighting>();
         }
     
         public int MetalId { get; set; }
@@ -25,5 +26,6 @@ namespace NitinolProject.Entities
     
         public virtual ICollection<MetalQualityBaseValue> MetalQualityBaseValues { get; set; }
         public virtual ICollection<MetalSample> MetalSamples { get; set; }
+        public virtual ICollection<MetalCoefficientWeighting> MetalCoefficientWeightings { get; set; }
     }
 }

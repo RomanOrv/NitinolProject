@@ -33,5 +33,6 @@ namespace NitinolProject.Entities
         public DbSet<NicelideTitanumSample> NicelideTitanumSamples { get; set; }
         public DbSet<NickelideTitaniumAlloy> NickelideTitaniumAlloys { get; set; }
         public DbSet<NicelideTitanumCoefficientWeighting> NicelideTitanumCoefficientWeightings { get; set; }
+        public DbSet<MetalCoefficientWeighting> MetalCoefficientWeightings { get; set; }
     }
 }

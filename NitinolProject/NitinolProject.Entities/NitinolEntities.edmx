@@ -19,6 +19,18 @@
           <Property Name="MetalId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="MetalCoefficientWeighting">
+          <Key>
+            <PropertyRef Name="MetalCoeficientWeightingId" />
+          </Key>
+          <Property Name="MetalCoeficientWeightingId" Type="int" Nullable="false" />
+          <Property Name="MetalId" Type="int" Nullable="false" />
+          <Property Name="LoadingSpeed" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="LateralShearRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="LongitudinalShearRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="ShearStrainRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="SpallStrength" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="MetalQualityBaseValues">
           <Key>
             <PropertyRef Name="MetalQualityBaseValuesId" />
@@ -94,6 +106,18 @@ warning 6002: The table/view 'assessment_quality_materials.dbo.NicelideTitanumCo
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_MetalCoefficientWeighting_Metal">
+          <End Role="Metal" Type="Self.Metal" Multiplicity="1" />
+          <End Role="MetalCoefficientWeighting" Type="Self.MetalCoefficientWeighting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metal">
+              <PropertyRef Name="MetalId" />
+            </Principal>
+            <Dependent Role="MetalCoefficientWeighting">
+              <PropertyRef Name="MetalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MetalQualityBaseValues_Metal">
           <End Role="Metal" Type="Self.Metal" Multiplicity="1" />
           <End Role="MetalQualityBaseValues" Type="Self.MetalQualityBaseValues" Multiplicity="*" />
@@ -145,6 +169,7 @@ warning 6002: The table/view 'assessment_quality_materials.dbo.NicelideTitanumCo
         <EntityContainer Name="assessment_quality_materialsModelStoreContainer">
           <EntitySet Name="CrystalLattice" EntityType="Self.CrystalLattice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Metal" EntityType="Self.Metal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MetalCoefficientWeighting" EntityType="Self.MetalCoefficientWeighting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MetalQualityBaseValues" EntityType="Self.MetalQualityBaseValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MetalSample" EntityType="Self.MetalSample" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NicelideTitanumQualityBaseValues" EntityType="Self.NicelideTitanumQualityBaseValues" Schema="dbo" store:Type="Tables" />
@@ -159,6 +184,10 @@ warning 6002: The table/view 'assessment_quality_materials.dbo.NicelideTitanumCo
 [NicelideTitanumCoefficientWeighting].[SpallStrength] AS [SpallStrength]
 FROM [dbo].[NicelideTitanumCoefficientWeighting] AS [NicelideTitanumCoefficientWeighting]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_MetalCoefficientWeighting_Metal" Association="Self.FK_MetalCoefficientWeighting_Metal">
+            <End Role="Metal" EntitySet="Metal" />
+            <End Role="MetalCoefficientWeighting" EntitySet="MetalCoefficientWeighting" />
+          </AssociationSet>
           <AssociationSet Name="FK_MetalQualityBaseValues_Metal" Association="Self.FK_MetalQualityBaseValues_Metal">
             <End Role="Metal" EntitySet="Metal" />
             <End Role="MetalQualityBaseValues" EntitySet="MetalQualityBaseValues" />
@@ -196,6 +225,7 @@ FROM [dbo].[NicelideTitanumCoefficientWeighting] AS [NicelideTitanumCoefficientW
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="MetalQualityBaseValues" Relationship="Self.FK_MetalQualityBaseValues_Metal" FromRole="Metal" ToRole="MetalQualityBaseValues" />
           <NavigationProperty Name="MetalSamples" Relationship="Self.FK_MetalSample_Metal" FromRole="Metal" ToRole="MetalSample" />
+          <NavigationProperty Name="MetalCoefficientWeightings" Relationship="assessment_quality_materialsModel.FK_MetalCoefficientWeighting_Metal" FromRole="Metal" ToRole="MetalCoefficientWeighting" />
         </EntityType>
         <EntityType Name="MetalQualityBaseValue">
           <Key>
@@ -334,6 +364,11 @@ FROM [dbo].[NicelideTitanumCoefficientWeighting] AS [NicelideTitanumCoefficientW
             <End Role="NicelideTitanumSample" EntitySet="NicelideTitanumSamples" />
           </AssociationSet>
           <EntitySet Name="NicelideTitanumCoefficientWeightings" EntityType="assessment_quality_materialsModel.NicelideTitanumCoefficientWeighting" />
+          <EntitySet Name="MetalCoefficientWeightings" EntityType="assessment_quality_materialsModel.MetalCoefficientWeighting" />
+          <AssociationSet Name="FK_MetalCoefficientWeighting_Metal" Association="assessment_quality_materialsModel.FK_MetalCoefficientWeighting_Metal">
+            <End Role="Metal" EntitySet="Metals" />
+            <End Role="MetalCoefficientWeighting" EntitySet="MetalCoefficientWeightings" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="NicelideTitanumCoefficientWeighting">
           <Key>
@@ -349,6 +384,31 @@ FROM [dbo].[NicelideTitanumCoefficientWeighting] AS [NicelideTitanumCoefficientW
           <Property Name="SpallSpeed" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
           <Property Name="SpallStrength" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
         </EntityType>
+        <EntityType Name="MetalCoefficientWeighting">
+          <Key>
+            <PropertyRef Name="MetalCoeficientWeightingId" />
+          </Key>
+          <Property Name="MetalCoeficientWeightingId" Type="Int32" Nullable="false" />
+          <Property Name="MetalId" Type="Int32" Nullable="false" />
+          <Property Name="LoadingSpeed" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="LateralShearRate" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="LongitudinalShearRate" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="ShearStrainRate" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <Property Name="SpallStrength" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+          <NavigationProperty Name="Metal" Relationship="assessment_quality_materialsModel.FK_MetalCoefficientWeighting_Metal" FromRole="MetalCoefficientWeighting" ToRole="Metal" />
+        </EntityType>
+        <Association Name="FK_MetalCoefficientWeighting_Metal">
+          <End Type="assessment_quality_materialsModel.Metal" Role="Metal" Multiplicity="1" />
+          <End Type="assessment_quality_materialsModel.MetalCoefficientWeighting" Role="MetalCoefficientWeighting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metal">
+              <PropertyRef Name="MetalId" />
+            </Principal>
+            <Dependent Role="MetalCoefficientWeighting">
+              <PropertyRef Name="MetalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -443,6 +503,19 @@ FROM [dbo].[NicelideTitanumCoefficientWeighting] AS [NicelideTitanumCoefficientW
                 <ScalarProperty Name="HammerSpeed" ColumnName="HammerSpeed" />
                 <ScalarProperty Name="HammerThickness" ColumnName="HammerThickness" />
                 <ScalarProperty Name="SampleThickness" ColumnName="SampleThickness" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MetalCoefficientWeightings">
+            <EntityTypeMapping TypeName="assessment_quality_materialsModel.MetalCoefficientWeighting">
+              <MappingFragment StoreEntitySet="MetalCoefficientWeighting">
+                <ScalarProperty Name="SpallStrength" ColumnName="SpallStrength" />
+                <ScalarProperty Name="ShearStrainRate" ColumnName="ShearStrainRate" />
+                <ScalarProperty Name="LongitudinalShearRate" ColumnName="LongitudinalShearRate" />
+                <ScalarProperty Name="LateralShearRate" ColumnName="LateralShearRate" />
+                <ScalarProperty Name="LoadingSpeed" ColumnName="LoadingSpeed" />
+                <ScalarProperty Name="MetalId" ColumnName="MetalId" />
+                <ScalarProperty Name="MetalCoeficientWeightingId" ColumnName="MetalCoeficientWeightingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

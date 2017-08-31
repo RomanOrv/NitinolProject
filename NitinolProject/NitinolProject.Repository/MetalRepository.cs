@@ -20,7 +20,25 @@ namespace NitinolProject.Repository
 
         public void AddMetalSample(MetalSampleModel model)
         {
-            throw new NotImplementedException();
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                var sample = new MetalSample
+                {
+                    Name = model.Name,
+                    SampleNumber = model.SampleNumber.Value,
+                    MetalId = model.MetalId.Value,
+                    CrystalLatticeId = model.CrystalLatticeId.Value,
+                    LateralShearRate = model.LateralShearRate.Value,
+                    LoadingSpeed = model.LoadingSpeed.Value,
+                    LongitudinalShearRate = model.LongitudinalShearRate.Value,
+                    ShearStrainRate = model.ShearStrainRate.Value,
+                    SpallStrength = model.SpallStrength.Value
+                };
+
+                var samples = context.CreateObjectSet<MetalSample>();
+                samples.AddObject(sample);
+                context.SaveChanges();
+            }
         }
 
         public IList<CrystalLattice> GetAllCrystalLattices()
@@ -28,6 +46,14 @@ namespace NitinolProject.Repository
             using (ObjectContext context = new ObjectContext(_connectionString))
             {
                 return context.CreateObjectSet<CrystalLattice>().ToList();
+            }
+        }
+
+        public IList<MetalCoefficientWeighting> GetAllMetalCoefficientsWeighting()
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                return context.CreateObjectSet<MetalCoefficientWeighting>().ToList();
             }
         }
 

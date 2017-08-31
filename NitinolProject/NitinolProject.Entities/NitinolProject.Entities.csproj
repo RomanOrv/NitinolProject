@@ -53,6 +53,9 @@
     <Compile Include="Metal.cs">
       <DependentUpon>NitinolEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="MetalCoefficientWeighting.cs">
+      <DependentUpon>NitinolEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="MetalQualityBaseValue.cs">
       <DependentUpon>NitinolEntities.tt</DependentUpon>
     </Compile>
