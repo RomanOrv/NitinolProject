@@ -39,7 +39,7 @@
       .HtmlAttributes(new { style = "margin-bottom: 15px;" })
       .DataSource(dataSource => dataSource
           .Ajax()
-          .PageSize(7)
+          .PageSize(5)
           .ServerOperation(true)
           .Read(read => read.Action("GetMetalSamples", "Metal"))
       ))

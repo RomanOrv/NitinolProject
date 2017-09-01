@@ -246,17 +246,5 @@ namespace NitinolProject.Web.Controllers
             return propertyList;
         }
 
-        private IList<decimal> ConvertCyclogramChartModel(Dictionary<string, decimal> dataDictionary, NicelideTitanumQualityBaseValue baseValues)
-        {
-            IList<decimal> convertedData = new List<decimal>();
-            foreach (var item in dataDictionary)
-            {
-                var property = baseValues.GetType().GetProperties().FirstOrDefault(x => x.Name == item.Key);
-                var baseValue = Convert.ToDecimal(property.GetValue(baseValues));
-                var result = Math.Round(item.Value / baseValue, 2);
-                convertedData.Add(result);
-            }
-            return convertedData;
-        }
     }
 }
