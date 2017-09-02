@@ -70,7 +70,7 @@ namespace NitinolProject.Web.Controllers
                 SpallStrength = x.SpallStrength,
                 HammerThickness = x.HammerThickness,
                 SpallSpeed = x.SpallSpeed
-            });
+            }).OrderBy(x => x.SampleNumber);
             return Json(models.ToDataSourceResult(request));
         }
 
@@ -97,7 +97,7 @@ namespace NitinolProject.Web.Controllers
                      item.SampleThickness) / 5, 2);
                 models.Add(item);
             }
-            return Json(models.ToDataSourceResult(request));
+            return Json(models.OrderBy(x => x.SampleNumber).ToDataSourceResult(request));
         }
 
         [HttpGet]
@@ -118,11 +118,13 @@ namespace NitinolProject.Web.Controllers
         {
             var alloySamples = this._alloyRepository.GetAllAlloySamples();
             var sample = alloySamples.First(x => x.NicelideTitanumSampleId == id);
-            //var baseValues = _alloyRepository.GetNicelideTitanumQualityBaseValue();
-            //var coeficientValues = _alloyRepository.GetNicelideTitanumCoefficientWeighting();
+            var baseValues = _alloyRepository.GetNicelideTitanumQualityBaseValue();
+            var coeficientValues = _alloyRepository.GetNicelideTitanumCoefficientWeighting();
 
-            //var propertyList = SetAlloySamplePropertyList(baseValues, sample, coeficientValues);
-            //var coeficientK = GetCoeficientK(coeficientValues, sample, baseValues);
+           // var propertyList = SetAlloySamplePropertyList(baseValues, sample, coeficientValues);
+            var coeficientK = GetCoeficientK(coeficientValues, sample, baseValues);
+
+            ViewBag.CoeficientK = coeficientK;
 
             return View(new NicelideTitanumSampleModel{NicelideTitanumSampleId = sample.NicelideTitanumSampleId, SampleNumber = sample.SampleNumber});
         }
@@ -156,9 +158,7 @@ namespace NitinolProject.Web.Controllers
             var alloySamples = this._alloyRepository.GetAllAlloySamples();
             var baseValues = _alloyRepository.GetNicelideTitanumQualityBaseValue();
             var sample = alloySamples.First(x => x.NicelideTitanumSampleId == sampleId);
-            var coeficientValues = _alloyRepository.GetNicelideTitanumCoefficientWeighting();
-            var coeficientK = GetCoeficientK(coeficientValues, sample, baseValues);
-            var labels = new string[] {"У(H)", "У(h)", "У(V)", "У(W)", "У(σ)", "Ук" };
+            var labels = new string[] {"У(H)", "У(h)", "У(V)", "У(W)", "У(σ)" };
             var data = new decimal[]
             {
                 Round(sample.SampleThickness / baseValues.SampleThickness, 2),
@@ -166,9 +166,9 @@ namespace NitinolProject.Web.Controllers
                 Round((decimal) sample.HammerSpeed / baseValues.HammerSpeed, 2),
                 Round((decimal) sample.SpallSpeed / baseValues.SpallSpeed, 2),
                 Round(sample.SpallStrength / baseValues.SpallStrength, 2),
-                coeficientK
             };
-            return Json(new PieChartModel {Labels = labels, Data = data}, JsonRequestBehavior.AllowGet);
+
+            return Json(new PieChartModel {Labels = labels, Data = data }, JsonRequestBehavior.AllowGet);
         }
 
         private IList<AlloySampleQualityRateModel> SetAlloySamplePropertyList(NicelideTitanumQualityBaseValue baseValues, NicelideTitanumSample sample,

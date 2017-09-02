@@ -65,7 +65,7 @@ namespace NitinolProject.Web.Controllers
                 LongitudinalShearRate = x.LongitudinalShearRate,
                 ShearStrainRate = x.ShearStrainRate,
                 LoadingSpeed = x.LoadingSpeed
-            });
+            }).OrderBy(x => x.SampleNumber);
             return Json(models.ToDataSourceResult(request));
         }
 
@@ -96,13 +96,19 @@ namespace NitinolProject.Web.Controllers
                     models.Add(item);
                 }
             }
-            return Json(models.ToDataSourceResult(request));
+            return Json(models.OrderBy(x => x.SampleNumber).ToDataSourceResult(request));
         }
 
         public ActionResult MetalSampleDetails(int id)
         {
             var metalSamples = this._metalRepository.GetAllMetalSamples();
             var sample = metalSamples.First(x => x.MetalSampleId == id);
+            var baseValues = _metalRepository.GetMetalQualityBaseValues();
+            var coeficientValues = _metalRepository.GetAllMetalCoefficientsWeighting()
+                .FirstOrDefault(x => x.MetalId == sample.MetalId);
+            var baseMetalValues = baseValues.First(x => x.MetalId == sample.MetalId);
+            var coeficientK = GetCoeficientK(coeficientValues, sample, baseMetalValues);
+            ViewBag.CoeficientK = coeficientK;
             return View(new MetalSampleModel { MetalSampleId = sample.MetalSampleId, SampleNumber = sample.SampleNumber });
         }
 
@@ -128,11 +134,8 @@ namespace NitinolProject.Web.Controllers
             var baseValues = _metalRepository.GetMetalQualityBaseValues();
             var sample = metalSamples.First(x => x.MetalSampleId == sampleId);
 
-            var coeficientValues = _metalRepository.GetAllMetalCoefficientsWeighting()
-                .FirstOrDefault(x => x.MetalId == sample.MetalId);
             var baseMetalValues = baseValues.First(x => x.MetalId == sample.MetalId);
-            var coeficientK = GetCoeficientK(coeficientValues, sample, baseMetalValues);
-            var labels = new string[] { "У(V)", "У(Vt)", "У(Vl)", "У(γ)", "У(σ)", "Ук" };
+            var labels = new string[] { "У(V)", "У(Vt)", "У(Vl)", "У(γ)", "У(σ)" };
             var data = new decimal[]
             {
                 Round((decimal) sample.LoadingSpeed / baseMetalValues.LoadingSpeed, 2),
@@ -140,7 +143,6 @@ namespace NitinolProject.Web.Controllers
                 Round((decimal)sample.LongitudinalShearRate / baseMetalValues.LongitudinalShearRate, 2),
                 Round((decimal) sample.ShearStrainRate / baseMetalValues.ShearStrainRate, 2),
                 Round(sample.SpallStrength / baseMetalValues.SpallStrength, 2),
-                coeficientK
             };
             return Json(new PieChartModel { Labels = labels, Data = data }, JsonRequestBehavior.AllowGet);
         }

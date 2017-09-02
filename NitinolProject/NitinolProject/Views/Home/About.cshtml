@@ -133,11 +133,12 @@
           ))
     <h4 id="qualityResult" style="display: none;"></h4>
 </div>
-<div id="example">
-    <div class="k-content wide">
-        <div id="chart"></div>
-    </div>
-    <script>
+<div class="col-lg-12">
+    <div id="example">
+        <div class="k-content wide">
+            <div id="chart"></div>
+        </div>
+        <script>
         $(function() {
             var chartsData =
                 @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.ChartsData));
@@ -145,7 +146,9 @@
             function createChart() {
                 $("#chart").kendoChart({
                     title: {
-                        text: "Циклограма якості нітинолу"
+                        text: "Циклограма якості нітинолу",
+                        color: "#333333",
+                        font: "20px sans-serif, bold"
                     },
                     legend: {
                         position: "right"
@@ -171,7 +174,7 @@
                     }
                 });
 
-                $("#chart").css("width", "900px").css("height", "750px").data("kendoChart").resize();
+                $("#chart").css("width", "1200px").css("height", "800px").data("kendoChart").resize();
             }
 
             $(document).ready(createChart);
@@ -193,5 +196,6 @@
           $('#qualityResult').text(text);
           $('#qualityResult').show();
         }
-    </script>
+        </script>
+    </div>
 </div>

@@ -29,7 +29,7 @@
           .Read(read => read.Action("GetAlloySampleProperties", "Home", new { sampleId = Model.NicelideTitanumSampleId }))
       ))
 
-
+    <h4> Круговий коефіцієнт Ук = @ViewBag.CoeficientK</h4>
     
 </div>
 <div class="row">
@@ -51,7 +51,6 @@
 </div>
 <div class="row">
     <a href="/home/about" class="btn btn-primary">Повернутися до списку сплавів</a>
-    @*@Html.ActionLink("Повернутися до списку сплавів", "About", "Home", new {@class = "btn btn-primary"})*@
 </div>
 
 <script>
@@ -84,7 +83,34 @@
                             //"#25ba00"
                         ]
                     }]
-            }           
+            },
+            options: {
+                //responsive: true,
+                //legend: {
+                //    position: 'bottom',
+                //},
+                //title: {
+                //    display: false,
+                //    text: 'Chart.js Doughnut Chart'
+                //},
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                                return previousValue + currentValue;
+                            });
+                            var currentValue = dataset.data[tooltipItem.index];
+                            var precentage = Math.floor(((currentValue/total) * 100)+0.5);         
+                            return precentage + "%";
+                        }
+                    }
+                }
+            }
         });
     });
 </script>
