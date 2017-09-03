@@ -1,0 +1,54 @@
+﻿@using Kendo.Mvc.UI
+@using NitinolProject.Web.Models.Metal
+
+@{
+    ViewBag.Title = "MetalTypes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align: center;">Типи металів</h2>
+
+<style>
+    .k-grid .k-grid-header .k-header .k-link {
+        height: auto;
+    }
+
+    .k-grid .k-grid-header .k-header {
+        white-space: normal;
+    }
+</style>
+
+<div class="panel-body">
+    @(Html.Kendo().Grid<MetalTypeModel>()
+          .Name("MetalTypes")
+          .Columns(columns =>
+          {
+              columns.Bound(p => p.MetalName).Title("Метал").Width(80);
+              columns.Bound(p => p.LoadingSpeed).Title("Базова швидкість навантаження V, м/с");
+              columns.Bound(p => p.LateralShearRate).Title("Базова поперечна швидкість зсуву Vt, м/с");
+              columns.Bound(p => p.LongitudinalShearRate).Title("Базова поздовжня швидкість зсуву Vl, м/с");
+              columns.Bound(p => p.ShearStrainRate).Title("Базова швидкість деформації зсуву γ, 10^(-6) * c^(-1)");
+              columns.Bound(p => p.SpallStrength).Title("Базова міцність відколу σ, ГПа");
+              columns.Bound(p => p.LoadingSpeedC).Title("Коефіцієнт швидкості навантаження");
+              columns.Bound(p => p.LateralShearRateC).Title("Коефіцієнт поперечної швидкості зсуву");
+              columns.Bound(p => p.LongitudinalShearRateC).Title("Коефіцієнт поздовжньої швидкості зсуву");
+              columns.Bound(p => p.ShearStrainRateC).Title("Коефіцієнт швидкості деформації зсуву");
+              columns.Bound(p => p.SpallStrengthC).Title("Коефіцієнт міцності відколу");
+              columns.Bound(p => p.MetalTypeId).Hidden(true);
+              columns.Template(e => { }).Title("Дія").ClientTemplate(
+                  "<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetaltype?id=#: data.MetalTypeId #'><i class='fa fa-edit color-green'></i></a>" +
+                  "<button title='Видалити' style='margin-right: 2px;' type='button' class='btn btn-danger btn-xs' onclick='removeType(#:data.MetalTypeId#)' ><i class='fa fa-trash color-red'></i></button>")
+                  .Width(70);
+          })
+          .Pageable()
+          .HtmlAttributes(new { style = "margin-bottom: 15px;" })
+          .DataSource(dataSource => dataSource            
+              .Ajax()
+              .PageSize(5)
+              .ServerOperation(true)
+              .Read(read => read.Action("GetMetalTypes", "Metal"))
+          ))
+
+
+    <a href="/metal/addmetaltype" class="btn btn-primary">Додати тип</a>
+</div>

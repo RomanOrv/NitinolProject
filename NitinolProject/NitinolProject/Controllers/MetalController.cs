@@ -283,5 +283,89 @@ namespace NitinolProject.Web.Controllers
             return propertyList;
         }
 
+        public ActionResult MetalTypes()
+        {
+            return View();
+        }
+
+        public ActionResult GetMetalTypes([DataSourceRequest] DataSourceRequest request)
+        {
+            var baseValues = _metalRepository.GetMetalQualityBaseValues();
+            var coeficientValues = _metalRepository.GetAllMetalCoefficientsWeighting();
+            var metalTypes = _metalRepository.GetAllMetalTypes();
+            var models = new List<MetalTypeModel>();
+            foreach (var type in metalTypes)
+            {
+                var metalQualityBaseValue = type.MetalQualityBaseValues.FirstOrDefault();
+                var metalCoefficientWeighting = type.MetalCoefficientWeightings.FirstOrDefault();
+                var model = new MetalTypeModel
+                {
+                    MetalTypeId = type.MetalId,
+                    MetalName = type.Name,
+                    ShearStrainRate = metalQualityBaseValue.ShearStrainRate,
+                    LoadingSpeed = metalQualityBaseValue.LoadingSpeed,
+                    LateralShearRate = metalQualityBaseValue.LateralShearRate,
+                    LongitudinalShearRate = metalQualityBaseValue.LongitudinalShearRate,
+                    SpallStrength = metalQualityBaseValue.SpallStrength,
+                    LateralShearRateC = metalCoefficientWeighting.LateralShearRate,
+                    LoadingSpeedC = metalCoefficientWeighting.LoadingSpeed,
+                    LongitudinalShearRateC = metalCoefficientWeighting.LongitudinalShearRate,
+                    SpallStrengthC = metalCoefficientWeighting.SpallStrength,
+                    ShearStrainRateC = metalCoefficientWeighting.SpallStrength
+                };
+                models.Add(model);
+            }
+
+            return Json(models.ToDataSourceResult(request));
+        }
+
+        [HttpGet]
+        public ActionResult AddMetalType()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddMetalType(MetalTypeModel model)
+        {
+            _metalRepository.AddMetalType(model);
+            return RedirectToAction("MetalTypes");
+        }
+
+        [HttpGet]
+        public ActionResult EditMetalType(int id)
+        {
+            var type = _metalRepository.GetMetalType(id);
+            var metalQualityBaseValue = type.MetalQualityBaseValues.FirstOrDefault();
+            var metalCoefficientWeighting = type.MetalCoefficientWeightings.FirstOrDefault();
+            var model = new MetalTypeModel
+            {
+                MetalTypeId = type.MetalId,
+                MetalName = type.Name,
+                ShearStrainRate = metalQualityBaseValue.ShearStrainRate,
+                LoadingSpeed = metalQualityBaseValue.LoadingSpeed,
+                LateralShearRate = metalQualityBaseValue.LateralShearRate,
+                LongitudinalShearRate = metalQualityBaseValue.LongitudinalShearRate,
+                SpallStrength = metalQualityBaseValue.SpallStrength,
+                LateralShearRateC = metalCoefficientWeighting.LateralShearRate,
+                LoadingSpeedC = metalCoefficientWeighting.LoadingSpeed,
+                LongitudinalShearRateC = metalCoefficientWeighting.LongitudinalShearRate,
+                SpallStrengthC = metalCoefficientWeighting.SpallStrength,
+                ShearStrainRateC = metalCoefficientWeighting.SpallStrength
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditMetalType(MetalTypeModel model)
+        {
+            _metalRepository.EditMetalType(model);
+            return RedirectToAction("MetalTypes");
+        }
+
+
+
+
     }
 }

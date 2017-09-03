@@ -106,7 +106,8 @@
                                 return previousValue + currentValue;
                             });
                             var currentValue = dataset.data[tooltipItem.index];
-                            var precentage = Math.floor(((currentValue/total) * 100)+0.5);         
+                            var precentage = Math.floor(((currentValue/total) * 100)+0.5);  
+                            //var precentage = (currentValue / total * 100).toFixed(4);                             
                             return precentage + "%";
                         }
                     }

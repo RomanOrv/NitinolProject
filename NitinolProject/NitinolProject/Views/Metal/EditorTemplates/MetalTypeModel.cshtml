@@ -1,0 +1,91 @@
+﻿@model NitinolProject.Web.Models.Metal.MetalTypeModel
+    
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@Html.HiddenFor(model => model.MetalTypeId)
+<div class="form-group">
+    @Html.LabelFor(model => model.MetalName, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.MetalName, new { type = "text", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.MetalName, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LoadingSpeed, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.LoadingSpeed, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.LoadingSpeed, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LongitudinalShearRate, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.LongitudinalShearRate, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.LongitudinalShearRate, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LateralShearRate, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.LateralShearRate, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.LateralShearRate, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ShearStrainRate, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.ShearStrainRate, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ShearStrainRate, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.SpallStrength, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.SpallStrength, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.SpallStrength, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LoadingSpeedC, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.LoadingSpeedC, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.LoadingSpeedC, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LongitudinalShearRateC, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.LongitudinalShearRateC, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.LongitudinalShearRateC, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.LateralShearRateC, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.LateralShearRateC, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.LateralShearRateC, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ShearStrainRateC, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.ShearStrainRateC, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ShearStrainRateC, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.SpallStrengthC, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.EditorFor(model => model.SpallStrengthC, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.SpallStrengthC, "", new { @class = "text-danger" })
+    </div>
+</div>

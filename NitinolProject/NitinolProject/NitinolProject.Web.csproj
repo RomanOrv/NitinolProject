@@ -1912,6 +1912,10 @@
     <Content Include="Views\Shared\Partials\_ProgressBar.cshtml" />
     <Content Include="Views\Metal\EditMetalSample.cshtml" />
     <Content Include="Views\Metal\EditorTemplates\MetalSampleModel.cshtml" />
+    <Content Include="Views\Metal\MetalTypes.cshtml" />
+    <Content Include="Views\Metal\AddMetalType.cshtml" />
+    <Content Include="Views\Metal\EditMetalType.cshtml" />
+    <Content Include="Views\Metal\EditorTemplates\MetalTypeModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

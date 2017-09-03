@@ -16,14 +16,14 @@
           <Key>
             <PropertyRef Name="MetalId" />
           </Key>
-          <Property Name="MetalId" Type="int" Nullable="false" />
+          <Property Name="MetalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="MetalCoefficientWeighting">
           <Key>
             <PropertyRef Name="MetalCoeficientWeightingId" />
           </Key>
-          <Property Name="MetalCoeficientWeightingId" Type="int" Nullable="false" />
+          <Property Name="MetalCoeficientWeightingId" Type="int"  StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MetalId" Type="int" Nullable="false" />
           <Property Name="LoadingSpeed" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="LateralShearRate" Type="decimal" Precision="5" Scale="2" Nullable="false" />
@@ -35,7 +35,7 @@
           <Key>
             <PropertyRef Name="MetalQualityBaseValuesId" />
           </Key>
-          <Property Name="MetalQualityBaseValuesId" Type="int" Nullable="false" />
+          <Property Name="MetalQualityBaseValuesId" Type="int"  StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MetalId" Type="int" Nullable="false" />
           <Property Name="LoadingSpeed" Type="int" Nullable="false" />
           <Property Name="LateralShearRate" Type="int" Nullable="false" />

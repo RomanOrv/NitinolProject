@@ -15,5 +15,9 @@ namespace NitinolProject.Repository.Interfaces
         IList<CrystalLattice> GetAllCrystalLattices();
         IList<MetalCoefficientWeighting> GetAllMetalCoefficientsWeighting();
         MetalSample GetMetalSample(int id);
+        void AddMetalType(MetalTypeModel model);
+        void EditMetalType(MetalTypeModel model);
+        void DeleteMetalType(int id);
+        Metal GetMetalType(int id);
     }
 }

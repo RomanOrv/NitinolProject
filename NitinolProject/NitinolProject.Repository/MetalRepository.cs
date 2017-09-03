@@ -41,12 +41,62 @@ namespace NitinolProject.Repository
             }
         }
 
+        public void AddMetalType(MetalTypeModel model)
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                var type = new Metal
+                {
+                    Name = model.MetalName
+                };
+                var types = context.CreateObjectSet<Metal>();
+                types.AddObject(type);
+
+                var baseValues = context.CreateObjectSet<MetalQualityBaseValue>();
+                var baseValue = new MetalQualityBaseValue
+                {
+                    MetalId = type.MetalId,
+                    LateralShearRate = model.LateralShearRate,
+                    LoadingSpeed = model.LoadingSpeed,
+                    LongitudinalShearRate = model.LongitudinalShearRate,
+                    ShearStrainRate = model.ShearStrainRate,
+                    SpallStrength = model.SpallStrength
+                };
+                baseValues.AddObject(baseValue);
+
+
+                var coeficients = context.CreateObjectSet<MetalCoefficientWeighting>();
+                var coeficient = new MetalCoefficientWeighting
+                {
+                    MetalId = type.MetalId,
+                    LateralShearRate = model.LateralShearRateC,
+                    LoadingSpeed = model.LoadingSpeedC,
+                    LongitudinalShearRate = model.LongitudinalShearRateC,
+                    ShearStrainRate = model.ShearStrainRateC,
+                    SpallStrength = model.SpallStrengthC
+                };
+                coeficients.AddObject(coeficient);
+
+                context.SaveChanges();
+            }
+        }
+
         public void DeleteMetalSample(int id)
         {
             using (ObjectContext context = new ObjectContext(_connectionString))
             {
                 var sample = context.CreateObjectSet<MetalSample>().First(x => x.MetalSampleId == id);
                 context.DeleteObject(sample);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteMetalType(int id)
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                var type = context.CreateObjectSet<Metal>().First(x => x.MetalId == id);
+                context.DeleteObject(type);
                 context.SaveChanges();
             }
         }
@@ -65,6 +115,34 @@ namespace NitinolProject.Repository
                 sample.LongitudinalShearRate = model.LongitudinalShearRate.Value;
                 sample.ShearStrainRate = model.ShearStrainRate.Value;
                 sample.SpallStrength = model.SpallStrength.Value;
+                context.SaveChanges();
+            }
+        }
+
+        public void EditMetalType(MetalTypeModel model)
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                var type = context.CreateObjectSet<Metal>().FirstOrDefault(x => x.MetalId == model.MetalTypeId);
+                type.Name = model.MetalName;
+
+                var baseValue = context.CreateObjectSet<MetalQualityBaseValue>().FirstOrDefault(x => x.MetalId == model.MetalTypeId);
+                baseValue.LateralShearRate = model.LateralShearRate;
+                baseValue.LoadingSpeed = model.LoadingSpeed;
+                baseValue.LongitudinalShearRate = model.LongitudinalShearRate;
+                baseValue.ShearStrainRate = model.ShearStrainRate;
+                baseValue.SpallStrength = model.SpallStrength;
+
+
+
+                var coeficient = context.CreateObjectSet<MetalCoefficientWeighting>().FirstOrDefault(x => x.MetalId == model.MetalTypeId);
+
+                coeficient.LateralShearRate = model.LateralShearRateC;
+                coeficient.LoadingSpeed = model.LoadingSpeedC;
+                coeficient.LongitudinalShearRate = model.LongitudinalShearRateC;
+                coeficient.ShearStrainRate = model.ShearStrainRateC;
+                coeficient.SpallStrength = model.SpallStrengthC;
+
                 context.SaveChanges();
             }
         }
@@ -97,7 +175,7 @@ namespace NitinolProject.Repository
         {
             using (ObjectContext context = new ObjectContext(_connectionString))
             {
-                return context.CreateObjectSet<Metal>().ToList();
+                return context.CreateObjectSet<Metal>().Include("MetalQualityBaseValues").Include("MetalCoefficientWeightings").ToList();
             }
         }
 
@@ -114,6 +192,14 @@ namespace NitinolProject.Repository
             using (ObjectContext context = new ObjectContext(_connectionString))
             {
                 return context.CreateObjectSet<MetalSample>().Include("Metal").Include("CrystalLattice").First(x => x.MetalSampleId == id);
+            }
+        }
+
+        public Metal GetMetalType(int id)
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                return context.CreateObjectSet<Metal>().Include("MetalQualityBaseValues").Include("MetalCoefficientWeightings").First(x => x.MetalId == id);
             }
         }
     }

@@ -1,0 +1,29 @@
+﻿@model NitinolProject.Web.Models.Metal.MetalTypeModel
+
+@{
+    ViewBag.Title = "AddMetalType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Додати тип металу</h2>
+
+@using (Html.BeginForm("AddMetalType", "Metal", FormMethod.Post, new { id = "add_metaltype_form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        @Html.EditorFor(model => model)
+    
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-7">
+                <input type="submit" value="Створити" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/metal/metaltypes" class="btn btn-primary">Повернутися до списку типів металів</a>
+</div>
