@@ -9,8 +9,9 @@
         text-align: left !important;
     }
 </style>
+@Scripts.Render("~/bundles/jqueryval")
 
-<h2>Додання зразку металу</h2>
+<h2>Редагування зразку металу</h2>
 
 @using (Html.BeginForm("EditMetalSample", "Metal", FormMethod.Post, new { id = "add_metal_form", enctype = "multipart/form-data" }))
 {

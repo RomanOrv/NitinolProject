@@ -100,6 +100,14 @@ namespace NitinolProject.Web.Controllers
         [HttpGet]
         public ActionResult AddAlloySample()
         {
+            var alloySamples = this._alloyRepository.GetAllAlloySamples();
+            ViewBag.MaxSampleNumber = alloySamples.Select(x => x.SampleNumber).Max();
+            var baseValues = _alloyRepository.GetNicelideTitanumQualityBaseValue();
+            ViewBag.MaxSampleThickness = baseValues.SampleThickness;
+            ViewBag.MaxSpallStrength = baseValues.SpallStrength;
+            ViewBag.MaxHammerSpeed = baseValues.HammerSpeed;
+            ViewBag.MaxHammerThickness = baseValues.HammerThickness;
+            ViewBag.MaxSpallSpeed = baseValues.SpallSpeed;
             return View(new NicelideTitanumSampleModel());
         }
 
@@ -125,6 +133,14 @@ namespace NitinolProject.Web.Controllers
                 HammerThickness = sample.HammerThickness,
                 SpallSpeed = sample.SpallSpeed
             };
+            var alloySamples = this._alloyRepository.GetAllAlloySamples();
+            ViewBag.MaxSampleNumber = alloySamples.Select(x => x.SampleNumber).Max();
+            var baseValues = _alloyRepository.GetNicelideTitanumQualityBaseValue();
+            ViewBag.MaxSampleThickness = baseValues.SampleThickness;
+            ViewBag.MaxSpallStrength = baseValues.SpallStrength;
+            ViewBag.MaxHammerSpeed = baseValues.HammerSpeed;
+            ViewBag.MaxHammerThickness = baseValues.HammerThickness;
+            ViewBag.MaxSpallSpeed = baseValues.SpallSpeed;
             return View(model);
         }
 

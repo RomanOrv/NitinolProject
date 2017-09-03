@@ -85,15 +85,15 @@
           .Name("Samples")
           .Columns(columns =>
           {
-              columns.Bound(p => p.SampleNumber).Title("Номер зразку").Width(110);
-              columns.Bound(p => p.NickelideTitaniumAlloyName).Title("Назва сплаву").Width(120);
-              columns.Bound(p => p.SampleThickness).Title("Товщина зразку H, мм");
-              columns.Bound(p => p.HammerThickness).Title("Товщина ударника h, мм");
-              columns.Bound(p => p.HammerSpeed).Title("Швидкість ударника V, м/c");
-              columns.Bound(p => p.SpallSpeed).Title("Швидкість відколу W, м/с");
-              columns.Bound(p => p.SpallStrength).Title("Міцність відколу σ, ГПа");
+              columns.Bound(p => p.SampleNumber).Title("<span class='row'>Номер зразку</span>").Width(110);
+              columns.Bound(p => p.NickelideTitaniumAlloyName).Title("<span class='row'>Назва сплаву</span>").Width(120);
+              columns.Bound(p => p.SampleThickness).Title("Товщина зразку <br/>H, мм");
+              columns.Bound(p => p.HammerThickness).Title("Товщина ударника <br />h, мм");
+              columns.Bound(p => p.HammerSpeed).Title("Швидкість ударника <br />V, м/c");
+              columns.Bound(p => p.SpallSpeed).Title("Швидкість відколу <br />W, м/с");
+              columns.Bound(p => p.SpallStrength).Title("Міцність відколу <br />σ, ГПа");
               columns.Bound(p => p.NicelideTitanumSampleId).Hidden(true);
-              columns.Template(e => { }).Title("Дія").ClientTemplate(
+              columns.Template(e => { }).Title("<span class='row'>Дія</span>").ClientTemplate(
                   "#if(data.NicelideTitanumSampleId > 6 ){#<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/home/editalloysample?id=#: data.NicelideTitanumSampleId #'><i class='fa fa-edit color-green'></i></a>" +
                   "<button title='Видалити' style='margin-right: 2px;' type='button' class='btn btn-danger btn-xs' onclick='removeSample(#:data.NicelideTitanumSampleId#)' ><i class='fa fa-trash color-red'></i></button>#}#")
                   .Width(105);

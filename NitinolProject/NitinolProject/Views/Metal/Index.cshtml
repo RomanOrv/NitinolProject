@@ -30,16 +30,16 @@
       .Name("Samples")
       .Columns(columns =>
       {
-          columns.Bound(p => p.SampleNumber).Title("Номер зразку").Width(110);
-          columns.Bound(p => p.Name).Title("Назва металу").Width(120);
-          columns.Bound(p => p.CrystalLatticeName).Title("Решітка").Width(80);
-          columns.Bound(p => p.LoadingSpeed).Title("Швидкість навантаження V, м/с");
-          columns.Bound(p => p.LateralShearRate).Title("Поперечна швидкість зсуву Vt, м/с");
-          columns.Bound(p => p.LongitudinalShearRate).Title("Поздовжня швидкість зсуву Vl, м/с");
-          columns.Bound(p => p.ShearStrainRate).Title("Швидкість деформації зсуву γ, 10^(-6) c^(-1)");
-          columns.Bound(p => p.SpallStrength).Title("Міцність відколу σ, МПа");
+          columns.Bound(p => p.SampleNumber).Title("<span class='row'>Номер зразку</span>").Width(110);
+          columns.Bound(p => p.Name).Title("<span class='row'>Назва металу </span>").Width(120);
+          columns.Bound(p => p.CrystalLatticeName).Title("<span class='row'>Решітка </span>").Width(80);
+          columns.Bound(p => p.LoadingSpeed).Title("Швидкість навантаження <br/>V, м/с");
+          columns.Bound(p => p.LateralShearRate).Title("Поперечна швидкість зсуву <br/>Vt, м/с");
+          columns.Bound(p => p.LongitudinalShearRate).Title("Поздовжня швидкість зсуву <br/>VL, м/с");
+          columns.Bound(p => p.ShearStrainRate).Title("Швидкість деформації зсуву <br/>γ, 10<sup>-6</sup> c<sup>-1</sup>");
+          columns.Bound(p => p.SpallStrength).Title("Міцність відколу <br/>σ, МПа");
           columns.Bound(p => p.MetalSampleId).Hidden(true);
-          columns.Template(e => { }).Title("Дія").ClientTemplate(
+          columns.Template(e => { }).Title("<span class='row'>Дія</span>").ClientTemplate(
               "#if(data.MetalSampleId > 7 ){#<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetalsample?id=#: data.MetalSampleId #'><i class='fa fa-edit color-green'></i></a>" +
               "<button title='Видалити' style='margin-right: 2px;' type='button' class='btn btn-danger btn-xs' onclick='removeSample(#:data.MetalSampleId#)' ><i class='fa fa-trash color-red'></i></button>#}#")
               .Width(105);

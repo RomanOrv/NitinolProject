@@ -8,72 +8,177 @@
 <div class="form-group">
     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", data_error = "#diverr1" } })
+        <div class="col-md-12">
+            <span id="diverr1" class="text-danger"></span>
+        </div>
+        @*@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })*@
     </div>
 </div>
 
 <div class="form-group">
     @Html.LabelFor(model => model.SampleNumber, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.EditorFor(model => model.SampleNumber, new { type = "text", htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.SampleNumber, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.SampleNumber, new { type = "number", @class = "form-control", data_error = "#diverr2" })
+        @*@Html.EditorFor(model => model.SampleNumber, new { type = "number", htmlAttributes = new { @class = "form-control"} })*@
+        @*@Html.ValidationMessageFor(model => model.SampleNumber, "", new {@class = "text-danger"})*@
+        <div class="col-md-12">
+            <span id="diverr2" class = "text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
     @Html.LabelFor(model => model.MetalId, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.DropDownListFor(model => model.MetalId, (IEnumerable<SelectListItem>)ViewBag.MetalTypes, "", new { @class = "form-control", style = "padding: 6px 12px;" })
-        @Html.ValidationMessageFor(model => model.MetalId, "", new { @class = "text-danger" })
+        @Html.DropDownListFor(model => model.MetalId, (IEnumerable<SelectListItem>)ViewBag.MetalTypes, "", new { @class = "form-control",  data_error = "#diverr3" })
+        <div class="col-md-12">
+            <span id="diverr3" class = "text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
     @Html.LabelFor(model => model.CrystalLatticeId, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.DropDownListFor(model => model.CrystalLatticeId, (IEnumerable<SelectListItem>)ViewBag.CrystalLattices, "", new { @class = "form-control", style = "padding: 6px 12px;" })
-        @Html.ValidationMessageFor(model => model.CrystalLatticeId, "", new { @class = "text-danger" })
+        @Html.DropDownListFor(model => model.CrystalLatticeId, (IEnumerable<SelectListItem>)ViewBag.CrystalLattices, "", new { @class = "form-control", data_error = "#diverr4" })
+        <div class="col-md-12">
+            <span id="diverr4" class = "text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
     @Html.LabelFor(model => model.LoadingSpeed, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.TextBoxFor(model => model.LoadingSpeed, new { type = "number", @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.LoadingSpeed, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(model => model.LoadingSpeed, new { type = "number", @class = "form-control", data_error = "#diverr5" })
+        <div class="col-md-12">
+            <span id="diverr5" class = "text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
     @Html.LabelFor(model => model.LateralShearRate, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.EditorFor(model => model.LateralShearRate, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.LateralShearRate, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.LateralShearRate, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr6" } })
+        <div class="col-md-12">
+            <span id="diverr6" class = "text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
     @Html.LabelFor(model => model.LongitudinalShearRate, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.EditorFor(model => model.LongitudinalShearRate, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.LongitudinalShearRate, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.LongitudinalShearRate, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr7" } })
+        <div class="col-md-12">
+            <span id="diverr7" class = "text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(model => model.ShearStrainRate, htmlAttributes: new { @class = "control-label col-md-5" })
+    <label class="control-label col-md-5">Швидкість деформації зсуву, 10<sup>-6</sup> c<sup>-1</sup></label>
+    @*@Html.LabelFor(model => model.ShearStrainRate, htmlAttributes: new { @class = "control-label col-md-5" })*@
     <div class="col-md-7">
-        @Html.EditorFor(model => model.ShearStrainRate, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.ShearStrainRate, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.ShearStrainRate, new {type = "number", htmlAttributes = new {@class = "form-control", data_error = "#diverr8" } })
+        <div class="col-md-12">
+            <span id="diverr8" class = "text-danger"></span>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
     @Html.LabelFor(model => model.SpallStrength, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.EditorFor(model => model.SpallStrength, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.SpallStrength, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.SpallStrength, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr9" } })
+        <div class="col-md-12">
+            <span id="diverr9" class = "text-danger"></span>
+        </div>
     </div>
 </div>
+
+
+<script>
+    $("#add_metal_form").validate({
+        rules: {
+            Name: {
+                required: true
+            },
+            SampleNumber: {
+                required: true,
+                maxsamplenumber: true
+            },
+            MetalId: {
+                required: true
+            },
+            CrystalLatticeId: {
+                required: true
+            },
+            LoadingSpeed: {
+                required: true
+            },
+            LateralShearRate: {
+                required: true
+            },
+            LongitudinalShearRate: {
+                required: true
+            },
+            ShearStrainRate: {
+                required: true
+            },
+            SpallStrength: {
+                required: true
+            },
+        },
+        messages: {
+            Name: {
+                required: "Це поле обов'язкове",
+            },
+            SampleNumber: {
+                required: "Це поле обов'язкове",
+            },
+            MetalId: {
+                required: "Це поле обов'язкове",
+            },
+            CrystalLatticeId: {
+                required: "Це поле обов'язкове",
+            },
+            LoadingSpeed: {
+                required: "Це поле обов'язкове",
+            },
+            LateralShearRate: {
+                required: "Це поле обов'язкове",
+            },
+            LongitudinalShearRate: {
+                required: "Це поле обов'язкове",
+            },
+            ShearStrainRate: {
+                required: "Це поле обов'язкове",
+            },
+            SpallStrength: {
+                required: "Це поле обов'язкове",
+            },
+        },
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    $(function () {
+
+        $.validator.addMethod("maxsamplenumber",
+            function(value) {
+                if (value <= @ViewBag.MaxSampleNumber) {
+                    return false;
+                }
+                return true;
+            },
+            "Номер зразка мусить бути більше " + @ViewBag.MaxSampleNumber);
+</script>
 

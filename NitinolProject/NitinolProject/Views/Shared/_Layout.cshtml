@@ -17,15 +17,16 @@
         }
         body {
             background-color: lightgrey;
+            background-image: url('../../Content/images/ааа.jpg');
         }
     </style>
     @Scripts.Render("~/bundles/modernizr")
 
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/plugins/sweetalert/sweet-alert.min.js"></script>
     <script src="~/Scripts/libraries/pnotify/pnotify.js"></script>
     <script src="~/Scripts/libraries/kendo/2017.2.504/kendo.all.min.js"></script>
@@ -50,7 +51,7 @@
 
                     <li>@Html.ActionLink("Сплави", "Index", "Home")</li>
                     <li>@Html.ActionLink("Метали", "Index", "Metal")</li>
-                    <li>@Html.ActionLink("Типи Металів", "MetalTypes", "Metal")</li>
+                    <li>@Html.ActionLink("Базові значення металів", "MetalTypes", "Metal")</li>
                 </ul>
             </div>
         </div>

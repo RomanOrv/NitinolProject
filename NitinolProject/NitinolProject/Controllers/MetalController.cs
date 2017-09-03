@@ -118,6 +118,8 @@ namespace NitinolProject.Web.Controllers
         {
             ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select( x => new SelectListItem{Text = x.Name, Value = x.MetalId.ToString()});
             ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
+            var metalSamples = this._metalRepository.GetAllMetalSamples();
+            ViewBag.MaxSampleNumber = metalSamples.Select(x => x.SampleNumber).Max();
             return View(new MetalSampleModel());
         }
 
@@ -145,6 +147,8 @@ namespace NitinolProject.Web.Controllers
                 ShearStrainRate = sample.ShearStrainRate,
                 LoadingSpeed = sample.LoadingSpeed
             };
+            var metalSamples = this._metalRepository.GetAllMetalSamples();
+            ViewBag.MaxSampleNumber = metalSamples.Select(x => x.SampleNumber).Max();
             ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select(x => new SelectListItem { Text = x.Name, Value = x.MetalId.ToString() });
             ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
             return View(model);

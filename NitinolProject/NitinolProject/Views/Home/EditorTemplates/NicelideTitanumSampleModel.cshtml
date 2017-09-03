@@ -3,65 +3,198 @@
  @Html.AntiForgeryToken()
 @Html.HiddenFor(m => m.NicelideTitanumSampleId)
     
-<div class="form-horizontal">
-    <hr />
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
         @Html.LabelFor(model => model.NickelideTitaniumAlloyName, htmlAttributes: new { @class = "control-label col-md-5" })
         <div class="col-md-7">
-            @Html.EditorFor(model => model.NickelideTitaniumAlloyName, new {type="text", htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NickelideTitaniumAlloyName, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.NickelideTitaniumAlloyName, new {type="text", htmlAttributes = new { @class = "form-control", data_error = "#diverr1" } })
+            <div class="col-md-12">
+                <span id="diverr1" class="text-danger"></span>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.SampleNumber, htmlAttributes: new { type = "number", @class = "control-label col-md-5" })
         <div class="col-md-7">
-            @Html.EditorFor(model => model.SampleNumber, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SampleNumber, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.SampleNumber, new { htmlAttributes = new { @class = "form-control", data_error = "#diverr2" } })
+            <div class="col-md-12">
+                <span id="diverr2" class="text-danger"></span>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.SampleThickness, htmlAttributes: new { @class = "control-label col-md-5" })
         <div class="col-md-7">
-            @Html.EditorFor(model => model.SampleThickness, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SampleThickness, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.SampleThickness, new { htmlAttributes = new { type = "number", @class = "form-control", data_error = "#diverr3" } })
+            <div class="col-md-12">
+                <span id="diverr3" class="text-danger"></span>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.HammerThickness, htmlAttributes: new { @class = "control-label col-md-5" })
         <div class="col-md-7">
-            @Html.EditorFor(model => model.HammerThickness, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HammerThickness, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.HammerThickness, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr4" } })
+            <div class="col-md-12">
+                <span id="diverr4" class="text-danger"></span>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.HammerSpeed, htmlAttributes: new { @class = "control-label col-md-5" })
         <div class="col-md-7">
-            @Html.EditorFor(model => model.HammerSpeed, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HammerSpeed, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.HammerSpeed, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr5" } })
+            <div class="col-md-12">
+                <span id="diverr5" class="text-danger"></span>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.SpallSpeed, htmlAttributes: new { @class = "control-label col-md-5" })
         <div class="col-md-7">
-            @Html.EditorFor(model => model.SpallSpeed, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SpallSpeed, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.SpallSpeed, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr6" } })
+            <div class="col-md-12">
+                <span id="diverr6" class="text-danger"></span>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.SpallStrength, htmlAttributes: new { @class = "control-label col-md-5" })
         <div class="col-md-7">
-            @Html.EditorFor(model => model.SpallStrength, new { type = "number", htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.SpallStrength, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.SpallStrength, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr7" } })
+            <div class="col-md-12">
+                <span id="diverr7" class="text-danger"></span>
+            </div>
         </div>
     </div>
 
+<script>
+    $("#add_metal_form").validate({
+        rules: {
+            NickelideTitaniumAlloyName: {
+                required: true
+            },
+            SampleNumber: {
+                required: true,
+                maxsamplenumber: true
+            },
+            SampleThickness: {
+                required: true,
+                maxSampleThickness:true
+            },
+            HammerThickness: {
+                required: true,
+                maxHammerThickness:true
+            },
+            HammerSpeed: {
+                required: true,
+                maxHammerSpeed: true,
+            },
+            SpallSpeed: {
+                required: true,
+                maxSpallSpeed:true
+            },
+            SpallStrength: {
+                required: true,
+                maxSpallStrength:true
+            }
+        },
+        messages: {
+            NickelideTitaniumAlloyName: {
+                required: "Це поле обов'язкове",
+            },
+            SampleNumber: {
+                required: "Це поле обов'язкове",
+            },
+            SampleThickness: {
+                required: "Це поле обов'язкове",
+            },
+            HammerThickness: {
+                required: "Це поле обов'язкове",
+            },
+            HammerSpeed: {
+                required: "Це поле обов'язкове",
+            },
+            SpallSpeed: {
+                required: "Це поле обов'язкове",
+            },
+            SpallStrength: {
+                required: "Це поле обов'язкове",
+            },
+        },
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    $(function () {
 
-</div>
+
+
+
+        $.validator.addMethod("maxsamplenumber",
+            function(value) {
+                if (value <= @ViewBag.MaxSampleNumber) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути більше " + @ViewBag.MaxSampleNumber);
+
+        $.validator.addMethod("maxSampleThickness",
+            function (value) {
+                if (parseFloat(value) > @ViewBag.MaxSampleThickness) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxSampleThickness);
+        $.validator.addMethod("maxHammerThickness",
+            function(value) {
+                if (parseFloat(value) > @ViewBag.MaxHammerThickness) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxHammerThickness);
+        $.validator.addMethod("maxHammerSpeed",
+            function(value) {
+                if (parseFloat(value) > @ViewBag.MaxHammerSpeed) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxHammerSpeed);
+        $.validator.addMethod("maxSpallSpeed",
+            function(value) {
+                if (parseFloat(value) > @ViewBag.MaxSpallSpeed) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxSpallSpeed);
+        $.validator.addMethod("maxSpallStrength",
+            function(value) {
+                if (parseFloat(value) > @ViewBag.MaxSpallStrength) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxSpallStrength);
+
+    });
+</script>
+
+
