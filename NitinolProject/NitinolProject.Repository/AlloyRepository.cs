@@ -59,6 +59,16 @@ namespace NitinolProject.Repository
             }
         }
 
+        public NicelideTitanumSample GetAlloySample(int id)
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                return context.CreateObjectSet<NicelideTitanumSample>()
+                    .Include("NickelideTitaniumAlloy")
+                    .First(x => x.NicelideTitanumSampleId == id);
+            }
+        }
+
         public NicelideTitanumCoefficientWeighting GetNicelideTitanumCoefficientWeighting()
         {
             using (ObjectContext context = new ObjectContext(_connectionString))

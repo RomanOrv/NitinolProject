@@ -10,6 +10,6 @@ namespace NitinolProject.Repository.Interfaces
         NicelideTitanumQualityBaseValue GetNicelideTitanumQualityBaseValue();
         void AddAlloySample(NicelideTitanumSampleModel model);
         NicelideTitanumCoefficientWeighting GetNicelideTitanumCoefficientWeighting();
-
+        NicelideTitanumSample GetAlloySample(int id);
     }
 }

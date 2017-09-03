@@ -128,6 +128,18 @@ namespace NitinolProject.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult EditMetalSample(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditMetalSample(MetalSampleModel model)
+        {
+            return null;
+        }
+
         public ActionResult GetMetalPieChartData(int sampleId)
         {
             var metalSamples = this._metalRepository.GetAllMetalSamples();

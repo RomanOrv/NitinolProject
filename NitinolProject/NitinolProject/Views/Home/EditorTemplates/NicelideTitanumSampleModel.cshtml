@@ -1,0 +1,67 @@
+﻿@model NitinolProject.Web.Models.Alloy.NicelideTitanumSampleModel
+
+ @Html.AntiForgeryToken()
+@Html.HiddenFor(m => m.NicelideTitanumSampleId)
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NickelideTitaniumAlloyName, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.NickelideTitaniumAlloyName, new {type="text", htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NickelideTitaniumAlloyName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SampleNumber, htmlAttributes: new { type = "number", @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.SampleNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SampleNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SampleThickness, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.SampleThickness, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SampleThickness, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.HammerThickness, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.HammerThickness, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HammerThickness, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.HammerSpeed, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.HammerSpeed, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HammerSpeed, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SpallSpeed, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.SpallSpeed, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpallSpeed, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SpallStrength, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.SpallStrength, new { type = "number", htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpallStrength, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+</div>

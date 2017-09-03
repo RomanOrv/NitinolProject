@@ -26,6 +26,10 @@ namespace NitinolProject.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Font Awesome icons
+            bundles.Add(new StyleBundle("~/font-awesome/css")
+                .Include("~/fonts/font-awesome/css/font-awesome.min.css", new CssRewriteUrlTransform()));
         }
     }
 }

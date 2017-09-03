@@ -71,6 +71,9 @@
     h1 {
         text-align: center;
     }
+     td:last-child {
+        text-align: center;
+    }
 </style>
 
 
@@ -89,6 +92,11 @@
               columns.Bound(p => p.HammerSpeed).Title("Швидкість ударника V, м/c");
               columns.Bound(p => p.SpallSpeed).Title("Швидкість відколу W, м/с");
               columns.Bound(p => p.SpallStrength).Title("Міцність відколу σ, ГПа");
+              columns.Bound(p => p.NicelideTitanumSampleId).Hidden(true);
+              columns.Template(e => { }).Title("Дія").ClientTemplate(
+                  $"<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/home/editalloysample?id=#: data.NicelideTitanumSampleId #'><i class='fa fa-edit color-green'></i></a>" +
+                  $"<button title='Видалити' style='margin-right: 2px;' type='button' class='btn btn-danger btn-xs' onclick='removePartner(#:data.NicelideTitanumSampleId#)' ><i class='fa fa-trash color-red'></i></button>")
+                  .Width(105);
           })
           .Scrollable(a => a.Height(200))
           .Pageable()
@@ -117,8 +125,9 @@
               columns.Bound(p => p.SpallStrength).Title("У(σ)");
               columns.Bound(p => p.QualityRate).Title("Рівень якості Ук");
               columns.Bound(p => p.NicelideTitanumSampleId).Hidden(true);
-              columns.Template(e => { }).Title("").Width(80).ClientTemplate(
-                  "<a style='margin-right: 2px;' class='btn btn-info btn-sm' href='/home/alloysampledetails?id=#: data.NicelideTitanumSampleId #'>Деталі</a>");
+              columns.Template(e => { }).Title("Деталі").ClientTemplate($"<a href='/home/alloysampledetails?id=#: data.NicelideTitanumSampleId #' class='btn btn-primary btn-xs'><i class='fa fa-arrow-circle-o-right'></i>").Width(70);
+              //columns.Template(e => { }).Title("").Width(80).ClientTemplate(
+              //    "<a style='margin-right: 2px;' class='btn btn-info btn-sm' href='/home/alloysampledetails?id=#: data.NicelideTitanumSampleId #'>Деталі</a>");
               //"<button data-toggle='tooltip' data-placement='top' title='Delete' onclick='removeCarrierContact(#: data.CarrierContactId #)' type='button' class='btn btn-white btn-sm'><i class='fa fa-trash color-red'></i></button>");
           })
           .Scrollable(a => a.Height(250))
