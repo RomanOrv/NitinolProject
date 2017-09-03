@@ -12,14 +12,14 @@
 
 <h2>Додання зразку металу</h2>
 
-@using (Html.BeginForm("AddMetalSample", "Metal", FormMethod.Post, new { id = "add_metal_form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditMetalSample", "Metal", FormMethod.Post, new { id = "add_metal_form", enctype = "multipart/form-data" }))
 {
     <div class="form-horizontal">
         <hr />
         @Html.EditorFor(model => model)
         <div class="form-group">
             <div class="col-md-offset-5 col-md-7">
-                <input type="submit" value="Створити" class="btn btn-success" />
+                <input type="submit" value="Редагувати" class="btn btn-success" />
             </div>
         </div>
     </div>

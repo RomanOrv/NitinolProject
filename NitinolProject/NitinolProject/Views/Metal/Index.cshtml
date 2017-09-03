@@ -18,6 +18,10 @@
     h1 {
         text-align: center;
     }
+
+    td:last-child {
+        text-align: center;
+    }
 </style>
 
 <div class="panel-body">
@@ -34,6 +38,11 @@
           columns.Bound(p => p.LongitudinalShearRate).Title("Поздовжня швидкість зсуву Vl, м/с");
           columns.Bound(p => p.ShearStrainRate).Title("Швидкість деформації зсуву γ, 10^(-6) c^(-1)");
           columns.Bound(p => p.SpallStrength).Title("Міцність відколу σ, МПа");
+          columns.Bound(p => p.MetalSampleId).Hidden(true);
+          columns.Template(e => { }).Title("Дія").ClientTemplate(
+              "#if(data.MetalSampleId > 7 ){#<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetalsample?id=#: data.MetalSampleId #'><i class='fa fa-edit color-green'></i></a>" +
+              "<button title='Видалити' style='margin-right: 2px;' type='button' class='btn btn-danger btn-xs' onclick='removeSample(#:data.MetalSampleId#)' ><i class='fa fa-trash color-red'></i></button>#}#")
+              .Width(105);
       })
       .Scrollable(a => a.Height(200))
       .Pageable()
@@ -63,9 +72,7 @@
               columns.Bound(p => p.SpallStrength).Title("У(σ)");
               columns.Bound(p => p.QualityRate).Title("Рівень якості Ук");
               columns.Bound(p => p.MetalSampleId).Hidden(true);
-              columns.Template(e => { }).Title("").Width(80).ClientTemplate(
-                  "<a style='margin-right: 2px;' class='btn btn-info btn-sm' href='/metal/metalsampledetails?id=#: data.MetalSampleId #'>Деталі</a>");
-              //"<button data-toggle='tooltip' data-placement='top' title='Delete' onclick='removeCarrierContact(#: data.CarrierContactId #)' type='button' class='btn btn-white btn-sm'><i class='fa fa-trash color-red'></i></button>");
+              columns.Template(e => { }).Title("Деталі").ClientTemplate($"<a href='/metal/metalsampledetails?id=#: data.MetalSampleId #' class='btn btn-primary btn-xs'><i class='fa fa-arrow-circle-o-right'></i>").Width(70);
           })
           .Scrollable(a => a.Height(250))
           .Pageable()
@@ -145,6 +152,44 @@
             $('#qualityResult').text(text);
             $('#qualityResult').show();
             }
+
+
+        function removeSample(id) {
+            swal({
+                    title: 'Підтвердження',
+                    text: 'Ви справді хочете видалити зразок?',
+                    showCancelButton: true,
+                    confirmButtonColor: "#ec6c62",
+                    confirmButtonText: 'Так',
+                    cancelButtonText: "Ні",
+                    type: "warning",
+                    closeOnConfirm: true
+                },
+                function() {
+                    $('#ProgressBarWindow').data("kendoWindow").open().center();
+
+                    $.ajax({
+                        url: "@Url.Action("DeleteMetalSample", "Metal")",
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({
+                            id: id
+                        }),
+                        success: function(data) {
+                            //$('#Samples').data('kendoGrid').dataSource.read();
+                            //$('#Qualities').data('kendoGrid').dataSource.read();
+                            onSuccessMessage('Видалення пройшло успішно');
+                            location.reload(true);
+                        },
+                        error: function(errorData) {
+                            onFailureValdationMessage('Помилка при видаленні');
+                        },
+                        complete: function() {
+                            $('#ProgressBarWindow').data("kendoWindow").close();
+                        }
+                    });
+                });
+        }
         </script>
     </div>
 </div>

@@ -10,11 +10,14 @@
 
     @using (Html.BeginForm("AddAlloySample", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        <div class="form-horizontal">
+        <hr />
         @Html.EditorFor(model => model)
         <div class="form-group">
             <div class="col-md-offset-5 col-md-7">
-                <input type="submit" value="Додати" class="btn btn-success" />
+                <input type="submit" value="Створити" class="btn btn-success" />
             </div>
+        </div>
         </div>
     }
 

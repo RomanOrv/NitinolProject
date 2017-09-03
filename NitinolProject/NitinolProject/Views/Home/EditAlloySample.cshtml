@@ -10,10 +10,13 @@
 
 @using (Html.BeginForm("EditAlloySample", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.EditorFor(model => model)
-    <div class="form-group">
-        <div class="col-md-offset-5 col-md-7">
-            <input type="submit" value="Редагувати" class="btn btn-success" />
+    <div class="form-horizontal">
+        <hr />
+        @Html.EditorFor(model => model)
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-7">
+                <input type="submit" value="Редагувати" class="btn btn-success" />
+            </div>
         </div>
     </div>
 }

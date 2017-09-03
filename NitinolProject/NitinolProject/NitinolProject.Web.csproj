@@ -1910,6 +1910,8 @@
     <Content Include="Views\Home\EditAlloySample.cshtml" />
     <Content Include="Views\Home\EditorTemplates\NicelideTitanumSampleModel.cshtml" />
     <Content Include="Views\Shared\Partials\_ProgressBar.cshtml" />
+    <Content Include="Views\Metal\EditMetalSample.cshtml" />
+    <Content Include="Views\Metal\EditorTemplates\MetalSampleModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

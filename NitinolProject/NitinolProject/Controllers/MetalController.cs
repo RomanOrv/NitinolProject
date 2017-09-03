@@ -131,12 +131,35 @@ namespace NitinolProject.Web.Controllers
         [HttpGet]
         public ActionResult EditMetalSample(int id)
         {
-            return View();
+            var sample = _metalRepository.GetMetalSample(id);
+            var model = new MetalSampleModel
+            {
+                MetalSampleId = sample.MetalSampleId,
+                Name = sample.Name,
+                MetalId = sample.MetalId,
+                SampleNumber = sample.SampleNumber,
+                CrystalLatticeId = sample.CrystalLatticeId,
+                SpallStrength = sample.SpallStrength,
+                LongitudinalShearRate = sample.LongitudinalShearRate,
+                LateralShearRate = sample.LateralShearRate,
+                ShearStrainRate = sample.ShearStrainRate,
+                LoadingSpeed = sample.LoadingSpeed
+            };
+            ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select(x => new SelectListItem { Text = x.Name, Value = x.MetalId.ToString() });
+            ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult EditMetalSample(MetalSampleModel model)
         {
+            _metalRepository.EditMetalSample(model);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteMetalSample(int id)
+        {
+            _metalRepository.DeleteMetalSample(id);
             return null;
         }
 

@@ -126,9 +126,6 @@
               columns.Bound(p => p.QualityRate).Title("Рівень якості Ук");
               columns.Bound(p => p.NicelideTitanumSampleId).Hidden(true);
               columns.Template(e => { }).Title("Деталі").ClientTemplate($"<a href='/home/alloysampledetails?id=#: data.NicelideTitanumSampleId #' class='btn btn-primary btn-xs'><i class='fa fa-arrow-circle-o-right'></i>").Width(70);
-              //columns.Template(e => { }).Title("").Width(80).ClientTemplate(
-              //    "<a style='margin-right: 2px;' class='btn btn-info btn-sm' href='/home/alloysampledetails?id=#: data.NicelideTitanumSampleId #'>Деталі</a>");
-              //"<button data-toggle='tooltip' data-placement='top' title='Delete' onclick='removeCarrierContact(#: data.CarrierContactId #)' type='button' class='btn btn-white btn-sm'><i class='fa fa-trash color-red'></i></button>");
           })
           .Scrollable(a => a.Height(250))
           .Pageable()
@@ -219,6 +216,7 @@
                     showCancelButton: true,
                     confirmButtonColor: "#ec6c62",
                     confirmButtonText: 'Так',
+                    cancelButtonText: "Ні",
                     type: "warning",
                     closeOnConfirm: true
                 },

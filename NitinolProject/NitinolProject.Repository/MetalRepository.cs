@@ -41,6 +41,34 @@ namespace NitinolProject.Repository
             }
         }
 
+        public void DeleteMetalSample(int id)
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                var sample = context.CreateObjectSet<MetalSample>().First(x => x.MetalSampleId == id);
+                context.DeleteObject(sample);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditMetalSample(MetalSampleModel model)
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                var sample = context.CreateObjectSet<MetalSample>().First(x => x.MetalSampleId == model.MetalSampleId);
+                sample.Name = model.Name;
+                sample.SampleNumber = model.SampleNumber.Value;
+                sample.MetalId = model.MetalId.Value;
+                sample.CrystalLatticeId = model.CrystalLatticeId.Value;
+                sample.LateralShearRate = model.LateralShearRate.Value;
+                sample.LoadingSpeed = model.LoadingSpeed.Value;
+                sample.LongitudinalShearRate = model.LongitudinalShearRate.Value;
+                sample.ShearStrainRate = model.ShearStrainRate.Value;
+                sample.SpallStrength = model.SpallStrength.Value;
+                context.SaveChanges();
+            }
+        }
+
         public IList<CrystalLattice> GetAllCrystalLattices()
         {
             using (ObjectContext context = new ObjectContext(_connectionString))
@@ -78,6 +106,14 @@ namespace NitinolProject.Repository
             using (ObjectContext context = new ObjectContext(_connectionString))
             {
                 return context.CreateObjectSet<MetalQualityBaseValue>().ToList();
+            }
+        }
+
+        public MetalSample GetMetalSample(int id)
+        {
+            using (ObjectContext context = new ObjectContext(_connectionString))
+            {
+                return context.CreateObjectSet<MetalSample>().Include("Metal").Include("CrystalLattice").First(x => x.MetalSampleId == id);
             }
         }
     }
