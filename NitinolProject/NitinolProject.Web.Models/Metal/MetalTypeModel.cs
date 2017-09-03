@@ -17,7 +17,6 @@ namespace NitinolProject.Web.Models.Metal
         [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Поперечна швидкість зсуву Vt, м/с")]
         public int LateralShearRate { get; set; }
 
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Швидкість деформації зсуву γ, 10^(-6) c^(-1)")]
         public decimal ShearStrainRate { get; set; }
 
         [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Міцність відколу σ, ГПа")]

@@ -161,7 +161,7 @@
                 required: "Це поле обов'язкове",
             },
         },
-        errorPlacement: function (error, element) {
+        errorPlacement: function(error, element) {
             var placement = $(element).data('error');
             if (placement) {
                 $(placement).append(error);
@@ -170,7 +170,7 @@
             }
         }
     });
-    $(function () {
+    $(function() {
 
         $.validator.addMethod("maxsamplenumber",
             function(value) {
@@ -180,5 +180,6 @@
                 return true;
             },
             "Номер зразка мусить бути більше " + @ViewBag.MaxSampleNumber);
+    });
 </script>
 
