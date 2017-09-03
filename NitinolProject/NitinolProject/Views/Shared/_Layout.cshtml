@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    <link href="~/Content/kendo/2017.2.504/kendo.common.min.css" rel="stylesheet" />
-    <link href="~/Content/kendo/2017.2.504/kendo.default.min.css" rel="stylesheet" />
-    <link href="~/Content/kendo/2017.2.504/kendo.default.mobile.min.css" rel="stylesheet" />
+    <link href="~/Content/libraries/kendo/2017.2.504/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/libraries/kendo/2017.2.504/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/Content/libraries/kendo/2017.2.504/kendo.default.mobile.min.css" rel="stylesheet" />
     <link href="~/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <style>
         @@media (min-width: 1200px) {
@@ -26,6 +26,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/plugins/sweetalert/sweet-alert.min.js"></script>
+    <script src="~/Scripts/libraries/pnotify/pnotify.js"></script>
     <script src="~/Scripts/libraries/kendo/2017.2.504/kendo.all.min.js"></script>
     <script src="~/Scripts/libraries/kendo/2017.2.504/kendo.aspnetmvc.min.js"></script>
 </head>
@@ -46,7 +48,7 @@
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
-                    <li>@Html.ActionLink("Сплави", "About", "Home")</li>
+                    <li>@Html.ActionLink("Сплави", "Index", "Home")</li>
                     <li>@Html.ActionLink("Метали", "Index", "Metal")</li>
                 </ul>
             </div>
@@ -61,5 +63,34 @@
     </div>
 
     @RenderSection("scripts", required: false)
+
+<script>
+    function onSuccessMessage(text) {
+        new PNotify({
+            title: 'Success!',
+            text: text,
+            type: 'success',
+            hide: true,
+            icon: false,
+            history: false,
+            animate_speed: 200, 
+            delay: 2000
+        })
+    }
+
+    function onFailureValdationMessage(text) {
+        new PNotify({
+            title: 'Failed!',
+            text: text,
+            type: 'error',
+            hide: false,
+            icon: false,
+            history: false,
+            animate_speed: 200,
+            delay: 2000
+        })
+    }
+</script>
+    @Html.Partial("~/Views/Shared/Partials/_ProgressBar.cshtml")
 </body>
 </html>

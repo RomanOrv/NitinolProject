@@ -25,6 +25,9 @@ namespace NitinolProject.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/progressbar.css",
+                      "~/Content/plugins/pnotify/pnotify.css",
+                      "~/Content/plugins/sweetalert/sweet-alert.css",
                       "~/Content/site.css"));
 
             // Font Awesome icons

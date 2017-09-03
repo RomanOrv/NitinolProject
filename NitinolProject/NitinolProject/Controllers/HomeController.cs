@@ -21,12 +21,9 @@ namespace NitinolProject.Web.Controllers
         {
             this._alloyRepository = alloyRepository;
         }
-        public ActionResult Index()
-        {
-            return View();
-        }
 
-        public ActionResult About()
+
+        public ActionResult Index()
         {
             ViewBag.Message = "Your application description page.";
             var alloySamples = this._alloyRepository.GetAllAlloySamples();
@@ -110,7 +107,7 @@ namespace NitinolProject.Web.Controllers
         public ActionResult AddAlloySample(NicelideTitanumSampleModel model)
         {
             _alloyRepository.AddAlloySample(model);
-            return RedirectToAction("About");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -134,6 +131,13 @@ namespace NitinolProject.Web.Controllers
         [HttpPost]
         public ActionResult EditAlloySample(NicelideTitanumSampleModel model)
         {
+            _alloyRepository.EditAlloySample(model);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteAlloySample(int id)
+        {
+            _alloyRepository.DeleteAlloySample(id);
             return null;
         }
 

@@ -1,0 +1,24 @@
+﻿@using Kendo.Mvc.UI
+@Html.Kendo().Window().Name("ProgressBarWindow").Content(
+    @<text>
+        <div id="progressbar_container">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                </div>
+            </div>
+        </div>
+     </text>).Width(433).Visible(false).Modal(true).Title(false).Animation(builder => builder.Enable(false)).Events(x => x.Open("onProgressBarOpen")).HtmlAttributes(new { @class = "progressbar-window" })
+
+<script type="text/javascript">
+
+    function onProgressBarOpen() {
+        $("#ProgressBarWindow").parent().attr("id", "progressbar_window_wrap");
+    }
+
+    function showProgressBar() {
+        $('#ProgressBarWindow').data("kendoWindow").open().center();
+    }
+    function closeProgressBar() {
+        $('#ProgressBarWindow').data("kendoWindow").close();
+    }
+</script>
