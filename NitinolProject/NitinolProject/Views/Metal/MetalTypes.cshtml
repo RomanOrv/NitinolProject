@@ -16,6 +16,11 @@
     .k-grid .k-grid-header .k-header {
         white-space: normal;
     }
+
+
+    td:last-child {
+        text-align: center;
+    }
 </style>
 
 <div class="panel-body">
@@ -36,8 +41,7 @@
               columns.Bound(p => p.SpallStrengthC).Title("<span class='row'>Коефіцієнт міцності відколу</span>");
               columns.Bound(p => p.MetalTypeId).Hidden(true);
               columns.Template(e => { }).Title("<span class='row'><span class='row'>Дія</span></span>").ClientTemplate(
-                  "<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetaltype?id=#: data.MetalTypeId #'><i class='fa fa-edit color-green'></i></a>" +
-                  "<button title='Видалити' style='margin-right: 2px;' type='button' class='btn btn-danger btn-xs' onclick='removeType(#:data.MetalTypeId#)' ><i class='fa fa-trash color-red'></i></button>")
+                  "<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetaltype?id=#: data.MetalTypeId #'><i class='fa fa-edit color-green'></i></a>")
                   .Width(70);
           })
           .Pageable()

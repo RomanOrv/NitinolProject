@@ -15,8 +15,6 @@ namespace NitinolProject.Web
             string connectionString = ConfigurationManager.ConnectionStrings["assessment_quality_materialsEntities"].ConnectionString;
             container.RegisterType<IAlloyRepository, AlloyRepository>(new InjectionConstructor(connectionString));
             container.RegisterType<IMetalRepository, MetalRepository>(new InjectionConstructor(connectionString));
-            container.RegisterType<IPmmaRepository, PmmaRepository>(new InjectionConstructor(connectionString));
-            container.RegisterType<ISpheroplastRepository, SpheroplastRepository>(new InjectionConstructor(connectionString));
             // register all your components with the container here
             // it is NOT necessary to register your controllers
 
