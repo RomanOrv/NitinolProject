@@ -11,7 +11,7 @@ namespace NitinolProject.Web.Models.Metal
         [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Швидкість навантаження V, м/с")]
         public int LoadingSpeed { get; set; }
 
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Поздовжня швидкість зсуву Vl, м/с")]
+        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Поздовжня швидкість зсуву VL, м/с")]
         public int LongitudinalShearRate { get; set; }
 
         [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Поперечна швидкість зсуву Vt, м/с")]
