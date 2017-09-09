@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     <link href="~/Content/libraries/kendo/2017.2.504/kendo.common.min.css" rel="stylesheet" />
     <link href="~/Content/libraries/kendo/2017.2.504/kendo.default.min.css" rel="stylesheet" />
-    <link href="~/Content/libraries/kendo/2017.2.504/kendo.default.mobile.min.css" rel="stylesheet" />
+    @*<link href="~/Content/libraries/kendo/2017.2.504/kendo.default.mobile.min.css" rel="stylesheet" />*@
     <link href="~/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <style>
         @@media (min-width: 1200px) {
@@ -15,6 +15,7 @@
                 max-width: 1270px;
             }
         }
+
         body {
             background-color: lightgrey;
             background-image: url('../../Content/images/ааа.jpg');
@@ -23,10 +24,11 @@
     @Scripts.Render("~/bundles/modernizr")
 
 
-    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/respond.min.js"></script>
     <script src="~/Scripts/plugins/sweetalert/sweet-alert.min.js"></script>
     <script src="~/Scripts/libraries/pnotify/pnotify.js"></script>
     <script src="~/Scripts/libraries/kendo/2017.2.504/kendo.all.min.js"></script>
@@ -47,7 +49,7 @@
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
                     <li>@Html.ActionLink("Сплави", "Index", "Home")</li>
                     <li>@Html.ActionLink("Метали", "Index", "Metal")</li>
@@ -66,33 +68,33 @@
 
     @RenderSection("scripts", required: false)
 
-<script>
-    function onSuccessMessage(text) {
-        new PNotify({
-            title: 'Success!',
-            text: text,
-            type: 'success',
-            hide: true,
-            icon: false,
-            history: false,
-            animate_speed: 200, 
-            delay: 2000
-        })
-    }
+    <script>
+        function onSuccessMessage(text) {
+            new PNotify({
+                title: 'Success!',
+                text: text,
+                type: 'success',
+                hide: true,
+                icon: false,
+                history: false,
+                animate_speed: 200,
+                delay: 2000
+            })
+        }
 
-    function onFailureValdationMessage(text) {
-        new PNotify({
-            title: 'Failed!',
-            text: text,
-            type: 'error',
-            hide: false,
-            icon: false,
-            history: false,
-            animate_speed: 200,
-            delay: 2000
-        })
-    }
-</script>
+        function onFailureValdationMessage(text) {
+            new PNotify({
+                title: 'Failed!',
+                text: text,
+                type: 'error',
+                hide: false,
+                icon: false,
+                history: false,
+                animate_speed: 200,
+                delay: 2000
+            })
+        }
+    </script>
     @Html.Partial("~/Views/Shared/Partials/_ProgressBar.cshtml")
 </body>
 </html>

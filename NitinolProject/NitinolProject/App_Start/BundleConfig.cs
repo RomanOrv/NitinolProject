@@ -24,7 +24,7 @@ namespace NitinolProject.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                       "~/Content/progressbar.css",
                       "~/Content/plugins/pnotify/pnotify.css",
                       "~/Content/plugins/sweetalert/sweet-alert.css",
