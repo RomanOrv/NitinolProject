@@ -4,13 +4,13 @@
     ViewBag.Title = "AddMetalSample";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
+@*<style>
     label {
         text-align: left !important;
     }
-</style>
+</style>*@
 
-<h2>Додання зразку металу</h2>
+<h2 style="text-align: center;">Додання зразку металу</h2>
 
 @using (Html.BeginForm("AddMetalSample", "Metal", FormMethod.Post, new { id = "add_metal_form", enctype = "multipart/form-data" }))
 {
