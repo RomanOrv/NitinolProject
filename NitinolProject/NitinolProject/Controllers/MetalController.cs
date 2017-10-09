@@ -265,7 +265,7 @@ namespace NitinolProject.Web.Controllers
 
             model = new MetalSampleQualityRateModel
             {
-                SampleProperty = "Швидкість деформації зсуву γ, 10^(-6) c^(-1)",
+                SampleProperty = "Швидкість деформації зсуву γ",
                 BaseValue = baseValues.ShearStrainRate,
                 SampleValue = sample.ShearStrainRate,
                 RelativeValue = Math.Round((decimal)sample.ShearStrainRate / baseValues.ShearStrainRate, 2),
