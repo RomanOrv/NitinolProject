@@ -311,6 +311,7 @@
     <Content Include="Views\Metal\AddMetalType.cshtml" />
     <Content Include="Views\Metal\EditMetalType.cshtml" />
     <Content Include="Views\Metal\EditorTemplates\MetalTypeModel.cshtml" />
+    <Content Include="Views\Metal\MetalTypeSamples.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

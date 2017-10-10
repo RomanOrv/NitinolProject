@@ -183,7 +183,7 @@ namespace NitinolProject.Repository
         {
             using (ObjectContext context = new ObjectContext(_connectionString))
             {
-                return context.CreateObjectSet<MetalQualityBaseValue>().ToList();
+                return context.CreateObjectSet<MetalQualityBaseValue>().Include("Metal").ToList();
             }
         }
 

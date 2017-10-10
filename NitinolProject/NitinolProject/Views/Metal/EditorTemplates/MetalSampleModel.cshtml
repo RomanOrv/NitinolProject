@@ -31,7 +31,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.MetalId, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.DropDownListFor(model => model.MetalId, (IEnumerable<SelectListItem>)ViewBag.MetalTypes, "", new { @class = "form-control",  data_error = "#diverr3" })
+        @Html.DropDownListFor(model => model.MetalId, (IEnumerable<SelectListItem>)ViewBag.MetalTypes, "", new { @class = "form-control",  data_error = "#diverr3", @readonly= "readonly" })
         <div class="col-md-12">
             <span id="diverr3" class = "text-danger"></span>
         </div>
@@ -181,5 +181,19 @@
             },
             "Номер зразка мусить бути більше " + @ViewBag.MaxSampleNumber);
     });
+
+    $("select#MetalId :selected").each(function(){
+        $(this).parent().data("default", this);
+    });
+
+    $("select#MetalId").change(function(e) {
+        $($(this).data("default")).prop("selected", true);
+    });
+
+    $("select#MetalId").click(function(e) {
+        e.preventDefault();
+    });
+
+
 </script>
 

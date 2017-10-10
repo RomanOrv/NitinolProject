@@ -50,10 +50,37 @@ namespace NitinolProject.Web.Controllers
             return View();
         }
 
-
-        public ActionResult GetMetalSamples([DataSourceRequest] DataSourceRequest request)
+        public ActionResult MetalTypeSamples(int metalType)
         {
-            var metalSamples = this._metalRepository.GetAllMetalSamples();
+            var type = this._metalRepository.GetAllMetalTypes().FirstOrDefault(x => x.MetalId == metalType);
+            var metalSamples = this._metalRepository.GetAllMetalSamples().Where(x => x.MetalId == metalType);
+            var baseValues = _metalRepository.GetMetalQualityBaseValues().FirstOrDefault(x => x.MetalId == metalType);
+            var chartsData = new List<CyclogramChartModel>();
+            foreach (var group in metalSamples.GroupBy(x => x.MetalId))
+            {
+                foreach (var sample in group)
+                {
+                    var chart = new CyclogramChartModel();
+                    chart.name = $"{sample.SampleNumber}. {sample.Name}";
+                    var pairsData = new Dictionary<string, decimal>();
+                    pairsData.Add(nameof(sample.SpallStrength), sample.SpallStrength);
+                    pairsData.Add(nameof(sample.LoadingSpeed), sample.LoadingSpeed);
+                    pairsData.Add(nameof(sample.ShearStrainRate), sample.ShearStrainRate);
+                    pairsData.Add(nameof(sample.LongitudinalShearRate), sample.LongitudinalShearRate);
+                    pairsData.Add(nameof(sample.LateralShearRate), sample.LateralShearRate);
+                    var convertedData = ConvertCyclogramChartModel(pairsData, baseValues);
+                    chart.data.AddRange(convertedData);
+                    chartsData.Add(chart);
+                }
+            }
+            ViewBag.ChartsData = chartsData.OrderBy(x => x.name);
+            return View(new MetalTypeModel { MetalTypeId = type.MetalId, MetalName = type.Name });
+        }
+
+
+        public ActionResult GetMetalSamples([DataSourceRequest] DataSourceRequest request, int metalType)
+        {
+            var metalSamples = this._metalRepository.GetAllMetalSamples().Where(x => x.MetalId == metalType);
             var models = metalSamples.Select(x => new MetalSampleGridModel
             {
                 MetalSampleId = x.MetalSampleId,
@@ -69,14 +96,14 @@ namespace NitinolProject.Web.Controllers
             return Json(models.ToDataSourceResult(request));
         }
 
-        public ActionResult GetMetalSampleQualities([DataSourceRequest] DataSourceRequest request)
+        public ActionResult GetMetalSampleQualities([DataSourceRequest] DataSourceRequest request, int metalType)
         {
-            var metalSamples = this._metalRepository.GetAllMetalSamples();
-            var baseValues = _metalRepository.GetMetalQualityBaseValues();
+            var metalSamples = this._metalRepository.GetAllMetalSamples().Where(x => x.MetalId == metalType);
+            var baseValues = _metalRepository.GetMetalQualityBaseValues().FirstOrDefault(x => x.MetalId == metalType);
             var models = new List<MetalSampleQualityModel>();
             foreach (var group in metalSamples.GroupBy(x => x.MetalId))
             {
-                var baseValue = baseValues.First(x => x.MetalId == group.Key);
+                var baseValue = baseValues/*.First(x => x.MetalId == group.Key)*/;
                 foreach (var sample in group)
                 {
                     var item = new MetalSampleQualityModel
@@ -114,20 +141,20 @@ namespace NitinolProject.Web.Controllers
 
 
         [HttpGet]
-        public ActionResult AddMetalSample()
+        public ActionResult AddMetalSample(int metalType)
         {
-            ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select( x => new SelectListItem{Text = x.Name, Value = x.MetalId.ToString()});
+            ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select(x => new SelectListItem { Text = x.Name, Value = x.MetalId.ToString() });
             ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
             var metalSamples = this._metalRepository.GetAllMetalSamples();
             ViewBag.MaxSampleNumber = metalSamples.Select(x => x.SampleNumber).Max();
-            return View(new MetalSampleModel());
+            return View(new MetalSampleModel { MetalId = metalType });
         }
 
         [HttpPost]
         public ActionResult AddMetalSample(MetalSampleModel model)
         {
             _metalRepository.AddMetalSample(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("MetalTypeSamples", new { metalType = model.MetalId });
         }
 
         [HttpGet]

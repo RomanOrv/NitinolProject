@@ -1,0 +1,204 @@
+﻿@using Kendo.Mvc.UI
+@using NitinolProject.Web.Models.Metal
+@model MetalTypeModel
+
+@{
+    ViewBag.Title = "MetalTypeSamples";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .k-grid .k-grid-header .k-header .k-link {
+        height: auto;
+    }
+
+    .k-grid .k-grid-header .k-header {
+        white-space: normal;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    td:last-child {
+        text-align: center;
+    }
+</style>
+
+<div class="panel-body">
+    <h1>Вихідні дані по металу : @Model.MetalName</h1>
+    @(Html.Kendo().Grid<MetalSampleGridModel>()
+          .Name("Samples")
+          .Columns(columns =>
+          {
+              columns.Bound(p => p.SampleNumber).Title("<span class='row'>Номер зразку</span>").Width(110);
+              columns.Bound(p => p.Name).Title("<span class='row'>Назва металу </span>").Width(120);
+              columns.Bound(p => p.CrystalLatticeName).Title("<span class='row'>Решітка </span>").Width(80);
+              columns.Bound(p => p.LoadingSpeed).Title("Швидкість навантаження <br/>V, м/с");
+              columns.Bound(p => p.LateralShearRate).Title("Поперечна швидкість зсуву <br/>Vt, м/с");
+              columns.Bound(p => p.LongitudinalShearRate).Title("Поздовжня швидкість зсуву <br/>VL, м/с");
+              columns.Bound(p => p.ShearStrainRate).Title("Швидкість деформації зсуву <br/>γ, 10<sup>-6</sup> c<sup>-1</sup>");
+              columns.Bound(p => p.SpallStrength).Title("Міцність відколу <br/>σ, МПа");
+              columns.Bound(p => p.MetalSampleId).Hidden(true);
+              columns.Template(e => { }).Title("<span class='row'>Дія</span>").ClientTemplate(
+                  "#if(data.MetalSampleId > 7 ){#<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetalsample?id=#: data.MetalSampleId #'><i class='fa fa-edit color-green'></i></a>" +
+                  "<button title='Видалити' style='margin-right: 2px;' type='button' class='btn btn-danger btn-xs' onclick='removeSample(#:data.MetalSampleId#)' ><i class='fa fa-trash color-red'></i></button>#}#")
+                  .Width(105);
+          })
+          .Scrollable(a => a.Height(200))
+          .Pageable()
+          .HtmlAttributes(new { style = "margin-bottom: 15px;" })
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(7)
+              .ServerOperation(true)
+              .Read(read => read.Action("GetMetalSamples", "Metal").Data("metalTypeParam"))
+          ))
+
+    <a href="/metal/addmetalsample?metalType=@Model.MetalTypeId" class="btn btn-primary">Додати зразок</a>
+    <a href="/metal/index" class="btn btn-primary">Повернутися до списку металів</a>
+
+
+
+    <h1>Значення рівня якості зразків металу</h1>
+    @(Html.Kendo().Grid<MetalSampleQualityModel>()
+          .Name("Qualities")
+          .Columns(columns =>
+          {
+              columns.Bound(p => p.Name).Title("Метал").Width(120);
+              columns.Bound(p => p.LoadingSpeed).Title("У(V)");
+              columns.Bound(p => p.LateralShearRate).Title("У(Vt)");
+              columns.Bound(p => p.LongitudinalShearRate).Title("У(Vl)");
+              columns.Bound(p => p.ShearStrainRate).Title("У(γ)");
+              columns.Bound(p => p.SpallStrength).Title("У(σ)");
+              columns.Bound(p => p.QualityRate).Title("Рівень якості Ук");
+              columns.Bound(p => p.MetalSampleId).Hidden(true);
+              columns.Template(e => { }).Title("Деталі").ClientTemplate($"<a href='/metal/metalsampledetails?id=#: data.MetalSampleId #' class='btn btn-primary btn-xs'><i class='fa fa-arrow-circle-o-right'></i>").Width(70);
+          })
+          .Scrollable(a => a.Height(250))
+          .Pageable()
+          .HtmlAttributes(new { style = "margin-bottom: 15px;" })
+          .Events(e => e.DataBinding("qualitiesDataBinding"))
+          .DataSource(dataSource => dataSource
+              .Ajax()
+              .PageSize(7)
+              .ServerOperation(true)
+              .Read(read => read.Action("GetMetalSampleQualities", "Metal").Data("metalTypeParam"))
+          ))
+    <h4 id="qualityResult" style="display: none;"></h4>
+
+</div>
+
+<div class="col-lg-12">
+    <div id="example">
+        <div class="k-content wide">
+            <div id="chart"></div>
+        </div>
+        <script>
+            $(function() {
+                var chartsData =
+                    @Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.ChartsData));
+
+                function createChart() {
+                    $("#chart").kendoChart({
+                        title: {
+                            text: "Циклограма якості металів",
+                            color: "#333333",
+                            font: "20px sans-serif, bold"
+                        },
+                        legend: {
+                            position: "right"
+                        },
+                        seriesDefaults: {
+                            type: "radarLine"
+                        },
+                        series: chartsData,
+                        categoryAxis: {
+                            categories: [
+                                "Міцність відколу У(σ)", "Швидкість навантаження У(V)", "Швидкість деформації зсуву У(γ)",
+                                "Поздовжня швидкість зсуву У(Vl)", "Поперечна швидкість зсуву У(Vt)"
+                            ]
+                        },
+                        valueAxis: {
+                            labels: {
+                                format: "{0}"
+                            }
+                        },
+                        tooltip: {
+                            visible: true,
+                            format: "{0}"
+                        }
+                    });
+
+                    $("#chart").css("width", "1110px").css("height", "800px").data("kendoChart").resize();
+                }
+
+                $(document).ready(createChart);
+                $(document).bind("kendo:skinChange", createChart);
+
+            });
+
+            function qualitiesDataBinding(e) {
+                var qualityRates = new Array;
+                qualityRates = jQuery.map( e.items, function( item ) {
+                    return item.QualityRate;
+                });
+                var maxQualityRate = Math.max.apply(null, qualityRates);
+
+                var selectedItem = $.grep(e.items, function (e) {
+                    return e.QualityRate === maxQualityRate;
+                });
+
+                var text = "Кращий зразок - зразок №" + selectedItem[0].SampleNumber + ", з рівнем якості Ук = " + maxQualityRate + ".";
+                $('#qualityResult').text(text);
+                $('#qualityResult').show();
+            }
+
+
+            function removeSample(id) {
+                swal({
+                        title: 'Підтвердження',
+                        text: 'Ви справді хочете видалити зразок?',
+                        showCancelButton: true,
+                        confirmButtonColor: "#ec6c62",
+                        confirmButtonText: 'Так',
+                        cancelButtonText: "Ні",
+                        type: "warning",
+                        closeOnConfirm: true
+                    },
+                    function() {
+                        $('#ProgressBarWindow').data("kendoWindow").open().center();
+
+                        $.ajax({
+                            url: "@Url.Action("DeleteMetalSample", "Metal")",
+                            type: 'POST',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify({
+                                id: id
+                            }),
+                            success: function(data) {
+                                //$('#Samples').data('kendoGrid').dataSource.read();
+                                //$('#Qualities').data('kendoGrid').dataSource.read();
+                                onSuccessMessage('Видалення пройшло успішно');
+                                location.reload(true);
+                            },
+                            error: function(errorData) {
+                                onFailureValdationMessage('Помилка при видаленні');
+                            },
+                            complete: function() {
+                                $('#ProgressBarWindow').data("kendoWindow").close();
+                            }
+                        });
+                    });
+            }
+        </script>
+    </div>
+</div>
+
+<script>
+    function metalTypeParam() {
+        return {
+            metalType: @Model.MetalTypeId
+        }
+    }
+</script>
