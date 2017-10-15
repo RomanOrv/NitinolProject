@@ -38,7 +38,7 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h2 style="text-align: center;">
-                    Кругова діаграма
+                    Діаграма
                 </h2>
 
             </div>
@@ -57,7 +57,7 @@
 <script>
     $.get('@Url.Action("GetMetalPieChartData", "Metal", new {sampleId = Model.MetalSampleId})', function (response) {
         var socialPieChart = new Chart(document.getElementById("pieChart"), {
-            type: 'pie',
+            type: 'bar',
             data: {
                 labels: response.Labels,
                 datasets: [
@@ -86,31 +86,38 @@
                     }]
             },
             options: {
-                //responsive: true,
-                //legend: {
-                //    position: 'bottom',
-                //},
+               // responsive: true,
+                legend: {
+                    position: 'none',
+                },
                 //title: {
                 //    display: false,
                 //    text: 'Chart.js Doughnut Chart'
                 //},
+
                 animation: {
                     animateScale: true,
                     animateRotate: true
                 },
                 tooltips: {
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var dataset = data.datasets[tooltipItem.datasetIndex];
-                            var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                                return previousValue + currentValue;
-                            });
-                            var currentValue = dataset.data[tooltipItem.index];
-                            var precentage = Math.floor(((currentValue/total) * 100)+0.5);  
-                            //var precentage = (currentValue / total * 100).toFixed(4);                             
-                            return precentage + "%";
-                        }
-                    }
+                    //enabled: false,
+                    //mode: 'index',
+                    position: 'nearest',
+                    //xPadding: 30,
+                    //yPadding: 20,
+                    caretPadding: 20
+                    //callbacks: {
+                    //    label: function(tooltipItem, data) {
+                    //        var dataset = data.datasets[tooltipItem.datasetIndex];
+                    //        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                    //            return previousValue + currentValue;
+                    //        });
+                    //        var currentValue = dataset.data[tooltipItem.index];
+                    //        var precentage = Math.floor(((currentValue/total) * 100)+0.5);  
+                    //        //var precentage = (currentValue / total * 100).toFixed(4);                             
+                    //        return precentage + "%";
+                    //    }
+                    //}
                 }
             }
         });

@@ -146,7 +146,14 @@ namespace NitinolProject.Web.Controllers
             ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select(x => new SelectListItem { Text = x.Name, Value = x.MetalId.ToString() });
             ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
             var metalSamples = this._metalRepository.GetAllMetalSamples();
-            ViewBag.MaxSampleNumber = metalSamples.Select(x => x.SampleNumber).Max();
+            ViewBag.MaxSampleNumber = metalSamples.Where(y => y.MetalId == metalType).Select(x => x.SampleNumber).Max();
+            var baseValues = _metalRepository.GetMetalQualityBaseValues().First(x => x.MetalId == metalType);
+            ViewBag.MetalTypeName = baseValues.Metal.Name;
+            ViewBag.MaxLoadingSpeed = baseValues.LoadingSpeed;
+            ViewBag.MaxLateralShearRate = baseValues.LateralShearRate;
+            ViewBag.MaxLongitudinalShearRate = baseValues.LongitudinalShearRate;
+            ViewBag.MaxShearStrainRate = baseValues.ShearStrainRate;
+            ViewBag.MaxSpallStrength = baseValues.SpallStrength;
             return View(new MetalSampleModel { MetalId = metalType });
         }
 
@@ -201,7 +208,7 @@ namespace NitinolProject.Web.Controllers
             var sample = metalSamples.First(x => x.MetalSampleId == sampleId);
 
             var baseMetalValues = baseValues.First(x => x.MetalId == sample.MetalId);
-            var labels = new string[] { "У(V)", "У(Vt)", "У(Vl)", "У(γ)", "У(σ)" };
+            var labels = new string[] { "У(V)", "У(Vt)", "У(VL)", "У(γ)", "У(σ)" };
             var data = new decimal[]
             {
                 Round((decimal) sample.LoadingSpeed / baseMetalValues.LoadingSpeed, 2),
@@ -281,7 +288,7 @@ namespace NitinolProject.Web.Controllers
 
             model = new MetalSampleQualityRateModel
             {
-                SampleProperty = "Поздовжня швидкість зсуву Vl, м/с",
+                SampleProperty = "Поздовжня швидкість зсуву VL, м/с",
                 BaseValue = baseValues.LongitudinalShearRate,
                 SampleValue = sample.LongitudinalShearRate,
                 RelativeValue = Math.Round((decimal)sample.LongitudinalShearRate / baseValues.LongitudinalShearRate, 2),

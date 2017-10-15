@@ -117,19 +117,24 @@
                 required: true
             },
             LoadingSpeed: {
-                required: true
+                required: true,
+                maxLoadingSpeed: true,
             },
             LateralShearRate: {
-                required: true
+                required: true,
+                maxLateralShearRate: true,
             },
             LongitudinalShearRate: {
-                required: true
+                required: true,
+                maxLongitudinalShearRate: true,
             },
             ShearStrainRate: {
-                required: true
+                required: true,
+                maxShearStrainRate: true,
             },
             SpallStrength: {
-                required: true
+                required: true,
+                maxSpallStrength: true,
             },
         },
         messages: {
@@ -170,17 +175,6 @@
             }
         }
     });
-    $(function() {
-
-        $.validator.addMethod("maxsamplenumber",
-            function(value) {
-                if (value <= @ViewBag.MaxSampleNumber) {
-                    return false;
-                }
-                return true;
-            },
-            "Номер зразка мусить бути більше " + @ViewBag.MaxSampleNumber);
-    });
 
     $("select#MetalId :selected").each(function(){
         $(this).parent().data("default", this);
@@ -194,6 +188,59 @@
         e.preventDefault();
     });
 
+
+    $(function () {
+        $.validator.addMethod("maxsamplenumber",
+            function(value) {
+                if (value <= @ViewBag.MaxSampleNumber) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути більше " + @ViewBag.MaxSampleNumber);
+
+        $.validator.addMethod("maxLoadingSpeed",
+            function (value) {
+                if (parseFloat(value) > @ViewBag.MaxLoadingSpeed) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxLoadingSpeed);
+        $.validator.addMethod("maxLateralShearRate",
+            function(value) {
+                if (parseFloat(value) > @ViewBag.MaxLateralShearRate) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxLateralShearRate);
+        $.validator.addMethod("maxLongitudinalShearRate",
+            function(value) {
+                if (parseFloat(value) > @ViewBag.MaxLongitudinalShearRate) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxLongitudinalShearRate);
+        $.validator.addMethod("maxShearStrainRate",
+            function(value) {
+                if (parseFloat(value) > @ViewBag.MaxShearStrainRate) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxShearStrainRate);
+        $.validator.addMethod("maxSpallStrength",
+            function(value) {
+                if (parseFloat(value) > @ViewBag.MaxSpallStrength) {
+                    return false;
+                }
+                return true;
+            },
+            "Значення мусить бути НЕ більше " + @ViewBag.MaxSpallStrength);
+
+    });
 
 </script>
 
