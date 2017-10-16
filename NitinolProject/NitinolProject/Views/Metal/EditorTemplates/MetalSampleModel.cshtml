@@ -5,6 +5,16 @@
 
 
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@Html.HiddenFor(x => x.MetalId)
+
+<div class="form-group">
+    @Html.LabelFor(model => model.MetalTypeName, htmlAttributes: new { @class = "control-label col-md-5" })
+    <div class="col-md-7">
+        @Html.DisplayFor(model => model.MetalTypeName)
+    </div>
+</div>
+
 <div class="form-group">
     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
@@ -28,7 +38,7 @@
     </div>
 </div>
 
-<div class="form-group">
+@*<div class="form-group">
     @Html.LabelFor(model => model.MetalId, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
         @Html.DropDownListFor(model => model.MetalId, (IEnumerable<SelectListItem>)ViewBag.MetalTypes, "", new { @class = "form-control",  data_error = "#diverr3", @readonly= "readonly" })
@@ -36,7 +46,7 @@
             <span id="diverr3" class = "text-danger"></span>
         </div>
     </div>
-</div>
+</div>*@
 
 <div class="form-group">
     @Html.LabelFor(model => model.CrystalLatticeId, htmlAttributes: new { @class = "control-label col-md-5" })

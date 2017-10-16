@@ -10,11 +10,31 @@
     @*<link href="~/Content/libraries/kendo/2017.2.504/kendo.default.mobile.min.css" rel="stylesheet" />*@
     <link href="~/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <style>
-        @@media (min-width: 1200px) {
+        @@media screen and (min-width: 1200px) and (max-width: 1500px) {
             .container {
-                /*max-width: 1270px;*/
+                max-width: 1170px !important;
+            }
+            #chart {
+                width: 1110px !important;
+                height: 800px !important;
             }
         }
+
+        @@media screen and (min-width: 1500px) {
+            .container {
+                max-width: 1400px;
+            }
+            #chart {
+                width: 1340px !important;
+                height: 1000px !important;
+            }
+        }
+
+        /*@@media screen and (min-width: 480px) {
+        body {
+            background-color: lightgreen;
+        }
+        }*/
 
         body {
             /*background-repeat: repeat-y;*/

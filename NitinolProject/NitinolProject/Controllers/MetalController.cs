@@ -41,7 +41,8 @@ namespace NitinolProject.Web.Controllers
                     pairsData.Add(nameof(sample.ShearStrainRate), sample.ShearStrainRate);
                     pairsData.Add(nameof(sample.LongitudinalShearRate), sample.LongitudinalShearRate);
                     pairsData.Add(nameof(sample.LateralShearRate), sample.LateralShearRate);
-                    var convertedData = ConvertCyclogramChartModel(pairsData, baseValues.First(x => x.MetalId == group.Key));
+                    var convertedData = 
+                        ConvertCyclogramChartModel(pairsData, baseValues.First(x => x.MetalId == group.Key));
                     chart.data.AddRange(convertedData);
                     chartsData.Add(chart);
                 }
@@ -91,7 +92,8 @@ namespace NitinolProject.Web.Controllers
                 LateralShearRate = x.LateralShearRate,
                 LongitudinalShearRate = x.LongitudinalShearRate,
                 ShearStrainRate = x.ShearStrainRate,
-                LoadingSpeed = x.LoadingSpeed
+                LoadingSpeed = x.LoadingSpeed,
+                MetalId = x.MetalId
             }).OrderBy(x => x.SampleNumber);
             return Json(models.ToDataSourceResult(request));
         }
@@ -123,7 +125,9 @@ namespace NitinolProject.Web.Controllers
                     models.Add(item);
                 }
             }
-            return Json(models.OrderBy(x => x.SampleNumber).ToDataSourceResult(request));
+
+            models = models.OrderBy(x => x.SampleNumber).ToList();
+            return Json(models.ToDataSourceResult(request));
         }
 
         public ActionResult MetalSampleDetails(int id)
@@ -154,7 +158,7 @@ namespace NitinolProject.Web.Controllers
             ViewBag.MaxLongitudinalShearRate = baseValues.LongitudinalShearRate;
             ViewBag.MaxShearStrainRate = baseValues.ShearStrainRate;
             ViewBag.MaxSpallStrength = baseValues.SpallStrength;
-            return View(new MetalSampleModel { MetalId = metalType });
+            return View(new MetalSampleModel { MetalId = metalType, MetalTypeName = baseValues.Metal.Name });
         }
 
         [HttpPost]
@@ -179,11 +183,19 @@ namespace NitinolProject.Web.Controllers
                 LongitudinalShearRate = sample.LongitudinalShearRate,
                 LateralShearRate = sample.LateralShearRate,
                 ShearStrainRate = sample.ShearStrainRate,
-                LoadingSpeed = sample.LoadingSpeed
+                LoadingSpeed = sample.LoadingSpeed,
+                MetalTypeName = sample.Metal.Name
             };
             var metalSamples = this._metalRepository.GetAllMetalSamples();
-            ViewBag.MaxSampleNumber = metalSamples.Select(x => x.SampleNumber).Max();
-            ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select(x => new SelectListItem { Text = x.Name, Value = x.MetalId.ToString() });
+            ViewBag.MaxSampleNumber = metalSamples.Where(y => y.MetalId == sample.MetalId).Select(x => x.SampleNumber).Max();
+            var baseValues = _metalRepository.GetMetalQualityBaseValues().First(x => x.MetalId == sample.MetalId);
+            ViewBag.MetalTypeName = baseValues.Metal.Name;
+            ViewBag.MaxLoadingSpeed = baseValues.LoadingSpeed;
+            ViewBag.MaxLateralShearRate = baseValues.LateralShearRate;
+            ViewBag.MaxLongitudinalShearRate = baseValues.LongitudinalShearRate;
+            ViewBag.MaxShearStrainRate = baseValues.ShearStrainRate;
+            ViewBag.MaxSpallStrength = baseValues.SpallStrength;
+            //ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select(x => new SelectListItem { Text = x.Name, Value = x.MetalId.ToString() });
             ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
             return View(model);
         }

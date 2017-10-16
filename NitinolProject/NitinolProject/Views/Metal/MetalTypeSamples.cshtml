@@ -26,7 +26,7 @@
 </style>
 
 <div class="panel-body">
-    <h1>Вихідні дані по металу : @Model.MetalName</h1>
+    <h1>Вихідні дані по металу: @Model.MetalName.ToLower()</h1>
     @(Html.Kendo().Grid<MetalSampleGridModel>()
           .Name("Samples")
           .Columns(columns =>
@@ -41,7 +41,7 @@
               columns.Bound(p => p.SpallStrength).Title("Міцність відколу <br/>σ, МПа");
               columns.Bound(p => p.MetalSampleId).Hidden(true);
               columns.Template(e => { }).Title("<span class='row'>Дія</span>").ClientTemplate(
-                  "#if(data.MetalSampleId > 7 ){#<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetalsample?id=#: data.MetalSampleId #'><i class='fa fa-edit color-green'></i></a>" +
+                  "#if((data.SampleNumber > 2 && data.MetalId <= 3) || data.MetalId > 3){#<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetalsample?id=#: data.MetalSampleId #'><i class='fa fa-edit color-green'></i></a>" +
                   "<button title='Видалити' style='margin-right: 2px;' type='button' class='btn btn-danger btn-xs' onclick='removeSample(#:data.MetalSampleId#)' ><i class='fa fa-trash color-red'></i></button>#}#")
                   .Width(105);
           })

@@ -17,8 +17,11 @@ namespace NitinolProject.Web.Models.Metal
         [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Номер зразку")]
         public int? SampleNumber { get; set; }
 
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Назва типу металу")]
+        [Display(Name = "Назва типу металу")]
         public int? MetalId { get; set; }
+
+        [Display(Name = "Назва типу металу")]
+        public string MetalTypeName { get; set; }
 
         [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Кристалічна решітка")]
         public int? CrystalLatticeId { get; set; }

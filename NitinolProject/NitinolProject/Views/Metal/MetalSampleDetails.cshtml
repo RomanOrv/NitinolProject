@@ -30,7 +30,7 @@
           ))
 
 
-    <h4> Середньо зважений круговий показник = @ViewBag.CoeficientK</h4>    
+    @*<h4> Середньо зважений круговий показник = @ViewBag.CoeficientK</h4>*@    
 </div>
 <div class="row">
     <div class="col-lg-3"></div>
@@ -69,9 +69,7 @@
                             "#FFD700",
                             "#6B8E23",
                             "#1E90FF",
-                            "#FF00FF",
-                            //"#8e4696",
-                            //"#25ba00"
+                            "#FF00FF"
                         ],
                         hoverBackgroundColor: [
                             "#F53333",
@@ -79,45 +77,22 @@
                             "#FFD700",
                             "#6B8E23",
                             "#1E90FF",
-                            "#FF00FF",
-                            //"#8e4696",
-                            //"#25ba00"
+                            "#FF00FF"
                         ]
                     }]
             },
             options: {
-               // responsive: true,
                 legend: {
                     position: 'none',
                 },
-                //title: {
-                //    display: false,
-                //    text: 'Chart.js Doughnut Chart'
-                //},
 
                 animation: {
                     animateScale: true,
                     animateRotate: true
                 },
                 tooltips: {
-                    //enabled: false,
-                    //mode: 'index',
                     position: 'nearest',
-                    //xPadding: 30,
-                    //yPadding: 20,
                     caretPadding: 20
-                    //callbacks: {
-                    //    label: function(tooltipItem, data) {
-                    //        var dataset = data.datasets[tooltipItem.datasetIndex];
-                    //        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                    //            return previousValue + currentValue;
-                    //        });
-                    //        var currentValue = dataset.data[tooltipItem.index];
-                    //        var precentage = Math.floor(((currentValue/total) * 100)+0.5);  
-                    //        //var precentage = (currentValue / total * 100).toFixed(4);                             
-                    //        return precentage + "%";
-                    //    }
-                    //}
                 }
             }
         });

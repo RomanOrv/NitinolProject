@@ -29,7 +29,7 @@
           .Read(read => read.Action("GetAlloySampleProperties", "Home", new { sampleId = Model.NicelideTitanumSampleId }))
       ))
 
-    <h4>Середньо зважений круговий показник = @ViewBag.CoeficientK</h4>
+    @*<h4>Середньо зважений круговий показник = @ViewBag.CoeficientK</h4>*@
     
 </div>
 <div class="row">
@@ -38,7 +38,7 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h2 style="text-align: center;">
-                    Кругова діаграма
+                    Діаграма
                 </h2>
 
             </div>
@@ -56,7 +56,7 @@
 <script>
     $.get('@Url.Action("GetAlloyPieChartData", "Home", new {sampleId = Model.NicelideTitanumSampleId})', function (response) {
         var socialPieChart = new Chart(document.getElementById("pieChart"), {
-            type: 'pie',
+            type: 'bar',
             data: {
                 labels: response.Labels,
                 datasets: [
@@ -86,9 +86,9 @@
             },
             options: {
                 //responsive: true,
-                //legend: {
-                //    position: 'bottom',
-                //},
+                legend: {
+                    position: 'none',
+                },
                 //title: {
                 //    display: false,
                 //    text: 'Chart.js Doughnut Chart'
@@ -98,17 +98,19 @@
                     animateRotate: true
                 },
                 tooltips: {
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var dataset = data.datasets[tooltipItem.datasetIndex];
-                            var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                                return previousValue + currentValue;
-                            });
-                            var currentValue = dataset.data[tooltipItem.index];
-                            var precentage = Math.floor(((currentValue/total) * 100)+0.5);         
-                            return precentage + "%";
-                        }
-                    }
+                    position: 'nearest',
+                    caretPadding: 20
+                    //callbacks: {
+                    //    label: function(tooltipItem, data) {
+                    //        var dataset = data.datasets[tooltipItem.datasetIndex];
+                    //        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                    //            return previousValue + currentValue;
+                    //        });
+                    //        var currentValue = dataset.data[tooltipItem.index];
+                    //        var precentage = Math.floor(((currentValue/total) * 100)+0.5);         
+                    //        return precentage + "%";
+                    //    }
+                    //}
                 }
             }
         });

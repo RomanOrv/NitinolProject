@@ -32,13 +32,13 @@
               columns.Bound(p => p.LoadingSpeed).Title("Базова швидкість навантаження <br/>V, м/с");
               columns.Bound(p => p.LateralShearRate).Title("Базова поперечна швидкість зсуву <br/>Vt, м/с");
               columns.Bound(p => p.LongitudinalShearRate).Title("Базова поздовжня швидкість зсуву <br/>VL, м/с");
-              columns.Bound(p => p.ShearStrainRate).Title("Базова швидкість деформації зсуву <br/>γ, 10<sup>-6</sup> c<sup>-1</sup>").Width(133);
+              columns.Bound(p => p.ShearStrainRate).Title("Базова швидкість деформації зсуву <br/>γ, 10<sup>-6</sup> c<sup>-1</sup>").Width(90);
               columns.Bound(p => p.SpallStrength).Title("Базова міцність відколу <br/>σ, ГПа");
-              columns.Bound(p => p.LoadingSpeedC).Title("<span class='row'>Коефіцієнт швидкості навантаження</span>");
+              columns.Bound(p => p.LoadingSpeedC).Title("<span class='row'>Коефіцієнт швидкості навантаження</span>").Width(120);
               columns.Bound(p => p.LateralShearRateC).Title("<span class='row'>Коефіцієнт поперечної швидкості зсуву</span>");
               columns.Bound(p => p.LongitudinalShearRateC).Title("<span class='row'>Коефіцієнт поздовжньої швидкості зсуву</span>");
               columns.Bound(p => p.ShearStrainRateC).Title("<span class='row'>Коефіцієнт швидкості деформації зсуву</span>").Width(120);
-              columns.Bound(p => p.SpallStrengthC).Title("<span class='row'>Коефіцієнт міцності відколу</span>");
+              columns.Bound(p => p.SpallStrengthC).Title("<span class='row'>Коефіцієнт міцності відколу</span>").Width(105);
               columns.Bound(p => p.MetalTypeId).Hidden(true);
               columns.Template(e => { }).Title("<span class='row'><span class='row'>Дія</span></span>").ClientTemplate(
                   "<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-success btn-xs' href='/metal/editmetaltype?id=#: data.MetalTypeId #'><i class='fa fa-edit color-green'></i></a>")
@@ -55,4 +55,5 @@
 
 
     <a href="/metal/addmetaltype" class="btn btn-primary">Додати тип</a>
+    <div style="width: 100%; height: 400px;"></div>
 </div>
