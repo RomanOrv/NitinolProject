@@ -48,6 +48,7 @@
           .Scrollable(a => a.Height(200))
           .Pageable()
           .HtmlAttributes(new { style = "margin-bottom: 15px;" })
+          .Events(e => e.DataBinding("onDataBinding"))
           .DataSource(dataSource => dataSource
               .Ajax()
               .PageSize(7)
@@ -59,7 +60,7 @@
     <a href="/metal/index" class="btn btn-primary">Повернутися до списку металів</a>
 
 
-
+    <div id="sample_quality_block" style="display: none;">
     <h1>Значення рівня якості зразків металу</h1>
     @(Html.Kendo().Grid<MetalSampleQualityModel>()
           .Name("Qualities")
@@ -85,12 +86,13 @@
               .ServerOperation(true)
               .Read(read => read.Action("GetMetalSampleQualities", "Metal").Data("metalTypeParam"))
           ))
-    <h4 id="qualityResult" style="display: none;"></h4>
+        <h4 id="qualityResult" style="display: none;"></h4>
+    </div>
 
 </div>
 
 <div class="col-lg-12">
-    <div id="example">
+    <div id="example" style="display: none;">
         <div class="k-content wide">
             <div id="chart"></div>
         </div>
@@ -148,10 +150,11 @@
                 var selectedItem = $.grep(e.items, function (e) {
                     return e.QualityRate === maxQualityRate;
                 });
-
+                if (selectedItem.length > 0){
                 var text = "Кращий зразок - зразок №" + selectedItem[0].SampleNumber + ", з рівнем якості Ук = " + maxQualityRate + ".";
                 $('#qualityResult').text(text);
                 $('#qualityResult').show();
+               }
             }
 
 
@@ -199,6 +202,16 @@
     function metalTypeParam() {
         return {
             metalType: @Model.MetalTypeId
+        }
+    }
+
+    function onDataBinding(e) {
+        if (e.items.length === 0) {
+            $("#sample_quality_block").hide();
+            $("#example").hide();
+        } else {
+            $("#sample_quality_block").show();
+            $("#example").show();
         }
     }
 </script>
