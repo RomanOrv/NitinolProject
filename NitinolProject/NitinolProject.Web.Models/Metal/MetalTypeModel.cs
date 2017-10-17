@@ -5,7 +5,7 @@ namespace NitinolProject.Web.Models.Metal
     public class MetalTypeModel
     {
         public int MetalTypeId { get; set; }
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Тип металу")]
+        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Вид металу")]
         public string MetalName { get; set; }
 
         [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Швидкість навантаження V, м/с")]

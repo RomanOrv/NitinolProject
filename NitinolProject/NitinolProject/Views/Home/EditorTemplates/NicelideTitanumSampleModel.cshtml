@@ -39,7 +39,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.HammerThickness, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.EditorFor(model => model.HammerThickness, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr4" } })
+        @Html.EditorFor(model => model.HammerThickness, new { type = "number", htmlAttributes = new { type = "number", @class = "form-control", data_error = "#diverr4" } })
         <div class="col-md-12">
             <span id="diverr4" class="text-danger"></span>
         </div>
@@ -69,7 +69,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.SpallStrength, htmlAttributes: new { @class = "control-label col-md-5" })
     <div class="col-md-7">
-        @Html.EditorFor(model => model.SpallStrength, new { type = "number", htmlAttributes = new { @class = "form-control", data_error = "#diverr7" } })
+        @Html.EditorFor(model => model.SpallStrength, new { type = "number", htmlAttributes = new { type = "number", @class = "form-control", data_error = "#diverr7" } })
         <div class="col-md-12">
             <span id="diverr7" class="text-danger"></span>
         </div>

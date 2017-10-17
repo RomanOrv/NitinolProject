@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="text-align: center;">Додання типу металу</h2>
+<h2 style="text-align: center;">Додання виду металу</h2>
 
 @using (Html.BeginForm("AddMetalType", "Metal", FormMethod.Post, new { id = "add_metaltype_form", enctype = "multipart/form-data" }))
 {
@@ -25,5 +25,5 @@
 }
 
 <div>
-    <a href="/metal/metaltypes" class="btn btn-primary">Повернутися до списку типів металів</a>
+    <a href="/metal/metaltypes" class="btn btn-primary">Повернутися до списку видів металів</a>
 </div>

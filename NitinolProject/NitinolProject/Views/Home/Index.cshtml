@@ -103,7 +103,7 @@
           .HtmlAttributes(new { style = "margin-bottom: 15px;" })
           .DataSource(dataSource => dataSource
               .Ajax()
-              .PageSize(7)
+              .PageSize(6)
               .ServerOperation(true)
               .Read(read => read.Action("GetAlloySamples", "Home"))
           ))
@@ -127,13 +127,13 @@
               columns.Bound(p => p.NicelideTitanumSampleId).Hidden(true);
               columns.Template(e => { }).Title("Деталі").ClientTemplate($"<a href='/home/alloysampledetails?id=#: data.NicelideTitanumSampleId #' class='btn btn-primary btn-xs'><i class='fa fa-arrow-circle-o-right'></i>").Width(70);
           })
-          .Scrollable(a => a.Height(250))
+          .Scrollable(a => a.Height(200))
           .Pageable()
           .HtmlAttributes(new { style = "margin-bottom: 15px;" })
           .Events(e => e.DataBinding("qualitiesDataBinding"))
           .DataSource(dataSource => dataSource
               .Ajax()
-              .PageSize(7)
+              .PageSize(6)
               .ServerOperation(true)
               .Read(read => read.Action("GetAlloySampleQualities", "Home"))
           ))
