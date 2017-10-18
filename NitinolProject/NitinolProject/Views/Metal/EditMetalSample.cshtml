@@ -1,4 +1,7 @@
 ﻿@model NitinolProject.Web.Models.Metal.MetalSampleModel
+    @{
+        string metalTypeName = Convert.ToString(ViewBag.MetalTypeName);
+    }
 
 @{
     ViewBag.Title = "AddMetalSample";
@@ -11,7 +14,7 @@
 </style>*@
 @Scripts.Render("~/bundles/jqueryval")
 
-<h2 style="text-align: center;">Редагування зразку металу: ViewBag.MetalTypeName</h2>
+<h2 style="text-align: center;">Редагування зразку металу: @metalTypeName.ToLower()</h2>
 
 @using (Html.BeginForm("EditMetalSample", "Metal", FormMethod.Post, new { id = "add_metal_form", enctype = "multipart/form-data" }))
 {
@@ -27,6 +30,5 @@
 }
 
 <div>
-    <a href="/metal/index" class="btn btn-primary">Повернутися до списку металів</a>
-    @*@Html.ActionLink("Back to List", "Index", "Metal", new { @class = "btn btn-primary" })*@
+    <a href="/metal/metaltypesamples?metalType=@Model.MetalId" class="btn btn-primary">Повернутися до списку зразків металу</a>
 </div>

@@ -9,7 +9,7 @@
 @Html.HiddenFor(x => x.MetalId)
 
 <div class="form-group">
-    @Html.LabelFor(model => model.MetalTypeName, htmlAttributes: new { @class = "control-label col-md-5" })
+    @Html.LabelFor(model => model.MetalTypeName, htmlAttributes: new { @class = "control-label col-md-5", style="padding-top:0;" })
     <div class="col-md-7">
         @Html.DisplayFor(model => model.MetalTypeName)
     </div>

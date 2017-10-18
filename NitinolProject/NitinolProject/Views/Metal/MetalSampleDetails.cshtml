@@ -6,7 +6,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 style="text-align: center;">Дані для рівня якості зразка металу №@Model.SampleNumber</h1>
+@{
+    string metalTypeName = Convert.ToString(ViewBag.MetalTypeName);
+}
+
+<h1 style="text-align: center;">Дані для рівня якості зразка металу @metalTypeName.ToLower() №@Model.SampleNumber</h1>
 <script src="~/Scripts/Chart.min.js"></script>
 <div class="panel-body">
     @(Html.Kendo().Grid<MetalSampleQualityRateModel>()

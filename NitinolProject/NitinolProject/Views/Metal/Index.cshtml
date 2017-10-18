@@ -35,11 +35,9 @@
                       "<a  data-placement='top' title='Редагувати' style='margin-right: 5px;' class='btn btn-primary btn-xs' href='/metal/metaltypesamples?metalType=#: data.MetalTypeId #'><i class='fa fa-arrow-circle-o-right'></i></a>")
                       .Width(70);
               })
-              .Pageable()
               .HtmlAttributes(new {style = "margin-bottom: 15px;"})
               .DataSource(dataSource => dataSource
                   .Ajax()
-                  .PageSize(5)
                   .ServerOperation(true)
                   .Read(read => read.Action("GetMetalTypes", "Metal"))
               ))

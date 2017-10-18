@@ -139,6 +139,7 @@ namespace NitinolProject.Web.Controllers
                 .FirstOrDefault(x => x.MetalId == sample.MetalId);
             var baseMetalValues = baseValues.First(x => x.MetalId == sample.MetalId);
             var coeficientK = GetCoeficientK(coeficientValues, sample, baseMetalValues);
+            ViewBag.MetalTypeName = baseMetalValues.Metal.Name;
             ViewBag.CoeficientK = coeficientK;
             return View(new MetalSampleModel { MetalSampleId = sample.MetalSampleId, SampleNumber = sample.SampleNumber });
         }
@@ -149,8 +150,8 @@ namespace NitinolProject.Web.Controllers
         {
             ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select(x => new SelectListItem { Text = x.Name, Value = x.MetalId.ToString() });
             ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
-            var metalSamples = this._metalRepository.GetAllMetalSamples();
-            ViewBag.MaxSampleNumber = metalSamples.Where(y => y.MetalId == metalType).Select(x => x.SampleNumber).Max();
+            var metalSamples = this._metalRepository.GetAllMetalSamples().Where(y => y.MetalId == metalType);
+            ViewBag.MaxSampleNumber = metalSamples.Any() ? metalSamples.Select(x => x.SampleNumber).Max() : 0;
             var baseValues = _metalRepository.GetMetalQualityBaseValues().First(x => x.MetalId == metalType);
             ViewBag.MetalTypeName = baseValues.Metal.Name;
             ViewBag.MaxLoadingSpeed = baseValues.LoadingSpeed;
