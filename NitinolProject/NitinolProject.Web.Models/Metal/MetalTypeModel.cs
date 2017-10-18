@@ -22,18 +22,18 @@ namespace NitinolProject.Web.Models.Metal
         [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Міцність відколу σ, ГПа")]
         public int SpallStrength { get; set; }
 
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт швидкості навантаження")]
+        //[Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт швидкості навантаження")]
         public decimal LoadingSpeedC { get; set; }
 
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт поздовжньої швидкості зсуву")]
+        //[Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт поздовжньої швидкості зсуву")]
         public decimal LongitudinalShearRateC { get; set; }
 
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт поперечної швидкості зсуву")]
+       // [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт поперечної швидкості зсуву")]
         public decimal LateralShearRateC { get; set; }
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт швидкості деформації зсуву")]
+        //[Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт швидкості деформації зсуву")]
         public decimal ShearStrainRateC { get; set; }
 
-        [Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт міцності відколу")]
+        //[Required(ErrorMessage = "Це поле обов'язкове"), Display(Name = "Коефіцієнт міцності відколу")]
         public decimal SpallStrengthC { get; set; }
     }
 }
