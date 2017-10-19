@@ -205,7 +205,7 @@ namespace NitinolProject.Web.Controllers
         public ActionResult EditMetalSample(MetalSampleModel model)
         {
             _metalRepository.EditMetalSample(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("MetalTypeSamples", new { metalType = model.MetalId });
         }
 
         public ActionResult DeleteMetalSample(int id)

@@ -33,3 +33,81 @@
     <a href="/metal/metaltypesamples?metalType=@Model.MetalId" class="btn btn-primary">Повернутися до списку зразків металу</a>
 </div>
 
+<script>
+    $("#add_metal_form").validate({
+        rules: {
+            Name: {
+                required: true
+            },
+            SampleNumber: {
+                required: true,
+                maxsamplenumber: true
+            },
+            MetalId: {
+                required: true
+            },
+            CrystalLatticeId: {
+                required: true
+            },
+            LoadingSpeed: {
+                required: true,
+                maxLoadingSpeed: true,
+            },
+            LateralShearRate: {
+                required: true,
+                maxLateralShearRate: true,
+            },
+            LongitudinalShearRate: {
+                required: true,
+                maxLongitudinalShearRate: true,
+            },
+            ShearStrainRate: {
+                required: true,
+                maxShearStrainRate: true,
+            },
+            SpallStrength: {
+                required: true,
+                maxSpallStrength: true,
+            },
+        },
+        messages: {
+            Name: {
+                required: "Це поле обов'язкове",
+            },
+            SampleNumber: {
+                required: "Це поле обов'язкове",
+            },
+            MetalId: {
+                required: "Це поле обов'язкове",
+            },
+            CrystalLatticeId: {
+                required: "Це поле обов'язкове",
+            },
+            LoadingSpeed: {
+                required: "Це поле обов'язкове",
+            },
+            LateralShearRate: {
+                required: "Це поле обов'язкове",
+            },
+            LongitudinalShearRate: {
+                required: "Це поле обов'язкове",
+            },
+            ShearStrainRate: {
+                required: "Це поле обов'язкове",
+            },
+            SpallStrength: {
+                required: "Це поле обов'язкове",
+            },
+        },
+        errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+</script>
+

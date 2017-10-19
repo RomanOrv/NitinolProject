@@ -25,3 +25,67 @@
 <div>
     <a href="/home/index" class="btn btn-primary">Повернутися до списку сплавів</a>
 </div>
+<script>
+    $("#add_metal_form").validate({
+        rules: {
+            NickelideTitaniumAlloyName: {
+                required: true
+            },
+            SampleNumber: {
+                required: true,
+                maxsamplenumber: true
+            },
+            SampleThickness: {
+                required: true,
+                maxSampleThickness:true
+            },
+            HammerThickness: {
+                required: true,
+                maxHammerThickness:true
+            },
+            HammerSpeed: {
+                required: true,
+                maxHammerSpeed: true,
+            },
+            SpallSpeed: {
+                required: true,
+                maxSpallSpeed:true
+            },
+            SpallStrength: {
+                required: true,
+                maxSpallStrength:true
+            }
+        },
+        messages: {
+            NickelideTitaniumAlloyName: {
+                required: "Це поле обов'язкове",
+            },
+            SampleNumber: {
+                required: "Це поле обов'язкове",
+            },
+            SampleThickness: {
+                required: "Це поле обов'язкове",
+            },
+            HammerThickness: {
+                required: "Це поле обов'язкове",
+            },
+            HammerSpeed: {
+                required: "Це поле обов'язкове",
+            },
+            SpallSpeed: {
+                required: "Це поле обов'язкове",
+            },
+            SpallStrength: {
+                required: "Це поле обов'язкове",
+            },
+        },
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    </script>
