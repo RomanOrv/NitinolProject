@@ -16,15 +16,27 @@
     </div>
 </div>
 
-<div class="form-group">
-    @Html.LabelFor(model => model.SampleNumber, htmlAttributes: new { type = "number", @class = "control-label col-md-5" })
-    <div class="col-md-7">
-        @Html.EditorFor(model => model.SampleNumber, new { htmlAttributes = new { @class = "form-control", data_error = "#diverr2" } })
-        <div class="col-md-12">
-            <span id="diverr2" class="text-danger"></span>
+@if (ViewBag.IsEdit == true)
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.SampleNumber, htmlAttributes: new {@class = "control-label col-md-5", style = "padding-top:0;"})
+        <div class="col-md-7">
+            @Html.DisplayFor(model => model.SampleNumber)
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.SampleNumber, htmlAttributes: new {type = "number", @class = "control-label col-md-5"})
+        <div class="col-md-7">
+            @Html.EditorFor(model => model.SampleNumber, new {htmlAttributes = new {@class = "form-control", data_error = "#diverr2"}})
+            <div class="col-md-12">
+                <span id="diverr2" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+}
 
 <div class="form-group">
     @Html.LabelFor(model => model.SampleThickness, htmlAttributes: new { @class = "control-label col-md-5" })

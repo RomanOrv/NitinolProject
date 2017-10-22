@@ -84,7 +84,7 @@ namespace NitinolProject.Repository
                 var alloyArray = context.CreateObjectSet<NickelideTitaniumAlloy>().ToList();
 
                 sample.HammerSpeed = model.HammerSpeed.Value;
-                sample.SampleNumber = model.SampleNumber.Value;
+                //sample.SampleNumber = model.SampleNumber.Value;
                 sample.HammerThickness = model.HammerThickness.Value;
                 sample.SampleThickness = model.SampleThickness.Value;
                 sample.SpallSpeed = model.SpallSpeed.Value;

@@ -196,6 +196,7 @@ namespace NitinolProject.Web.Controllers
             ViewBag.MaxLongitudinalShearRate = baseValues.LongitudinalShearRate;
             ViewBag.MaxShearStrainRate = baseValues.ShearStrainRate;
             ViewBag.MaxSpallStrength = baseValues.SpallStrength;
+            ViewBag.IsEdit = true;
             //ViewBag.MetalTypes = _metalRepository.GetAllMetalTypes().Select(x => new SelectListItem { Text = x.Name, Value = x.MetalId.ToString() });
             ViewBag.CrystalLattices = _metalRepository.GetAllCrystalLattices().Select(x => new SelectListItem { Text = x.Name, Value = x.CrystalLatticeId.ToString() });
             return View(model);

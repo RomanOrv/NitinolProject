@@ -141,6 +141,7 @@ namespace NitinolProject.Web.Controllers
             ViewBag.MaxHammerSpeed = baseValues.HammerSpeed;
             ViewBag.MaxHammerThickness = baseValues.HammerThickness;
             ViewBag.MaxSpallSpeed = baseValues.SpallSpeed;
+            ViewBag.IsEdit = true;
             return View(model);
         }
 

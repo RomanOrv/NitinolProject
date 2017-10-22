@@ -107,7 +107,7 @@ namespace NitinolProject.Repository
             {
                 var sample = context.CreateObjectSet<MetalSample>().First(x => x.MetalSampleId == model.MetalSampleId);
                 sample.Name = model.Name;
-                sample.SampleNumber = model.SampleNumber.Value;
+               // sample.SampleNumber = model.SampleNumber.Value;
                 sample.MetalId = model.MetalId.Value;
                 sample.CrystalLatticeId = model.CrystalLatticeId.Value;
                 sample.LateralShearRate = model.LateralShearRate.Value;
